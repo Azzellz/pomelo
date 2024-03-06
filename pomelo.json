@@ -1,0 +1,9 @@
+{
+    "interval": 0,
+    "aria2": {
+        "host": "http://127.0.0.1",
+        "port": "6800",
+        "token": ""
+    },
+    "roles": []
+}

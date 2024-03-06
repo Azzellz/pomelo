@@ -1,6 +1,7 @@
 import { createDownload } from "./download";
 import { Item, Rule } from "./model";
 
+
 export function matchRule(item: Item): boolean {
     const content = item.title[0];
     for (const rule of rules) {
@@ -58,6 +59,9 @@ function createCommonAccept(keyword: string) {
 
 //rules
 //#region
+function createRule() {
+    
+}
 
 const rule1: Rule = {
     name: "葬送的芙莉莲",
