@@ -61,86 +61,129 @@ function createCommonAccept(keyword: string) {
 
 const rule1: Rule = {
     name: "葬送的芙莉莲",
+    option: {
+        dir: "/downloads/连载/葬送的芙莉莲",
+    },
     accept: createCommonAccept("Frieren"),
     reject: [commonReject],
     onAccepted(item) {
         console.log("rule1 success", this.name);
+        createDownload(item.enclosure[0].$.url, this.option);
     },
 };
-const rule2 = {
+const rule2: Rule = {
     name: "公主殿下，「拷问」的时间到了",
+    option: {
+        dir: "/downloads/连载/公主殿下，「拷问」的时间到了",
+    },
     accept: createCommonAccept("o jikan des"),
     reject: [commonReject],
-    onAccepted() {
+    onAccepted(item) {
         console.log("rule2 success", this.name);
+        createDownload(item.enclosure[0].$.url, this.option);
     },
 };
-const rule3 = {
+const rule3: Rule = {
     name: "我独自升级",
+    option: {
+        dir: "/downloads/连载/我独自升级",
+    },
     accept: createCommonAccept("re dake level up na ke"),
     reject: [commonReject],
-    onAccepted() {
+    onAccepted(item) {
         console.log("rule3 success", this.name);
+        createDownload(item.enclosure[0].$.url, this.option);
     },
 };
-const rule4 = {
+const rule4: Rule = {
     name: "我内心的糟糕念头",
+    option: {
+        dir: "/downloads/连载/我内心的糟糕念头",
+    },
     accept: createCommonAccept("oku no Kokoro no Yabai Yats"),
     reject: [commonReject],
-    onAccepted() {
+    onAccepted(item) {
         console.log("rule4 success", this.name);
+        createDownload(item.enclosure[0].$.url, this.option);
     },
 };
-const rule5 = {
+const rule5: Rule = {
     name: "迷宫饭",
+    option: {
+        dir: "/downloads/连载/迷宫饭",
+    },
     accept: createCommonAccept("elicious in Dungeo"),
     reject: [commonReject],
-    onAccepted() {
+    onAccepted(item) {
         console.log("rule5 success", this.name);
+        createDownload(item.enclosure[0].$.url, this.option);
     },
 };
-const rule6 = {
+const rule6: Rule = {
     name: "憧憬成为魔法少女",
+    option: {
+        dir: "/downloads/连载/憧憬成为魔法少女",
+    },
     accept: createCommonAccept("Mahou Shoujo ni Akogarete"),
     reject: [commonReject],
-    onAccepted() {
+    onAccepted(item) {
         console.log("rule6 success", this.name);
+        createDownload(item.enclosure[0].$.url, this.option);
     },
 };
-const rule7 = {
+const rule7: Rule = {
     name: "魔都精兵的奴隶",
+    option: {
+        dir: "/downloads/连载/魔都精兵的奴隶",
+    },
     accept: createCommonAccept("Mato Seihei no Slave"),
     reject: [commonReject],
-    onAccepted() {
+    onAccepted(item) {
         console.log("rule7 success", this.name);
+        createDownload(item.enclosure[0].$.url, this.option);
     },
 };
-const rule8 = {
+const rule8: Rule = {
     name: "药师少女的独语",
+    option: {
+        dir: "/downloads/连载/药师少女的独语",
+    },
     accept: createCommonAccept("药师少女"),
     reject: [commonReject],
-    onAccepted() {
+    onAccepted(item) {
         console.log("rule8 success", this.name);
+        createDownload(item.enclosure[0].$.url, this.option);
     },
 };
-const rule9 = {
+const rule9: Rule = {
     name: "不死不幸",
+    option: {
+        dir: "/downloads/连载/不死不幸",
+    },
     accept: createCommonAccept("ndead Unluc"),
     reject: [commonReject],
-    onAccepted() {
+    onAccepted(item) {
         console.log("rule9 success", this.name);
+        createDownload(item.enclosure[0].$.url, this.option);
     },
 };
-const rule10 = {
+const rule10: Rule = {
     name: "香格里拉边境~粪作猎人向神作游戏发起挑战~",
+    option: {
+        dir: "/downloads/连载/香格里拉边境~粪作猎人向神作游戏发起挑战~",
+    },
     accept: createCommonAccept("Shangri"),
     reject: [commonReject],
-    onAccepted() {
+    onAccepted(item) {
         console.log("rule10 success", this.name);
+        createDownload(item.enclosure[0].$.url, this.option);
     },
 };
-const rule11 = {
+const rule11: Rule = {
     name: "新番 全搬运 未分类",
+    option: {
+        dir: "/downloads/新番 全搬运 未分类",
+    },
     accept: (content: string) => {
         return (
             /lolihouse/i.test(content) ||
@@ -151,8 +194,9 @@ const rule11 = {
         );
     },
     reject: [/bdrip|合集/i],
-    onAccepted() {
+    onAccepted(item) {
         console.log("rule11 success", this.name);
+        createDownload(item.enclosure[0].$.url, this.option);
     },
 };
 

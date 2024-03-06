@@ -1,13 +1,8 @@
+//Resource
+//#region
+
 export interface Resource {
     rss: RSS;
-}
-
-export interface Rule {
-    name: string;
-    accept?: RegExp[] | ((content: string) => boolean);
-    reject?: RegExp[] | ((content: string) => boolean);
-    onAccepted?: (item: Item) => void;
-    onRejected?: (item: Item) => void;
 }
 
 export interface RSS {
@@ -67,4 +62,22 @@ export interface TorrentElement {
 
 export interface Torrent {
     xmlns: string;
+}
+
+//#endregion
+
+export interface Rule {
+    name: string;
+    option: DownloadOption;
+    accept?: RegExp[] | ((content: string) => boolean);
+    reject?: RegExp[] | ((content: string) => boolean);
+    onAccepted?: (item: Item) => void;
+    onRejected?: (item: Item) => void;
+}
+
+export interface DownloadOption {
+    dir: string;
+    host?: string;
+    port?: string;
+    token?: string;
 }
