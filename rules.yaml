@@ -1,0 +1,152 @@
+tasks:
+  葬送的芙莉莲:
+    rss:
+      url: file:///home/runner/work/autoscript/autoscript/rss.xml
+      all_entries: yes
+    if:
+      - "'Frieren'.lower() in title.lower() and 'Baha'.lower() in title.lower() and 'gj.y'.lower() in title.lower()": accept
+      - "'Frieren'.lower() in title.lower() and 'LoliHouse'.lower() in title.lower()": accept
+      - "'sp' in title.lower() or 'ova' in title.lower() or 'oad' in title.lower() or 'special' in title.lower() or '特別' in title.lower() or '特别' in title.lower()": reject
+    aria2:
+      server: hide
+      port: 6800
+      secret: hide
+      path: "/downloads/连载/{{task}}"
+  公主殿下，「拷问」的时间到了:
+    rss:
+      url: file:///home/runner/work/autoscript/autoscript/rss.xml
+      all_entries: yes
+    if:
+      - "'o Jikan des'.lower() in title.lower() and 'Baha'.lower() in title.lower() and 'gj.y'.lower() in title.lower()": accept
+      - "'o Jikan des'.lower() in title.lower() and 'LoliHouse'.lower() in title.lower()": accept
+      - "'sp' in title.lower() or 'ova' in title.lower() or 'oad' in title.lower() or 'special' in title.lower() or '特別' in title.lower() or '特别' in title.lower()": reject
+    aria2:
+      server: hide
+      port: 6800
+      secret: hide
+      path: "/downloads/连载/{{task}}"
+  我独自升级:
+    rss:
+      url: file:///home/runner/work/autoscript/autoscript/rss.xml
+      all_entries: yes
+    if:
+      - "'re dake Level Up na Ke'.lower() in title.lower() and 'Baha'.lower() in title.lower() and 'gj.y'.lower() in title.lower()": accept
+      - "'re dake Level Up na Ke'.lower() in title.lower() and 'LoliHouse'.lower() in title.lower()": accept
+      - "'sp' in title.lower() or 'ova' in title.lower() or 'oad' in title.lower() or 'special' in title.lower() or '特別' in title.lower() or '特别' in title.lower()": reject
+    aria2:
+      server: hide
+      port: 6800
+      secret: hide
+      path: "/downloads/连载/{{task}}"
+  我内心的糟糕念头:
+    rss:
+      url: file:///home/runner/work/autoscript/autoscript/rss.xml
+      all_entries: yes
+    if:
+      - "'oku no Kokoro no Yabai Yats'.lower() in title.lower() and 'Baha'.lower() in title.lower() and 'gj.y'.lower() in title.lower()": accept
+      - "'oku no Kokoro no Yabai Yats'.lower() in title.lower() and 'LoliHouse'.lower() in title.lower()": accept
+      - "'sp' in title.lower() or 'ova' in title.lower() or 'oad' in title.lower() or 'special' in title.lower() or '特別' in title.lower() or '特别' in title.lower()": reject
+    aria2:
+      server: hide
+      port: 6800
+      secret: hide
+      path: "/downloads/连载/{{task}}"
+  迷宫饭:
+    rss:
+      url: file:///home/runner/work/autoscript/autoscript/rss.xml
+      all_entries: yes
+    if:
+      - "'elicious in Dungeo'.lower() in title.lower() and 'LoliHouse'.lower() in title.lower()": accept
+      - "'sp' in title.lower() or 'ova' in title.lower() or 'oad' in title.lower() or 'special' in title.lower() or 'Multi' in title.lower() or '特别' in title.lower()": reject
+    aria2:
+      server: hide
+      port: 6800
+      secret: hide
+      path: "/downloads/连载/{{task}}"
+  憧憬成为魔法少女:
+    rss:
+      url: file:///home/runner/work/autoscript/autoscript/rss.xml
+      all_entries: yes
+    if:
+      - "'Mahou Shoujo ni Akogarete'.lower() in title.lower() and 'Baha'.lower() in title.lower() and 'gj.y'.lower() in title.lower()": accept
+      - "'Mahou Shoujo ni Akogarete'.lower() in title.lower() and 'LoliHouse'.lower() in title.lower()": accept
+      - "'sp' in title.lower() or 'ova' in title.lower() or 'oad' in title.lower() or 'special' in title.lower() or '特別' in title.lower() or '特别' in title.lower()": reject
+    aria2:
+      server: hide
+      port: 6800
+      secret: hide
+      path: "/downloads/连载/{{task}}"
+  魔都精兵的奴隶:
+    rss:
+      url: file:///home/runner/work/autoscript/autoscript/rss.xml
+      all_entries: yes
+    if:
+      - "'Mato Seihei no Slave'.lower() in title.lower() and 'Baha'.lower() in title.lower() and 'gj.y'.lower() in title.lower()": accept
+      - "'Mato Seihei no Slave'.lower() in title.lower() and 'LoliHouse'.lower() in title.lower()": accept
+      - "'sp' in title.lower() or 'ova' in title.lower() or 'oad' in title.lower() or 'special' in title.lower() or '特別' in title.lower() or '特别' in title.lower()": reject
+    aria2:
+      server: hide
+      port: 6800
+      secret: hide
+      path: "/downloads/连载/{{task}}"
+  药师少女的独语:
+    rss:
+      url: https://nyaa.si/?page=rss&q=The+Apothecary+Diaries+av1+trix&c=0_0&f=0
+      all_entries: yes
+    accept_all: yes
+    aria2:
+      server: hide
+      port: 6800
+      secret: hide
+      path: "/downloads/连载/{{task}}"
+  药师少女的独语2:
+    rss:
+      url: file:///home/runner/work/autoscript/autoscript/rss.xml
+      all_entries: yes
+    if:
+      - "'药师少女'.lower() in title.lower() and 'LoliHouse'.lower() in title.lower()": accept
+    aria2:
+      server: hide
+      port: 6800
+      secret: hide
+      path: "/downloads/连载/药师少女的独语"
+  不死不幸:
+    rss:
+      url: file:///home/runner/work/autoscript/autoscript/rss.xml
+      all_entries: yes
+    if:
+      - "'ndead Unluc'.lower() in title.lower() and 'Baha'.lower() in title.lower() and 'gj.y'.lower() in title.lower()": accept
+      - "'ndead Unluc'.lower() in title.lower() and 'LoliHouse'.lower() in title.lower()": accept
+      - "'sp' in title.lower() or 'ova' in title.lower() or 'oad' in title.lower() or 'special' in title.lower() or '特別' in title.lower() or '特别' in title.lower()": reject
+    aria2:
+      server: hide
+      port: 6800
+      secret: hide
+      path: "/downloads/连载/{{task}}"
+  香格里拉边境~粪作猎人向神作游戏发起挑战~:
+    rss:
+      url: file:///home/runner/work/autoscript/autoscript/rss.xml
+      all_entries: yes
+    if:
+      - "'Shangri'.lower() in title.lower() and 'Baha'.lower() in title.lower() and 'gj.y'.lower() in title.lower()": accept
+      - "'Shangri'.lower() in title.lower() and 'LoliHouse'.lower() in title.lower()": accept
+      - "'sp' in title.lower() or 'ova' in title.lower() or 'oad' in title.lower() or 'special' in title.lower() or '特別' in title.lower() or '特别' in title.lower()": reject
+    aria2:
+      server: hide
+      port: 6800
+      secret: hide
+      path: "/downloads/连载/{{task}}"
+  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:
+    rss:
+      url: file:///home/runner/work/autoscript/autoscript/rss.xml
+      all_entries: yes
+    if:
+      - "'lolihouse' in title.lower()": accept
+      - "'gj.y' in title.lower() and 'baha' in title.lower()": accept
+      - "'ani' in title.lower() and 'bilibili' in title.lower()": accept
+      - "'bdrip' in title.lower() or '合集' in title.lower()": reject
+    aria2:
+      server: hide
+      port: 6800
+      secret: hide
+      path: "/downloads/新番 全搬运 未分类"
