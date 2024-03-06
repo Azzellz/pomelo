@@ -1,3 +1,4 @@
+import { createDownload } from "./download";
 import { Item, Rule } from "./model";
 
 export function matchRule(item: Item): boolean {
@@ -62,7 +63,7 @@ const rule1: Rule = {
     name: "葬送的芙莉莲",
     accept: createCommonAccept("Frieren"),
     reject: [commonReject],
-    onAccepted() {
+    onAccepted(item) {
         console.log("rule1 success", this.name);
     },
 };
