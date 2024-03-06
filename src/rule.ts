@@ -1,42 +1,36 @@
-export function matchRule(content: string): boolean {
+import { Item, Rule } from "./model";
+
+export function matchRule(item: Item): boolean {
+    const content = item.title[0];
     for (const rule of rules) {
         //拒绝条件匹配
         if (rule.reject) {
             if (typeof rule.reject === "function" && rule.reject(content)) {
-                rule.onRejected && rule.onRejected();
+                rule.onRejected && rule.onRejected(item);
                 return false;
             } else if (
                 rule.reject instanceof Array &&
                 rule.reject.some((rep) => rep.test(content))
             ) {
-                rule.onRejected && rule.onRejected();
+                rule.onRejected && rule.onRejected(item);
                 return false;
             }
         }
 
         //接受条件匹配
         if (typeof rule.accept === "function" && rule.accept(content)) {
-            rule.onAccepted && rule.onAccepted();
+            rule.onAccepted && rule.onAccepted(item);
             return true;
         } else if (
             rule.accept instanceof Array &&
             rule.accept.some((rep) => rep.test(content))
         ) {
-            rule.onAccepted && rule.onAccepted();
+            rule.onAccepted && rule.onAccepted(item);
             return true;
         }
     }
     //未匹配任何行为
     return false;
-}
-
-//Rules
-interface Rule {
-    name: string;
-    accept?: RegExp[] | ((content: string) => boolean);
-    reject?: RegExp[] | ((content: string) => boolean);
-    onAccepted?: Function;
-    onRejected?: Function;
 }
 
 const commonReject = /sp|ova|oad|special|特別/i;
@@ -48,18 +42,21 @@ function createCommonAccept(keyword: string) {
     );
     return (content: string) => {
         const condition1 =
-            new RegExp(keyword, "i").test(content) &&
+            new RegExp(replaced, "i").test(content) &&
             /Baha/i.test(content) &&
             /gj\\.y/i.test(content);
         if (condition1) {
             return true;
         }
         const condition2 =
-            new RegExp(keyword, "i").test(content) &&
+            new RegExp(replaced, "i").test(content) &&
             /LoliHouse/i.test(content);
         return condition1 || condition2;
     };
 }
+
+//rules
+//#region
 
 const rule1: Rule = {
     name: "葬送的芙莉莲",
@@ -171,3 +168,5 @@ const rules: Rule[] = [
     rule10,
     rule11,
 ];
+
+//#endregion
