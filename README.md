@@ -1,3 +1,5 @@
-# pomelo
+# pomelo(柚子)
 
-使用 Aria2 自动下载资源,可配置.
+一个基于nodejs和aria2的自动化rss资源下载工具
+
+
