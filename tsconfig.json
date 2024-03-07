@@ -1,11 +1,13 @@
 {
     "extends": "@tsconfig/node18/tsconfig.json",
-    "include": ["src/*"],
+    "include": ["src/*", "*"],
     "compilerOptions": {
         "composite": true,
         "strict": true,
         "module": "ESNext",
         "moduleResolution": "Bundler",
-        "types": ["node"]
+        "types": ["node"],
+        "allowImportingTsExtensions": true,
+        "noEmit": true
     }
 }

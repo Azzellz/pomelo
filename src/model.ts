@@ -1,6 +1,8 @@
 //Resource
 //#region
 
+import exp from "constants";
+
 export interface Resource {
     rss: RSS;
 }
@@ -66,6 +68,21 @@ export interface Torrent {
 
 //#endregion
 
+export interface Config {
+    interval: number | string;
+    baseUrl: string;
+    rss: {
+        uri: string;
+        save?: string;
+    };
+    aria2: {
+        host: string;
+        port: string;
+        token: string;
+    };
+    rules: RuleJSON[];
+}
+
 export interface Rule {
     name: string;
     option: DownloadOption;
@@ -73,6 +90,17 @@ export interface Rule {
     reject?: RegExp[] | ((content: string) => boolean);
     onAccepted?: (item: Item) => void;
     onRejected?: (item: Item) => void;
+}
+
+export interface RegExpOption {
+    expr: string;
+    flag: string;
+}
+export interface RuleJSON {
+    name: string;
+    option: DownloadOption;
+    accept: RegExpOption[][] | string[][];
+    reject: RegExpOption[][] | string[][];
 }
 
 export interface DownloadOption {

@@ -1,8 +1,7 @@
-import { createDownload } from "./download";
-import { Item, Rule } from "./model";
+import { postDownloadRequest } from "./api";
+import { Item, RegExpOption, Rule, RuleJSON } from "./model";
 
-
-export function matchRule(item: Item): boolean {
+export function matchRule(item: Item, rules: Rule[]): boolean {
     const content = item.title[0];
     for (const rule of rules) {
         //拒绝条件匹配
@@ -37,6 +36,8 @@ export function matchRule(item: Item): boolean {
 
 const commonReject = /sp|ova|oad|special|特別/i;
 
+//creator
+//#region
 function createCommonAccept(keyword: string) {
     const replaced = keyword.replace(
         /[-\\/\\\\^$*+?.()|[\\]{}]/g,
@@ -57,11 +58,44 @@ function createCommonAccept(keyword: string) {
     };
 }
 
+function createHandlerByOptions(optss: RegExpOption[][] | string[][]) {
+    return (content: string) =>
+        optss.some((opts) =>
+            opts.every((opt) =>
+                typeof opt === "string"
+                    ? new RegExp(opt, "i").test(content)
+                    : new RegExp(opt.expr, opt.flag).test(content)
+            )
+        );
+}
+
+export function createRule(rule: RuleJSON): Rule {
+    return {
+        name: rule.name,
+        option: rule.option,
+        accept: createHandlerByOptions(rule.accept),
+        reject: createHandlerByOptions(rule.reject),
+        async onAccepted(item) {
+            console.log("[pomelo]: Accept", this.name);
+            try {
+                await postDownloadRequest(item.enclosure[0].$.url, this.option);
+            } catch (error) {
+                console.error(
+                    "[pomelo]: Post download request failed, target item: ",
+                    item
+                );
+            }
+        },
+        onRejected() {
+            console.log("[pomelo]: Reject", this.name);
+        },
+    };
+}
+
+//#endregion
+
 //rules
 //#region
-function createRule() {
-    
-}
 
 const rule1: Rule = {
     name: "葬送的芙莉莲",
@@ -72,7 +106,7 @@ const rule1: Rule = {
     reject: [commonReject],
     onAccepted(item) {
         console.log("rule1 success", this.name);
-        createDownload(item.enclosure[0].$.url, this.option);
+        postDownloadRequest(item.enclosure[0].$.url, this.option);
     },
 };
 const rule2: Rule = {
@@ -84,7 +118,7 @@ const rule2: Rule = {
     reject: [commonReject],
     onAccepted(item) {
         console.log("rule2 success", this.name);
-        createDownload(item.enclosure[0].$.url, this.option);
+        postDownloadRequest(item.enclosure[0].$.url, this.option);
     },
 };
 const rule3: Rule = {
@@ -96,7 +130,7 @@ const rule3: Rule = {
     reject: [commonReject],
     onAccepted(item) {
         console.log("rule3 success", this.name);
-        createDownload(item.enclosure[0].$.url, this.option);
+        postDownloadRequest(item.enclosure[0].$.url, this.option);
     },
 };
 const rule4: Rule = {
@@ -108,7 +142,7 @@ const rule4: Rule = {
     reject: [commonReject],
     onAccepted(item) {
         console.log("rule4 success", this.name);
-        createDownload(item.enclosure[0].$.url, this.option);
+        postDownloadRequest(item.enclosure[0].$.url, this.option);
     },
 };
 const rule5: Rule = {
@@ -120,7 +154,7 @@ const rule5: Rule = {
     reject: [commonReject],
     onAccepted(item) {
         console.log("rule5 success", this.name);
-        createDownload(item.enclosure[0].$.url, this.option);
+        postDownloadRequest(item.enclosure[0].$.url, this.option);
     },
 };
 const rule6: Rule = {
@@ -132,7 +166,7 @@ const rule6: Rule = {
     reject: [commonReject],
     onAccepted(item) {
         console.log("rule6 success", this.name);
-        createDownload(item.enclosure[0].$.url, this.option);
+        postDownloadRequest(item.enclosure[0].$.url, this.option);
     },
 };
 const rule7: Rule = {
@@ -144,7 +178,7 @@ const rule7: Rule = {
     reject: [commonReject],
     onAccepted(item) {
         console.log("rule7 success", this.name);
-        createDownload(item.enclosure[0].$.url, this.option);
+        postDownloadRequest(item.enclosure[0].$.url, this.option);
     },
 };
 const rule8: Rule = {
@@ -156,7 +190,7 @@ const rule8: Rule = {
     reject: [commonReject],
     onAccepted(item) {
         console.log("rule8 success", this.name);
-        createDownload(item.enclosure[0].$.url, this.option);
+        postDownloadRequest(item.enclosure[0].$.url, this.option);
     },
 };
 const rule9: Rule = {
@@ -168,7 +202,7 @@ const rule9: Rule = {
     reject: [commonReject],
     onAccepted(item) {
         console.log("rule9 success", this.name);
-        createDownload(item.enclosure[0].$.url, this.option);
+        postDownloadRequest(item.enclosure[0].$.url, this.option);
     },
 };
 const rule10: Rule = {
@@ -180,7 +214,7 @@ const rule10: Rule = {
     reject: [commonReject],
     onAccepted(item) {
         console.log("rule10 success", this.name);
-        createDownload(item.enclosure[0].$.url, this.option);
+        postDownloadRequest(item.enclosure[0].$.url, this.option);
     },
 };
 const rule11: Rule = {
@@ -200,22 +234,8 @@ const rule11: Rule = {
     reject: [/bdrip|合集/i],
     onAccepted(item) {
         console.log("rule11 success", this.name);
-        createDownload(item.enclosure[0].$.url, this.option);
+        postDownloadRequest(item.enclosure[0].$.url, this.option);
     },
 };
-
-const rules: Rule[] = [
-    rule1,
-    rule2,
-    rule3,
-    rule4,
-    rule5,
-    rule6,
-    rule7,
-    rule8,
-    rule9,
-    rule10,
-    rule11,
-];
 
 //#endregion
