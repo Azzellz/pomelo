@@ -1,10 +1,11 @@
 import { readFile } from "fs/promises";
 import { existsSync } from "fs";
-import yaml from "js-yaml";
-import { createRule, matchRule } from "./rule";
+import { createRule, processRSS } from "./rule";
 import { getRSS } from "./api";
 import { Config } from "./models/config";
-import { MikanamiRSS } from "./models/mikanami-rss";
+import { parseInterval } from "./util";
+import { load as loadYaml } from "js-yaml";
+import minimist from "minimist";
 
 async function loadConfig(path: string): Promise<Config> {
     if (existsSync(`${path}pomelo.config.ts`)) {
@@ -13,12 +14,12 @@ async function loadConfig(path: string): Promise<Config> {
     } else if (existsSync(`${path}pomelo.json`)) {
         return await import(`${path}pomelo.json`);
     } else if (existsSync(`${path}pomelo.yaml`)) {
-        const config = yaml.load(
+        const config = loadYaml(
             (await readFile(`${path}pomelo.yaml`)).toString()
         ) as Config;
         return config;
     } else if (existsSync(`${path}pomelo.yml`)) {
-        const config = yaml.load(
+        const config = loadYaml(
             (await readFile(`${path}pomelo.yml`)).toString()
         ) as Config;
         return config;
@@ -27,45 +28,38 @@ async function loadConfig(path: string): Promise<Config> {
     }
 }
 
-function parseInterval(format: string | number): number {
-    if (typeof format === "number") {
-        return format;
-    }
-
-    const second = 60;
-    const minute = second * 60;
-    const hour = minute * 60;
-    const day = hour * 24;
-    const value = parseInt(format.slice(format.length - 1));
-    const unit = format[format.length - 1] as "s" | "m" | "h" | "d";
-    switch (unit) {
-        case "s":
-            return second * value;
-        case "m":
-            return minute * value;
-        case "h":
-            return hour * value;
-        case "d":
-            return day * value;
-        default:
-            return 0;
-    }
-}
-
 async function task(config: Config) {
-    const resource = await getRSS<MikanamiRSS>(config.rss);
-    Object.entries(config.rules).forEach(([ruleName, ruleJSON]) => {
+    let rss = await getRSS(config.rss);
+    Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
         const rule = createRule(config, ruleName, ruleJSON);
-        resource.rss.channel.forEach((ch) => {
-            ch.item.forEach((item) => {
-                matchRule(item, rule);
-            });
-        });
+        //1.getRSS
+        try {
+            rule.option.uri &&
+                rule.option.uri !== config.rss.uri &&
+                (rss = await getRSS({ uri: rule.option.uri }));
+        } catch (error) {
+            return console.error(
+                `[pomelo]: Error in [step1]:getRSS of the [rule]:${ruleName}\nerror:${error}`
+            );
+        }
+        //2.processing
+        try {
+            processRSS(rss, rule);
+        } catch (error) {
+            return console.error(
+                `[pomelo]: Error in [step2]:processRSS of the [rule]:${ruleName}\nerror:${error}`
+            );
+        }
     });
 }
 
 async function main() {
-    const config = await loadConfig("../");
+    //解析命令行参数
+    const args = minimist(process.argv.slice(2));
+    const basePath = args.d || args.dir || "./";
+    //加载配置
+    const config = await loadConfig(basePath);
+    //解析定时任务
     const interval = parseInterval(config.interval);
     if (interval) {
         setInterval(() => {

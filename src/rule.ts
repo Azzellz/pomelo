@@ -1,10 +1,40 @@
 import { postDownloadRequest } from "./api";
+import { SupportRSS, SupportRSSItem } from "./models/common-rss";
 import { Config } from "./models/config";
-import { MikanamiItem } from "./models/mikanami-rss";
 import { Rule, RegExpOption, RuleJSON } from "./models/rule";
+import {
+    getUrlFromRSSItem,
+    isMikananiRSS,
+    isNyaaRSS,
+    isShareAcgnxRSS,
+} from "./util";
 
-export function matchRule(item: MikanamiItem, rule: Rule): boolean {
-    //TODO 不同的源有不同的处理方式
+//根据不同的rss类型进行不同的处理
+export function processRSS(rss: SupportRSS, rule: Rule) {
+    if (isMikananiRSS(rss)) {
+        rss.rss.channel.forEach((ch) => {
+            ch.item.forEach((item) => {
+                matchRule(item, rule);
+            });
+        });
+    } else if (isNyaaRSS(rss)) {
+        rss.rss.channel.forEach((ch) => {
+            ch.item.forEach((item) => {
+                matchRule(item, rule);
+            });
+        });
+    } else if (isShareAcgnxRSS(rss)) {
+        rss.rss.channel.forEach((ch) => {
+            ch.item.forEach((item) => {
+                matchRule(item, rule);
+            });
+        });
+    } else {
+        throw "Unsupported RSS feeds, please replace them with supported RSS feeds.";
+    }
+}
+
+export function matchRule(item: SupportRSSItem, rule: Rule): boolean {
     const content = item.title[0];
 
     //先匹配拒绝条件
@@ -18,6 +48,7 @@ export function matchRule(item: MikanamiItem, rule: Rule): boolean {
         ) {
             rule.onRejected && rule.onRejected(item);
             return false;
+        } else {
         }
     }
 
@@ -31,34 +62,11 @@ export function matchRule(item: MikanamiItem, rule: Rule): boolean {
     ) {
         rule.onAccepted && rule.onAccepted(item);
         return true;
+    } else {
     }
 
     //未匹配任何行为
     return false;
-}
-
-const commonReject = /sp|ova|oad|special|特別/i;
-
-//creator
-//#region
-function createCommonAccept(keyword: string) {
-    const replaced = keyword.replace(
-        /[-\\/\\\\^$*+?.()|[\\]{}]/g,
-        "\\\\{html}amp;"
-    );
-    return (content: string) => {
-        const condition1 =
-            new RegExp(replaced, "i").test(content) &&
-            /Baha/i.test(content) &&
-            /gj\\.y/i.test(content);
-        if (condition1) {
-            return true;
-        }
-        const condition2 =
-            new RegExp(replaced, "i").test(content) &&
-            /LoliHouse/i.test(content);
-        return condition1 || condition2;
-    };
 }
 
 function createHandlerByOptions(optss: RegExpOption[][] | string[][]) {
@@ -82,22 +90,25 @@ export function createRule(
         accept: createHandlerByOptions(ruleJSON.accept),
         reject: createHandlerByOptions(ruleJSON.reject),
         async onAccepted(item) {
-            console.log("[pomelo]: Accept", ruleName);
+            console.log(
+                `[pomelo]: Accept ${item.title[0]} by [rule]:${ruleName}`
+            );
             try {
                 await postDownloadRequest(
                     config,
-                    item.enclosure[0].$.url,
+                    getUrlFromRSSItem(item),
                     this.option
                 );
             } catch (error) {
                 console.error(
-                    "[pomelo]: Post download request failed, target item: ",
-                    item
+                    `[pomelo]: Post download request failed!\nitem: ${item.title[0]}\nerror:${error}`
                 );
             }
         },
-        onRejected() {
-            console.log("[pomelo]: Reject", ruleName);
+        onRejected(item) {
+            console.log(
+                `[pomelo]: Reject ${item.title[0]} by [rule]:${ruleName}`
+            );
         },
     };
 }

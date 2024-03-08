@@ -1,11 +1,10 @@
+import { SupportRSSUrl } from "./common-rss";
 import { RuleMap } from "./rule";
 
 export interface Config {
     interval: number | string;
-    baseUrl: string;
     rss: {
-        uri: string;
-        save?: string;
+        uri: SupportRSSUrl;
     };
     aria2: {
         host: string;

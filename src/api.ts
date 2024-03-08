@@ -3,6 +3,8 @@ import { parseStringPromise } from "xml2js";
 import { readFile, writeFile } from "fs/promises";
 import { DownloadOption } from "./models/rule";
 import { Config } from "./models/config";
+import { SupportRSS } from "./models/common-rss";
+import path from "node:path";
 
 export async function postDownloadRequest(
     config: Config,
@@ -26,16 +28,26 @@ export async function postDownloadRequest(
     return axios.post(url, data);
 }
 
-export async function getRSS<RSSType>(option: Config["rss"]): Promise<RSSType> {
+export async function getRSS<T extends SupportRSS>(
+    option: Config["rss"]
+): Promise<T> {
     try {
         if (option.uri.includes("http") || option.uri.includes("https")) {
             //远程下载rss
             const { data } = await axios.get(option.uri);
-            option.save && writeFile(option.save, data);
             return await parseStringPromise(data as string);
         } else {
             //本地加载rss
-            return await parseStringPromise(readFile(option.uri));
+            const buf = await readFile(path.join(__dirname, option.uri));
+            const _tmp = option.uri.split(".");
+            const suffix = _tmp[_tmp.length - 1];
+            if (suffix === "xml") {
+                return await parseStringPromise(buf.toString());
+            } else if (suffix === "json") {
+                return JSON.parse(buf.toString());
+            } else {
+                throw "Wrong local file extension";
+            }
         }
     } catch (error) {
         throw "Failed to get RSS feed, please check uri!";

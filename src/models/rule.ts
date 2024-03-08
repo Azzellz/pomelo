@@ -1,10 +1,10 @@
-import { type MikanamiItem } from "./mikanami-rss";
+import { SupportRSSUrl, type SupportRSSItem } from "./common-rss";
 export interface Rule {
     option: DownloadOption;
     accept?: RegExp[] | ((content: string) => boolean);
     reject?: RegExp[] | ((content: string) => boolean);
-    onAccepted?: (item: MikanamiItem) => void;
-    onRejected?: (item: MikanamiItem) => void;
+    onAccepted?: (item: SupportRSSItem) => void;
+    onRejected?: (item: SupportRSSItem) => void;
 }
 
 export type RuleMap = {
@@ -23,7 +23,7 @@ export interface RuleJSON {
 
 export interface DownloadOption {
     dir: string;
-    uri?: string;
+    uri?: SupportRSSUrl;
     host?: string;
     port?: string;
     token?: string;
