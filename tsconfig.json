@@ -1,6 +1,6 @@
 {
     "extends": "@tsconfig/node18/tsconfig.json",
-    "include": ["src/*", "*"],
+    "include": ["src/models/*.ts", "*.ts", "src/*.ts"],
     "compilerOptions": {
         "composite": true,
         "strict": true,

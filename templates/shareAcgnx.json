@@ -1,0 +1,1796 @@
+{
+    "rss": {
+        "$": { "version": "2.0" },
+        "channel": [
+            {
+                "title": ["末日動漫資源庫 - Project AcgnX Torrent Asia"],
+                "link": ["https://share.acgnx.se/"],
+                "description": ["Project AcgnX Torrent BTDownloader"],
+                "lastBuildDate": ["Fri, 08 Mar 2024 16:05:57 +0800"],
+                "language": ["zh-tw"],
+                "generator": ["Project AcgnX Torrent RSS Generator"],
+                "copyright": ["Project AcgnX Torrent Asia"],
+                "item": [
+                    {
+                        "title": [
+                            "ましまえん -真島ヒロ短編集- 第01-02巻 [Mashimaen – Mashima Hiro Tanpenshuu vol 01-02]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-18efc82b45e49b98ad5c773bfaa2eb14dfc3bbaf.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-18efc82b45e49b98ad5c773bfaa2eb14dfc3bbaf.html\">萌萌的搬運者 | ましまえん -真島ヒロ短編集- 第01-02巻 [Mashimaen – Mashima Hiro Tanpenshuu vol 01-02]</a> | 106.3MB | 日文原版 | 18efc82b45e49b98ad5c773bfaa2eb14dfc3bbaf"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-18efc82b45e49b98ad5c773bfaa2eb14dfc3bbaf.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:18efc82b45e49b98ad5c773bfaa2eb14dfc3bbaf&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 14:43:22 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "戦国自衛隊1549 第01-02巻 [Sengoku Jieitai 1549 vol 01-02]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-311b2bfaf2544b9dc6412640495c7930e71aa768.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-311b2bfaf2544b9dc6412640495c7930e71aa768.html\">萌萌的搬運者 | 戦国自衛隊1549 第01-02巻 [Sengoku Jieitai 1549 vol 01-02]</a> | 124.8MB | 日文原版 | 311b2bfaf2544b9dc6412640495c7930e71aa768"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-311b2bfaf2544b9dc6412640495c7930e71aa768.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:311b2bfaf2544b9dc6412640495c7930e71aa768&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 14:38:11 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "快感・ジュリエット 第01-03巻 [Kaikan Juliet vol 01-03]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-0720bb3a00fab8496d9084bda9a4d37531fd0dfa.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-0720bb3a00fab8496d9084bda9a4d37531fd0dfa.html\">萌萌的搬運者 | 快感・ジュリエット 第01-03巻 [Kaikan Juliet vol 01-03]</a> | 106.1MB | 日文原版 | 0720bb3a00fab8496d9084bda9a4d37531fd0dfa"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-0720bb3a00fab8496d9084bda9a4d37531fd0dfa.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:0720bb3a00fab8496d9084bda9a4d37531fd0dfa&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 14:36:25 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[Hi-Res][240306][VTuber]さくらみこ 新曲「きゅんきゅんみこきゅんきゅん♡」[48kHz/24bit][FLAC]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-daac226dd8446d55eaf49125101aefb800dd29e3.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-daac226dd8446d55eaf49125101aefb800dd29e3.html\">動漫花園鏡像 | [Hi-Res][240306][VTuber]さくらみこ 新曲「きゅんきゅんみこきゅんきゅん♡」[48kHz/24bit][FLAC]</a> | 109.1MB | 動漫音樂 | daac226dd8446d55eaf49125101aefb800dd29e3"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-daac226dd8446d55eaf49125101aefb800dd29e3.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["動漫花園鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:daac226dd8446d55eaf49125101aefb800dd29e3&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 14:16:00 +0800"],
+                        "category": [
+                            {
+                                "_": "動漫音樂",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-7-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "モンスターソウル 第01-02巻 [Monster Soul vol 01-02]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-2148825408c9db708ef192de4c7adf67fe5ec553.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-2148825408c9db708ef192de4c7adf67fe5ec553.html\">萌萌的搬運者 | モンスターソウル 第01-02巻 [Monster Soul vol 01-02]</a> | 52.4MB | 日文原版 | 2148825408c9db708ef192de4c7adf67fe5ec553"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-2148825408c9db708ef192de4c7adf67fe5ec553.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:2148825408c9db708ef192de4c7adf67fe5ec553&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 14:08:47 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[LoliHouse] 魔女与野兽 / Majo to Yajuu / The Witch and the Beast - 08 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-e447150f54b7291780f642d91dd094dbf58718af.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-e447150f54b7291780f642d91dd094dbf58718af.html\">動漫花園鏡像 | [LoliHouse] 魔女与野兽 / Majo to Yajuu / The Witch and the Beast - 08 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]</a> | 716.7MB | 動畫 | e447150f54b7291780f642d91dd094dbf58718af"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-e447150f54b7291780f642d91dd094dbf58718af.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["動漫花園鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:e447150f54b7291780f642d91dd094dbf58718af&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 13:35:00 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": ["純喫茶ねこ raw 第01-11巻"],
+                        "link": [
+                            "https://share.acgnx.se/show-703bdfe1c1838ad72643cbdefa994b0fc39fd922.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-703bdfe1c1838ad72643cbdefa994b0fc39fd922.html\">萌萌的搬運者 | 純喫茶ねこ raw 第01-11巻</a> | 685.9MB | 日文原版 | 703bdfe1c1838ad72643cbdefa994b0fc39fd922"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-703bdfe1c1838ad72643cbdefa994b0fc39fd922.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:703bdfe1c1838ad72643cbdefa994b0fc39fd922&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 13:17:54 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": ["百千さん家のあやかし王子‐継‐ raw 第01巻"],
+                        "link": [
+                            "https://share.acgnx.se/show-93f1fcf92058a2b32fe0d9b68c0960796d4679cb.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-93f1fcf92058a2b32fe0d9b68c0960796d4679cb.html\">萌萌的搬運者 | 百千さん家のあやかし王子‐継‐ raw 第01巻</a> | 106MB | 日文原版 | 93f1fcf92058a2b32fe0d9b68c0960796d4679cb"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-93f1fcf92058a2b32fe0d9b68c0960796d4679cb.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:93f1fcf92058a2b32fe0d9b68c0960796d4679cb&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 13:17:35 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": ["暗号学園のいろは raw 第06巻"],
+                        "link": [
+                            "https://share.acgnx.se/show-050f2e35165745fdc47c313485489a10918d890e.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-050f2e35165745fdc47c313485489a10918d890e.html\">萌萌的搬運者 | 暗号学園のいろは raw 第06巻</a> | 78.9MB | 日文原版 | 050f2e35165745fdc47c313485489a10918d890e"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-050f2e35165745fdc47c313485489a10918d890e.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:050f2e35165745fdc47c313485489a10918d890e&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 13:17:11 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": ["歴代級槍騎士の回帰 raw 第01巻"],
+                        "link": [
+                            "https://share.acgnx.se/show-412dc7411353ca51eaea68f5b39cc76a77daa66d.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-412dc7411353ca51eaea68f5b39cc76a77daa66d.html\">萌萌的搬運者 | 歴代級槍騎士の回帰 raw 第01巻</a> | 39MB | 日文原版 | 412dc7411353ca51eaea68f5b39cc76a77daa66d"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-412dc7411353ca51eaea68f5b39cc76a77daa66d.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:412dc7411353ca51eaea68f5b39cc76a77daa66d&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 13:16:48 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[喵萌奶茶屋&amp;LoliHouse] 战国妖狐 / Sengoku Youko - 09 [WebRip 1080p HEVC-10bit AAC][简繁日内封字幕]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-f0f7f9fadc07d106c7764d0873be0f0fa0076cae.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-f0f7f9fadc07d106c7764d0873be0f0fa0076cae.html\">動漫花園鏡像 | [喵萌奶茶屋&amp;LoliHouse] 战国妖狐 / Sengoku Youko - 09 [WebRip 1080p HEVC-10bit AAC][简繁日内封字幕]</a> | 437.1MB | 動畫 | f0f7f9fadc07d106c7764d0873be0f0fa0076cae"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-f0f7f9fadc07d106c7764d0873be0f0fa0076cae.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["動漫花園鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:f0f7f9fadc07d106c7764d0873be0f0fa0076cae&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 12:59:00 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "【喵萌奶茶屋】★01月新番★[反派千金Lv99 ~雖然我是隱藏BOSS但我可不是魔王~ / Akuyaku Reijou Level 99][09][1080p][繁日雙語][招募翻譯]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-2fd515a3a5f7e758db79a00ed224620a146852e2.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-2fd515a3a5f7e758db79a00ed224620a146852e2.html\">nekomoekissaten | 【喵萌奶茶屋】★01月新番★[反派千金Lv99 ~雖然我是隱藏BOSS但我可不是魔王~ / Akuyaku Reijou Level 99][09][1080p][繁日雙語][招募翻譯]</a> | 314.5MB | 動畫 | 2fd515a3a5f7e758db79a00ed224620a146852e2"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-2fd515a3a5f7e758db79a00ed224620a146852e2.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["nekomoekissaten"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:2fd515a3a5f7e758db79a00ed224620a146852e2&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 12:59:00 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "【喵萌奶茶屋】★01月新番★[反派千金Lv99 ~虽然我是隐藏BOSS但我可不是魔王~ / Akuyaku Reijou Level 99][09][1080p][简日双语][招募翻译]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-db87cd1a12c1078362503dd9d3bb8cd6e6a81c7b.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-db87cd1a12c1078362503dd9d3bb8cd6e6a81c7b.html\">nekomoekissaten | 【喵萌奶茶屋】★01月新番★[反派千金Lv99 ~虽然我是隐藏BOSS但我可不是魔王~ / Akuyaku Reijou Level 99][09][1080p][简日双语][招募翻译]</a> | 314.6MB | 動畫 | db87cd1a12c1078362503dd9d3bb8cd6e6a81c7b"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-db87cd1a12c1078362503dd9d3bb8cd6e6a81c7b.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["nekomoekissaten"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:db87cd1a12c1078362503dd9d3bb8cd6e6a81c7b&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 12:59:00 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "異世界でスキルを解体したらチートな嫁が増殖しました 概念交差のストラクチャー 第01-12巻 [Isekai de Sukiru o Kaitai Shitara Chito na Yome ga Zoshoku Shimashita Gainen kosa"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-31afad53444c6234369777c8449a3c16b25924e7.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-31afad53444c6234369777c8449a3c16b25924e7.html\">萌萌的搬運者 | 異世界でスキルを解体したらチートな嫁が増殖しました 概念交差のストラクチャー 第01-12巻 [Isekai de Sukiru o Kaitai Shitara Chito na Yome ga Zoshoku Shimashita Gainen kosa</a> | 1.9GB | 日文原版 | 31afad53444c6234369777c8449a3c16b25924e7"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-31afad53444c6234369777c8449a3c16b25924e7.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:31afad53444c6234369777c8449a3c16b25924e7&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 12:46:51 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "猫魔法が世界革命を起こすそうですよ？～劣等種なんて言われるのならケモノ魔法でリベンジします！～ raw 第01巻"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-d84bc76683f05a0edafa04a9d8b8a5bc0a4e959a.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-d84bc76683f05a0edafa04a9d8b8a5bc0a4e959a.html\">萌萌的搬運者 | 猫魔法が世界革命を起こすそうですよ？～劣等種なんて言われるのならケモノ魔法でリベンジします！～ raw 第01巻</a> | 64.4MB | 日文原版 | d84bc76683f05a0edafa04a9d8b8a5bc0a4e959a"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-d84bc76683f05a0edafa04a9d8b8a5bc0a4e959a.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:d84bc76683f05a0edafa04a9d8b8a5bc0a4e959a&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 12:21:47 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "アスクレピオス 01-03巻 [Asklepios vol 01-03]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-3dfb920f23cc456c093ea0c452c41e320eaa568f.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-3dfb920f23cc456c093ea0c452c41e320eaa568f.html\">萌萌的搬運者 | アスクレピオス 01-03巻 [Asklepios vol 01-03]</a> | 323.8MB | 日文原版 | 3dfb920f23cc456c093ea0c452c41e320eaa568f"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-3dfb920f23cc456c093ea0c452c41e320eaa568f.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:3dfb920f23cc456c093ea0c452c41e320eaa568f&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 12:11:17 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "マンガの神様、罰をお与えください！ raw 第01巻"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-180f15604e82e8359a08f83720997268150cce90.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-180f15604e82e8359a08f83720997268150cce90.html\">萌萌的搬運者 | マンガの神様、罰をお与えください！ raw 第01巻</a> | 81.2MB | 日文原版 | 180f15604e82e8359a08f83720997268150cce90"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-180f15604e82e8359a08f83720997268150cce90.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:180f15604e82e8359a08f83720997268150cce90&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 12:05:59 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": ["お見合いにすごいコミュ症が来た raw 第01巻"],
+                        "link": [
+                            "https://share.acgnx.se/show-39043b744c959be54cba8f29a4d887b7761c8f00.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-39043b744c959be54cba8f29a4d887b7761c8f00.html\">萌萌的搬運者 | お見合いにすごいコミュ症が来た raw 第01巻</a> | 57.9MB | 日文原版 | 39043b744c959be54cba8f29a4d887b7761c8f00"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-39043b744c959be54cba8f29a4d887b7761c8f00.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:39043b744c959be54cba8f29a4d887b7761c8f00&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 12:05:21 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": ["イズミと竜の図鑑 raw 第01巻"],
+                        "link": [
+                            "https://share.acgnx.se/show-6b408cdddec1d635587a64175686827028c59caf.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-6b408cdddec1d635587a64175686827028c59caf.html\">萌萌的搬運者 | イズミと竜の図鑑 raw 第01巻</a> | 69.4MB | 日文原版 | 6b408cdddec1d635587a64175686827028c59caf"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-6b408cdddec1d635587a64175686827028c59caf.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:6b408cdddec1d635587a64175686827028c59caf&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 12:04:59 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[GJ.Y] 百妖谱 第四季 / Fairies Album (Bai Yao Pu) S4 - 04 (CR 1920x1080 AVC AAC MKV)"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-fb54519bc5673c6df4717b49bbb122bb0a52cac4.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-fb54519bc5673c6df4717b49bbb122bb0a52cac4.html\">TrySail | [GJ.Y] 百妖谱 第四季 / Fairies Album (Bai Yao Pu) S4 - 04 (CR 1920x1080 AVC AAC MKV)</a> | 1.3GB | 動畫 | fb54519bc5673c6df4717b49bbb122bb0a52cac4"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-fb54519bc5673c6df4717b49bbb122bb0a52cac4.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["TrySail"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:fb54519bc5673c6df4717b49bbb122bb0a52cac4&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 12:01:20 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[2023.03.08]Dangerously (Vシネクスト「仮面ライダーギーツ ジャマト・アウェイキング」主題歌)／倖田來未[FLAC 48kHz 24bit]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-b3f95d2be70c5aefc9ac62262e65839b52c645dc.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-b3f95d2be70c5aefc9ac62262e65839b52c645dc.html\">xSxSxSxSx | [2023.03.08]Dangerously (Vシネクスト「仮面ライダーギーツ ジャマト・アウェイキング」主題歌)／倖田來未[FLAC 48kHz 24bit]</a> | 163.2MB | 音樂 | b3f95d2be70c5aefc9ac62262e65839b52c645dc"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-b3f95d2be70c5aefc9ac62262e65839b52c645dc.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["xSxSxSxSx"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:b3f95d2be70c5aefc9ac62262e65839b52c645dc&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 11:53:42 +0800"],
+                        "category": [
+                            {
+                                "_": "音樂",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-6-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[2023.03.08]Dangerously (Vシネクスト「仮面ライダーギーツ ジャマト・アウェイキング」主題歌)／倖田來未[MP3 320K]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-8532daba2514377b96ceda14afaa02c545308fc6.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-8532daba2514377b96ceda14afaa02c545308fc6.html\">xSxSxSxSx | [2023.03.08]Dangerously (Vシネクスト「仮面ライダーギーツ ジャマト・アウェイキング」主題歌)／倖田來未[MP3 320K]</a> | 34.9MB | 音樂 | 8532daba2514377b96ceda14afaa02c545308fc6"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-8532daba2514377b96ceda14afaa02c545308fc6.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["xSxSxSxSx"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:8532daba2514377b96ceda14afaa02c545308fc6&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 11:53:40 +0800"],
+                        "category": [
+                            {
+                                "_": "音樂",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-6-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "完璧☆彼氏彼女 第01-03巻 [Kanpeki Kareshi Kanojo vol 01-03]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-5a72dbcc8cd4542ecb3904d7fac3da4845c6a56b.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-5a72dbcc8cd4542ecb3904d7fac3da4845c6a56b.html\">萌萌的搬運者 | 完璧☆彼氏彼女 第01-03巻 [Kanpeki Kareshi Kanojo vol 01-03]</a> | 80MB | 日文原版 | 5a72dbcc8cd4542ecb3904d7fac3da4845c6a56b"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-5a72dbcc8cd4542ecb3904d7fac3da4845c6a56b.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:5a72dbcc8cd4542ecb3904d7fac3da4845c6a56b&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 11:45:05 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "異世界のんびり農家 第01-12巻 [Isekai Nonbiri Noka vol 01-12]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-a09fa02f44a18fc7b768e97f452b538351df19ed.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-a09fa02f44a18fc7b768e97f452b538351df19ed.html\">萌萌的搬運者 | 異世界のんびり農家 第01-12巻 [Isekai Nonbiri Noka vol 01-12]</a> | 2.3GB | 日文原版 | a09fa02f44a18fc7b768e97f452b538351df19ed"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-a09fa02f44a18fc7b768e97f452b538351df19ed.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:a09fa02f44a18fc7b768e97f452b538351df19ed&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 11:43:26 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "ハーレムビート 第01-29巻 [Harlem Beat vol 01-29]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-e07393473ffc073de03c3e698c38839a752b8535.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-e07393473ffc073de03c3e698c38839a752b8535.html\">萌萌的搬運者 | ハーレムビート 第01-29巻 [Harlem Beat vol 01-29]</a> | 1.6GB | 日文原版 | e07393473ffc073de03c3e698c38839a752b8535"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-e07393473ffc073de03c3e698c38839a752b8535.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:e07393473ffc073de03c3e698c38839a752b8535&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 11:41:44 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[Hi-Res][240307]hololive 5th fes. Capture the Moment[48kHz/24bit][FLAC]ときのそら、大神ミオ、兎田ぺこら、天音かなた、桃鈴ねね、風真いろは、こぼ・かなえる、IRyS"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-79f109dc16550582e5768431ea80c906f535e8bc.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-79f109dc16550582e5768431ea80c906f535e8bc.html\">動漫花園鏡像 | [Hi-Res][240307]hololive 5th fes. Capture the Moment[48kHz/24bit][FLAC]ときのそら、大神ミオ、兎田ぺこら、天音かなた、桃鈴ねね、風真いろは、こぼ・かなえる、IRyS</a> | 130.4MB | 動漫音樂 | 79f109dc16550582e5768431ea80c906f535e8bc"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-79f109dc16550582e5768431ea80c906f535e8bc.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["動漫花園鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:79f109dc16550582e5768431ea80c906f535e8bc&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 11:37:00 +0800"],
+                        "category": [
+                            {
+                                "_": "動漫音樂",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-7-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "アラビアン魔神冒険譚 ランプ・ランプ 第01-03巻 [Arabian Majin Boukentan Lamp Lamp vol 01-03]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-b8360e53e5f8bd7d169c5b8c75239845e97f8ab8.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-b8360e53e5f8bd7d169c5b8c75239845e97f8ab8.html\">萌萌的搬運者 | アラビアン魔神冒険譚 ランプ・ランプ 第01-03巻 [Arabian Majin Boukentan Lamp Lamp vol 01-03]</a> | 140.6MB | 日文原版 | b8360e53e5f8bd7d169c5b8c75239845e97f8ab8"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-b8360e53e5f8bd7d169c5b8c75239845e97f8ab8.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:b8360e53e5f8bd7d169c5b8c75239845e97f8ab8&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 11:34:31 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[桜都字幕組] 我內心的糟糕念頭 第2季 / Boku no Kokoro no Yabai Yatsu 2nd Season [09][1080p][繁體內嵌]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-0a1b26a37344d8187efb94ad7fc981d20564a310.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-0a1b26a37344d8187efb94ad7fc981d20564a310.html\">sakuratosub | [桜都字幕組] 我內心的糟糕念頭 第2季 / Boku no Kokoro no Yabai Yatsu 2nd Season [09][1080p][繁體內嵌]</a> | 237.3MB | 動畫 | 0a1b26a37344d8187efb94ad7fc981d20564a310"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-0a1b26a37344d8187efb94ad7fc981d20564a310.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["sakuratosub"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:0a1b26a37344d8187efb94ad7fc981d20564a310&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 11:09:02 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "【幻月字幕组】【24年日剧】【蜜与毒】【08】【1080P】【中日双语】"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-fb198db1e2717620fbf2d56321c715e8911bc3ee.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-fb198db1e2717620fbf2d56321c715e8911bc3ee.html\">動漫花園鏡像 | 【幻月字幕组】【24年日剧】【蜜与毒】【08】【1080P】【中日双语】</a> | 447.2MB | 日劇/日影 | fb198db1e2717620fbf2d56321c715e8911bc3ee"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-fb198db1e2717620fbf2d56321c715e8911bc3ee.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["動漫花園鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:fb198db1e2717620fbf2d56321c715e8911bc3ee&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 11:09:00 +0800"],
+                        "category": [
+                            {
+                                "_": "日劇/日影",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-10-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[桜都字幕组] 我心里危险的东西 第2季 / Boku no Kokoro no Yabai Yatsu 2nd Season [09][1080p][简体内嵌]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-f6ebaa77e2ae403a483ca6c97954993c558693d4.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-f6ebaa77e2ae403a483ca6c97954993c558693d4.html\">sakuratosub | [桜都字幕组] 我心里危险的东西 第2季 / Boku no Kokoro no Yabai Yatsu 2nd Season [09][1080p][简体内嵌]</a> | 237.1MB | 動畫 | f6ebaa77e2ae403a483ca6c97954993c558693d4"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-f6ebaa77e2ae403a483ca6c97954993c558693d4.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["sakuratosub"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:f6ebaa77e2ae403a483ca6c97954993c558693d4&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 11:08:28 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[桜都字幕组] 我心里危险的东西 第2季 / Boku no Kokoro no Yabai Yatsu 2nd Season [09][1080p][简繁内封]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-158bc98c655e11185b9d8f998bfb85b7d567d675.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-158bc98c655e11185b9d8f998bfb85b7d567d675.html\">sakuratosub | [桜都字幕组] 我心里危险的东西 第2季 / Boku no Kokoro no Yabai Yatsu 2nd Season [09][1080p][简繁内封]</a> | 217.7MB | 動畫 | 158bc98c655e11185b9d8f998bfb85b7d567d675"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-158bc98c655e11185b9d8f998bfb85b7d567d675.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["sakuratosub"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:158bc98c655e11185b9d8f998bfb85b7d567d675&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 11:08:05 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[KOTE] FINAL FANTASY XI Original Soundtrack PREMIUM BOX [FLAC]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-01ac77c44ac10de4faecf67093dd6873bae13446.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-01ac77c44ac10de4faecf67093dd6873bae13446.html\">xSxSxSxSx | [KOTE] FINAL FANTASY XI Original Soundtrack PREMIUM BOX [FLAC]</a> | 2.3GB | 音樂 | 01ac77c44ac10de4faecf67093dd6873bae13446"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-01ac77c44ac10de4faecf67093dd6873bae13446.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["xSxSxSxSx"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:01ac77c44ac10de4faecf67093dd6873bae13446&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 10:53:25 +0800"],
+                        "category": [
+                            {
+                                "_": "音樂",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-6-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[GJ.Y] 少年歌行 第三季 / Youths and Golden Coffin S3 - 21 (B-Global Donghua 3840x2160 HEVC AAC MKV)"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-26aa511bc661136e20aea232bf7683cf51f9bb3d.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-26aa511bc661136e20aea232bf7683cf51f9bb3d.html\">TrySail | [GJ.Y] 少年歌行 第三季 / Youths and Golden Coffin S3 - 21 (B-Global Donghua 3840x2160 HEVC AAC MKV)</a> | 1.8GB | 動畫 | 26aa511bc661136e20aea232bf7683cf51f9bb3d"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-26aa511bc661136e20aea232bf7683cf51f9bb3d.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["TrySail"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:26aa511bc661136e20aea232bf7683cf51f9bb3d&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 10:08:47 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[LoliHouse] 秒杀外挂太强了，异世界的家伙们根本就不是对手。 / Sokushi Cheat ga Saikyou Sugite - 10 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-ec7423d1964f9b69ce5e645daf823c08f5ce1c11.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-ec7423d1964f9b69ce5e645daf823c08f5ce1c11.html\">動漫花園鏡像 | [LoliHouse] 秒杀外挂太强了，异世界的家伙们根本就不是对手。 / Sokushi Cheat ga Saikyou Sugite - 10 [WebRip 1080p HEVC-10bit AAC][简繁内封字幕]</a> | 573.8MB | 動畫 | ec7423d1964f9b69ce5e645daf823c08f5ce1c11"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-ec7423d1964f9b69ce5e645daf823c08f5ce1c11.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["動漫花園鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:ec7423d1964f9b69ce5e645daf823c08f5ce1c11&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 09:23:00 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "アンドロイドは地雷系の夢を見る。 raw 第01巻"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-e2ed1845fc28b789671f45c19fc99de69e568e4e.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-e2ed1845fc28b789671f45c19fc99de69e568e4e.html\">萌萌的搬運者 | アンドロイドは地雷系の夢を見る。 raw 第01巻</a> | 68.8MB | 日文原版 | e2ed1845fc28b789671f45c19fc99de69e568e4e"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-e2ed1845fc28b789671f45c19fc99de69e568e4e.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:e2ed1845fc28b789671f45c19fc99de69e568e4e&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 09:15:58 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": ["Love Jossie Vol.134"],
+                        "link": [
+                            "https://share.acgnx.se/show-9b7c58a85090c8f41f2e4d885cc05679fc677a65.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-9b7c58a85090c8f41f2e4d885cc05679fc677a65.html\">萌萌的搬運者 | Love Jossie Vol.134</a> | 92MB | 日文原版 | 9b7c58a85090c8f41f2e4d885cc05679fc677a65"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-9b7c58a85090c8f41f2e4d885cc05679fc677a65.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:9b7c58a85090c8f41f2e4d885cc05679fc677a65&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 09:15:40 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": ["LILIーMEN raw 第06巻"],
+                        "link": [
+                            "https://share.acgnx.se/show-634109bdc0ac934b10ef0cf02816daf0bfa26bd4.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-634109bdc0ac934b10ef0cf02816daf0bfa26bd4.html\">萌萌的搬運者 | LILIーMEN raw 第06巻</a> | 90.4MB | 日文原版 | 634109bdc0ac934b10ef0cf02816daf0bfa26bd4"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-634109bdc0ac934b10ef0cf02816daf0bfa26bd4.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:634109bdc0ac934b10ef0cf02816daf0bfa26bd4&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 09:15:16 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "恋ヶ窪くんにはじめてを奪われました raw 第07巻"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-b7f7b4a9482e7d9480e8ae2635ddf4329c41de38.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-b7f7b4a9482e7d9480e8ae2635ddf4329c41de38.html\">萌萌的搬運者 | 恋ヶ窪くんにはじめてを奪われました raw 第07巻</a> | 82.3MB | 日文原版 | b7f7b4a9482e7d9480e8ae2635ddf4329c41de38"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-b7f7b4a9482e7d9480e8ae2635ddf4329c41de38.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:b7f7b4a9482e7d9480e8ae2635ddf4329c41de38&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 09:14:55 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": ["極道楽園 raw 第02巻"],
+                        "link": [
+                            "https://share.acgnx.se/show-cedd6cd05711517392e26757e15cbc8e570a98c1.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-cedd6cd05711517392e26757e15cbc8e570a98c1.html\">萌萌的搬運者 | 極道楽園 raw 第02巻</a> | 194.4MB | 日文原版 | cedd6cd05711517392e26757e15cbc8e570a98c1"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-cedd6cd05711517392e26757e15cbc8e570a98c1.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:cedd6cd05711517392e26757e15cbc8e570a98c1&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 09:14:33 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "シキュウジ－高校球児に明日はない－ raw 第03巻"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-6dcee459d05c2f870432ac82674e875a8ce82115.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-6dcee459d05c2f870432ac82674e875a8ce82115.html\">萌萌的搬運者 | シキュウジ－高校球児に明日はない－ raw 第03巻</a> | 109.6MB | 日文原版 | 6dcee459d05c2f870432ac82674e875a8ce82115"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-6dcee459d05c2f870432ac82674e875a8ce82115.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌萌的搬運者"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:6dcee459d05c2f870432ac82674e875a8ce82115&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 09:14:13 +0800"],
+                        "category": [
+                            {
+                                "_": "日文原版",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-5-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "福星小子 第二季  Urusei Yatsura (2022) 2nd Season - 09 [Webrip][CHS CHT][1080p][AVC AAC]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-8c15f804341baf711b99ee9459d48cef0d98f6b6.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-8c15f804341baf711b99ee9459d48cef0d98f6b6.html\">萌番組鏡像 | 福星小子 第二季  Urusei Yatsura (2022) 2nd Season - 09 [Webrip][CHS CHT][1080p][AVC AAC]</a> | 674.2MB | 動畫 | 8c15f804341baf711b99ee9459d48cef0d98f6b6"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-8c15f804341baf711b99ee9459d48cef0d98f6b6.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌番組鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:8c15f804341baf711b99ee9459d48cef0d98f6b6&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 09:05:31 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[爱恋&amp;漫猫字幕社][1月新番][北海道辣妹贼拉可爱][Dosanko Gal wa Namara Menkoi][09][1080p][MP4][GB][简中]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-c9c2a899cef24b15ceab79da03d24fd64dbab9ee.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-c9c2a899cef24b15ceab79da03d24fd64dbab9ee.html\">動漫花園鏡像 | [爱恋&amp;漫猫字幕社][1月新番][北海道辣妹贼拉可爱][Dosanko Gal wa Namara Menkoi][09][1080p][MP4][GB][简中]</a> | 160.3MB | 動畫 | c9c2a899cef24b15ceab79da03d24fd64dbab9ee"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-c9c2a899cef24b15ceab79da03d24fd64dbab9ee.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["動漫花園鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:c9c2a899cef24b15ceab79da03d24fd64dbab9ee&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 07:30:00 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[愛戀&amp;漫貓字幕社][1月新番][北海道辣妹金古錐][Dosanko Gal wa Namara Menkoi][09][1080p][MP4][BIG5][繁中]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-058446d815fb10435b0d18eda45e60775930a19f.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-058446d815fb10435b0d18eda45e60775930a19f.html\">動漫花園鏡像 | [愛戀&amp;漫貓字幕社][1月新番][北海道辣妹金古錐][Dosanko Gal wa Namara Menkoi][09][1080p][MP4][BIG5][繁中]</a> | 160.4MB | 動畫 | 058446d815fb10435b0d18eda45e60775930a19f"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-058446d815fb10435b0d18eda45e60775930a19f.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["動漫花園鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:058446d815fb10435b0d18eda45e60775930a19f&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 07:30:00 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[爱恋&amp;漫猫字幕社][1月新番][北海道辣妹贼拉可爱][Dosanko Gal wa Namara Menkoi][09][720p][MP4][GB][简中]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-afd0fc7c0959137a586f346af90e80f00225a7df.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-afd0fc7c0959137a586f346af90e80f00225a7df.html\">動漫花園鏡像 | [爱恋&amp;漫猫字幕社][1月新番][北海道辣妹贼拉可爱][Dosanko Gal wa Namara Menkoi][09][720p][MP4][GB][简中]</a> | 98.6MB | 動畫 | afd0fc7c0959137a586f346af90e80f00225a7df"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-afd0fc7c0959137a586f346af90e80f00225a7df.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["動漫花園鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:afd0fc7c0959137a586f346af90e80f00225a7df&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 07:30:00 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[愛戀&amp;漫貓字幕社][1月新番][北海道辣妹金古錐][Dosanko Gal wa Namara Menkoi][09][720p][MP4][BIG5][繁中]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-259ece8b7b6e32a842cfe0bd2ccf6640cbfa0874.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-259ece8b7b6e32a842cfe0bd2ccf6640cbfa0874.html\">動漫花園鏡像 | [愛戀&amp;漫貓字幕社][1月新番][北海道辣妹金古錐][Dosanko Gal wa Namara Menkoi][09][720p][MP4][BIG5][繁中]</a> | 98.6MB | 動畫 | 259ece8b7b6e32a842cfe0bd2ccf6640cbfa0874"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-259ece8b7b6e32a842cfe0bd2ccf6640cbfa0874.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["動漫花園鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:259ece8b7b6e32a842cfe0bd2ccf6640cbfa0874&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 07:30:00 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": ["【转载】【galgame】【minori】春天的足音"],
+                        "link": [
+                            "https://share.acgnx.se/show-eb6fb3bd9bdbf22efe14fa035248a6b3738ed6d3.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-eb6fb3bd9bdbf22efe14fa035248a6b3738ed6d3.html\">萌番組鏡像 | 【转载】【galgame】【minori】春天的足音</a> | 2.3GB | 遊戲 | eb6fb3bd9bdbf22efe14fa035248a6b3738ed6d3"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-eb6fb3bd9bdbf22efe14fa035248a6b3738ed6d3.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["萌番組鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:eb6fb3bd9bdbf22efe14fa035248a6b3738ed6d3&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 03:22:31 +0800"],
+                        "category": [
+                            {
+                                "_": "遊戲",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-12-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[GJ.Y] 魔女與野獸 / Majo to Yajuu - 08 (CR 1920x1080 AVC AAC MKV)"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-862619b0d63d9a5124bd16580464400df88df512.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-862619b0d63d9a5124bd16580464400df88df512.html\">TrySail | [GJ.Y] 魔女與野獸 / Majo to Yajuu - 08 (CR 1920x1080 AVC AAC MKV)</a> | 1.4GB | 動畫 | 862619b0d63d9a5124bd16580464400df88df512"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-862619b0d63d9a5124bd16580464400df88df512.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["TrySail"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:862619b0d63d9a5124bd16580464400df88df512&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 03:16:25 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[LoliHouse] 魔都精兵的奴隶 / Mato Seihei no Slave - 10 [WebRip 1080p HEVC-10bit AAC][繁體内封字幕]"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-beeb24dde8f382f3848005b7ac307a1c0884e9ee.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-beeb24dde8f382f3848005b7ac307a1c0884e9ee.html\">動漫花園鏡像 | [LoliHouse] 魔都精兵的奴隶 / Mato Seihei no Slave - 10 [WebRip 1080p HEVC-10bit AAC][繁體内封字幕]</a> | 479.3MB | 動畫 | beeb24dde8f382f3848005b7ac307a1c0884e9ee"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-beeb24dde8f382f3848005b7ac307a1c0884e9ee.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["動漫花園鏡像"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:beeb24dde8f382f3848005b7ac307a1c0884e9ee&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 02:52:00 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": ["Makoto Iwabuchi - Super Moon (1977) [FLAC]"],
+                        "link": [
+                            "https://share.acgnx.se/show-14eeb443a5d6e8151d1506774cf6774534d1fcc3.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-14eeb443a5d6e8151d1506774cf6774534d1fcc3.html\">xSxSxSxSx | Makoto Iwabuchi - Super Moon (1977) [FLAC]</a> | 277.3MB | 音樂 | 14eeb443a5d6e8151d1506774cf6774534d1fcc3"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-14eeb443a5d6e8151d1506774cf6774534d1fcc3.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["xSxSxSxSx"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:14eeb443a5d6e8151d1506774cf6774534d1fcc3&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 01:35:44 +0800"],
+                        "category": [
+                            {
+                                "_": "音樂",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-6-1.html"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": [
+                            "[GJ.Y] 福星小子 第二季 / Urusei Yatsura (2022) 2nd Season - 09 (B-Global 1920x1080 HEVC AAC MKV)"
+                        ],
+                        "link": [
+                            "https://share.acgnx.se/show-4a93bd4a9524b2b567f538af5b854ad8c0e3a91a.html"
+                        ],
+                        "description": [
+                            "<a href=\"https://share.acgnx.se/show-4a93bd4a9524b2b567f538af5b854ad8c0e3a91a.html\">TrySail | [GJ.Y] 福星小子 第二季 / Urusei Yatsura (2022) 2nd Season - 09 (B-Global 1920x1080 HEVC AAC MKV)</a> | 392.9MB | 動畫 | 4a93bd4a9524b2b567f538af5b854ad8c0e3a91a"
+                        ],
+                        "guid": [
+                            {
+                                "_": "https://share.acgnx.se/show-4a93bd4a9524b2b567f538af5b854ad8c0e3a91a.html",
+                                "$": { "isPermaLink": "true" }
+                            }
+                        ],
+                        "author": ["TrySail"],
+                        "enclosure": [
+                            {
+                                "$": {
+                                    "url": "magnet:?xt=urn:btih:4a93bd4a9524b2b567f538af5b854ad8c0e3a91a&tr=http%3A%2F%2Fopentracker.acgnx.se%2Fannounce",
+                                    "length": "1",
+                                    "type": "application/x-bittorrent"
+                                }
+                            }
+                        ],
+                        "pubDate": ["Fri, 08 Mar 2024 01:31:59 +0800"],
+                        "category": [
+                            {
+                                "_": "動畫",
+                                "$": {
+                                    "domain": "https://share.acgnx.se/sort-1-1.html"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

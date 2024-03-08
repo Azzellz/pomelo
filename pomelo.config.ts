@@ -10,9 +10,8 @@ export default {
         port: "6800",
         token: "",
     },
-    rules: [
-        {
-            name: "葬送的芙莉莲",
+    rules: {
+        葬送的芙莉莲: {
             option: {
                 dir: "/downloads/连载/葬送的芙莉莲",
             },
@@ -22,8 +21,7 @@ export default {
             ],
             reject: [["sp|ova|oad|special|特別"]],
         },
-        {
-            name: "公主殿下，「拷问」的时间到了",
+        "公主殿下，「拷问」的时间到了": {
             option: {
                 dir: "/downloads/连载/公主殿下，「拷问」的时间到了",
             },
@@ -33,8 +31,7 @@ export default {
             ],
             reject: [["sp|ova|oad|special|特別"]],
         },
-        {
-            name: "我独自升级",
+        我独自升级: {
             option: {
                 dir: "/downloads/连载/我独自升级",
             },
@@ -44,5 +41,5 @@ export default {
             ],
             reject: [["sp|ova|oad|special|特別"]],
         },
-    ],
+    },
 };
