@@ -1,4 +1,5 @@
 import { postDownloadRequest } from "./api";
+import { errorLog, successLog, warnLog } from "./log";
 import { SupportRSS, SupportRSSItem } from "./models/common-rss";
 import { Config } from "./models/config";
 import { PomeloRecord } from "./models/record";
@@ -93,10 +94,6 @@ export function createRule(
         accept: createHandlerByOptions(ruleJSON.accept),
         reject: createHandlerByOptions(ruleJSON.reject),
         async onAccepted(item, record) {
-            console.log(
-                `[pomelo]: accept ${item.title[0]} by [rule]:${ruleName}`
-            );
-
             //记录
             if (config.record?.expire && record) {
                 const recordUnit = record.accepted[item.title[0]];
@@ -105,6 +102,9 @@ export function createRule(
                 if (recordUnit) {
                     if (recordUnit.expired > secondStamp) {
                         //说明没过期,直接退出
+                        warnLog(
+                            `checked [record]:${item.title[0]} when accepted, download request will be skipped.`
+                        );
                         return;
                     } else {
                         //记录过期,记录新缓存
@@ -119,6 +119,7 @@ export function createRule(
                     };
                 }
             }
+            successLog(`accept ${item.title[0]} by [rule]:${ruleName}`);
 
             //发送下载请求
             try {
@@ -128,15 +129,12 @@ export function createRule(
                     this.option
                 );
             } catch (error) {
-                console.error(
-                    `[pomelo]: post download request failed!\nitem: ${item.title[0]}\nerror: ${error}`
+                errorLog(
+                    `post download request failed!\nitem: ${item.title[0]}\nerror: ${error}`
                 );
             }
         },
         onRejected(item, record) {
-            console.log(
-                `[pomelo]: reject ${item.title[0]} by [rule]:${ruleName}`
-            );
             //记录
             if (config.record?.expire && record) {
                 const recordUnit = record.rejected[item.title[0]];
@@ -145,6 +143,9 @@ export function createRule(
                 if (recordUnit) {
                     if (recordUnit.expired > secondStamp) {
                         //说明没过期,直接退出
+                        warnLog(
+                            `checked [record]:${item.title[0]} when rejected, download request will be skipped.`
+                        );
                         return;
                     } else {
                         //记录过期,记录新缓存
@@ -159,6 +160,7 @@ export function createRule(
                     };
                 }
             }
+            successLog(`reject ${item.title[0]} by [rule]:${ruleName}`);
         },
     };
 }

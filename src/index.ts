@@ -7,6 +7,7 @@ import { parseInterval } from "./util";
 import { load as loadYaml } from "js-yaml";
 import minimist from "minimist";
 import { PomeloRecord } from "./models/record";
+import { errorLog, successLog } from "./log";
 
 async function loadConfig(path: string): Promise<Config> {
     if (existsSync(`${path}pomelo.config.ts`)) {
@@ -25,7 +26,7 @@ async function loadConfig(path: string): Promise<Config> {
         ) as Config;
         return config;
     } else {
-        throw "[pomelo]: failed to find pomelo.config.ts/pomelo.json/pomelo.yaml/pomelo.yml, please use -d to specify the path of the dir to the configuration file.";
+        throw "failed to find pomelo.config.ts/pomelo.json/pomelo.yaml/pomelo.yml, please use -d to specify the path of the dir to the configuration file.";
     }
 }
 
@@ -51,16 +52,16 @@ async function task(config: Config, record?: PomeloRecord) {
                 rule.option.uri !== config.rss.uri &&
                 (rss = await getRSS({ uri: rule.option.uri }));
         } catch (error) {
-            return console.error(
-                `[pomelo]: error in [step1]:getRSS of the [rule]:${ruleName}\nerror:${error}`
+            return errorLog(
+                `error in [step1]:getRSS of the [rule]:${ruleName}\nerror:${error}`
             );
         }
         //2.processing
         try {
             processRSS(rss, rule, record);
         } catch (error) {
-            return console.error(
-                `[pomelo]: error in [step2]:processRSS of the [rule]:${ruleName}\nerror:${error}`
+            return errorLog(
+                `error in [step2]:processRSS of the [rule]:${ruleName}\nerror:${error}`
             );
         }
     });
@@ -80,30 +81,26 @@ async function main() {
         const interval = parseInterval(config.interval);
         if (interval) {
             setInterval(() => {
-                console.log(
-                    `[pomelo]: start interval task, interval:${config.interval}`
-                );
+                successLog(`start interval task, interval:${config.interval}`);
                 task(config, record);
             }, interval);
         } else {
-            console.log("[pomelo]: start once task");
+            successLog("start once task");
             task(config, record);
         }
         process.on("exit", () => {
-            console.log("[pomelo]: stop task");
+            successLog("stop task");
             try {
                 writeFileSync(
                     basePath + "__record.json",
                     JSON.stringify(record)
                 );
             } catch (error) {
-                console.error(
-                    `[pomelo]: error in saved record!\nerror:${error}`
-                );
+                errorLog(`error in saved record!\nerror:${error}`);
             }
         });
     } catch (error) {
-        console.error(error);
+        errorLog(error + "");
     }
 }
 
