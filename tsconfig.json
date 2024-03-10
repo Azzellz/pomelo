@@ -1,6 +1,13 @@
 {
     "extends": "@tsconfig/node18/tsconfig.json",
-    "include": ["src/models/*.ts", "*.ts", "src/*.ts", "src/__tests__/test.ts"],
+    "include": [
+        "src/models/*.ts",
+        "*.ts",
+        "src/*.ts",
+        "src/__tests__/test.ts",
+        "dist/pomelo.config.ts",
+        "src/test.ts"
+    ],
     "compilerOptions": {
         "composite": true,
         "strict": true,

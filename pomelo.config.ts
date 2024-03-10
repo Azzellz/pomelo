@@ -1,5 +1,8 @@
 export default {
     interval: 0,
+    record: {
+        expire: 3600,
+    },
     rss: {
         uri: "https://mikanani.me/RSS/Classic",
     },

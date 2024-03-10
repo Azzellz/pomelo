@@ -130,5 +130,5 @@ dist
 .pnp.*
 
 __tests__
-.__record.json
+__record.json
 .rules.yaml

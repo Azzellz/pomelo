@@ -3,6 +3,9 @@ import { RuleMap } from "./rule";
 
 export interface Config {
     interval: number | string;
+    record?: {
+        expire: number;
+    };
     rss: {
         uri: SupportRSSUrl;
     };
