@@ -101,7 +101,7 @@ export function createRule(
                 );
             } catch (error) {
                 console.error(
-                    `[pomelo]: Post download request failed!\nitem: ${item.title[0]}\nerror:${error}`
+                    `[pomelo]: Post download request failed!\nitem: ${item.title[0]}\nerror: ${error}`
                 );
             }
         },

@@ -1,6 +1,5 @@
-import axios from "axios";
 import { parseStringPromise } from "xml2js";
-import { readFile, writeFile } from "fs/promises";
+import { readFile } from "fs/promises";
 import { DownloadOption } from "./models/rule";
 import { Config } from "./models/config";
 import { SupportRSS } from "./models/common-rss";
@@ -25,7 +24,10 @@ export async function postDownloadRequest(
         opts.port || config.aria2.port
     }/jsonrpc`;
 
-    return axios.post(url, data);
+    return fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+    });
 }
 
 export async function getRSS<T extends SupportRSS>(
@@ -34,8 +36,8 @@ export async function getRSS<T extends SupportRSS>(
     try {
         if (option.uri.includes("http") || option.uri.includes("https")) {
             //远程下载rss
-            const { data } = await axios.get(option.uri);
-            return await parseStringPromise(data as string);
+            const res = await fetch(option.uri);
+            return await parseStringPromise(await res.text());
         } else {
             //本地加载rss
             const buf = await readFile(path.join(__dirname, option.uri));
