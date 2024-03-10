@@ -95,6 +95,7 @@ export function createRule(
         reject: createHandlerByOptions(ruleJSON.reject),
         async onAccepted(item, record) {
             //记录
+            let recordItem: Function = () => {};
             if (config.record?.expire && record) {
                 const recordUnit = record.accepted[item.title[0]];
                 const secondStamp = Math.floor(Date.now() / 1000);
@@ -108,19 +109,22 @@ export function createRule(
                         return;
                     } else {
                         //记录过期,记录新缓存
-                        record.accepted[item.title[0]] = {
-                            expired: config.record.expire + secondStamp,
+                        recordItem = () => {
+                            record.accepted[item.title[0]] = {
+                                expired: config.record!.expire + secondStamp,
+                            };
                         };
                     }
                 } else {
                     //没有缓存记录,则记录缓存
-                    record.accepted[item.title[0]] = {
-                        expired: config.record.expire + secondStamp,
+                    recordItem = () => {
+                        record.accepted[item.title[0]] = {
+                            expired: config.record!.expire + secondStamp,
+                        };
                     };
                 }
             }
             successLog(`accept ${item.title[0]} by [rule]:${ruleName}`);
-
             //发送下载请求
             try {
                 await postDownloadRequest(
@@ -128,6 +132,8 @@ export function createRule(
                     getUrlFromRSSItem(item),
                     this.option
                 );
+                //下载成功后才记录
+                recordItem();
             } catch (error) {
                 errorLog(
                     `post download request failed!\nitem: ${item.title[0]}\nerror: ${error}`
@@ -136,6 +142,7 @@ export function createRule(
         },
         onRejected(item, record) {
             //记录
+            let recordItem: Function = () => {};
             if (config.record?.expire && record) {
                 const recordUnit = record.rejected[item.title[0]];
                 const secondStamp = Math.floor(Date.now() / 1000);
@@ -149,18 +156,23 @@ export function createRule(
                         return;
                     } else {
                         //记录过期,记录新缓存
-                        record.rejected[item.title[0]] = {
-                            expired: config.record.expire + secondStamp,
+                        recordItem = () => {
+                            record.rejected[item.title[0]] = {
+                                expired: config.record!.expire + secondStamp,
+                            };
                         };
                     }
                 } else {
                     //没有缓存记录,则记录缓存
-                    record.rejected[item.title[0]] = {
-                        expired: config.record.expire + secondStamp,
+                    recordItem = () => {
+                        record.rejected[item.title[0]] = {
+                            expired: config.record!.expire + secondStamp,
+                        };
                     };
                 }
             }
             successLog(`reject ${item.title[0]} by [rule]:${ruleName}`);
+            recordItem();
         },
     };
 }
