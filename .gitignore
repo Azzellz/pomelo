@@ -128,8 +128,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
+pomelo.config.ts
+_pomelo.config.ts
 __tests__
 __record.json
-.rules.yaml
+rules.yaml
 pomelo
