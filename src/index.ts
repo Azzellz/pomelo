@@ -91,6 +91,8 @@ async function main() {
     const relativePath = relative(__dirname, _path);
     const resolvePath = resolve(__dirname, _path);
 
+    //任务计时
+
     try {
         //加载配置
         const config = await loadConfig(relativePath);
@@ -105,11 +107,13 @@ async function main() {
                 task(config, record);
             }, interval);
         } else {
+            console.time("task");
             successLog("start once task");
             task(config, record);
         }
         process.on("exit", () => {
             successLog("stop task");
+            console.timeEnd("task")
             try {
                 writeFileSync(
                     join(resolvePath + "/__record.json"),
