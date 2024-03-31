@@ -61,10 +61,14 @@ async function loadRecord(path: string): Promise<PomeloRecord> {
     }
 }
 
-async function task(config: Config, record?: PomeloRecord) {
+async function task(
+    config: Config,
+    record?: PomeloRecord,
+    onlyRecord: boolean = false
+) {
     let rss = await getRSS(config.rss);
     Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
-        const rule = createRule(config, ruleName, ruleJSON);
+        const rule = createRule(config, ruleName, ruleJSON, onlyRecord);
         //1.getRSS
         try {
             rule.option.uri &&
@@ -90,6 +94,7 @@ async function main() {
     //解析命令行参数
     const args = minimist(process.argv.slice(2));
     const dir = args.d === true ? "./" : args.d || "./";
+    const isOnlyRecord = args.r === true;
     const isWindows =
         platform().includes("win32") || platform().includes("win64");
 
@@ -107,12 +112,12 @@ async function main() {
         if (interval) {
             setInterval(() => {
                 successLog(`start interval task, interval:${config.interval}`);
-                task(config, record);
+                task(config, record, isOnlyRecord);
             }, interval);
         } else {
             console.time("task");
             successLog("start once task");
-            task(config, record);
+            task(config, record, isOnlyRecord);
         }
         process.on("exit", () => {
             successLog("stop task");

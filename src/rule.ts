@@ -84,7 +84,8 @@ function createHandlerByOptions(optss: RuleHandlerOption): PomeloHandler {
 export function createRule(
     config: Config,
     ruleName: string,
-    ruleJSON: RuleJSON
+    ruleJSON: RuleJSON,
+    onlyRecord: boolean = false
 ): Rule {
     return {
         name: ruleName,
@@ -124,15 +125,16 @@ export function createRule(
                 }
             }
             successLog(`accept ${content} by [rule]: ${ruleName}`);
-            //发送下载请求
             try {
-                await postDownloadRequest(
-                    config,
-                    getUrlFromRSSItem(item),
-                    this.option,
-                    this.name
-                );
-                //下载成功后才记录
+                //判断是否仅需要记录
+                if (!onlyRecord) {
+                    await postDownloadRequest(
+                        config,
+                        getUrlFromRSSItem(item),
+                        this.option,
+                        this.name
+                    );
+                }
                 recordItem();
             } catch (error) {
                 errorLog(
