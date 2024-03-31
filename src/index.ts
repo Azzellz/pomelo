@@ -94,7 +94,7 @@ async function main() {
     //解析命令行参数
     const args = minimist(process.argv.slice(2));
     const dir = args.d === true ? "./" : args.d || "./";
-    const isOnlyRecord = args.r === true;
+    const isOnlyRecord = args.r === true || args.record === true;
     const isWindows =
         platform().includes("win32") || platform().includes("win64");
 

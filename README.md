@@ -22,7 +22,7 @@ pomelo 支持 4 种配置文件:
 
 ## pomelo.config.ts(推荐)
 
-最推荐的配置文件,灵活,适合有 ts 经验的使用者
+最推荐的配置文件,灵活,适合有 ts 经验的使用者。
 
 样例:
 
@@ -55,4 +55,74 @@ export default {
         },
     },
 };
+```
+
+## pomelo.json
+
+```JSON
+{
+    "interval": 0,
+    "rss": {
+        "uri": "https://mikanani.me/RSS/Classic"
+    },
+    "aria2": {
+        "host": "http://127.0.0.1",
+        "port": "6800",
+        "token": ""
+    },
+    "rules": {
+        "葬送的芙莉莲": {
+            "option": {
+                "dir": "/downloads/连载/{{rule.name}}"
+            },
+            "accept": [
+                ["Frieren", "Baha", "gj\\.y"],
+                ["Frieren", "LoliHouse"]
+            ],
+            "reject": [["sp|ova|oad|special|特別"]]
+        }
+    }
+}
+```
+
+## pomelo.yaml / pomelo.yml
+
+```yaml
+interval: 0
+rss:
+    uri: https://mikanani.me/RSS/Classic
+aria2:
+    host: http://127.0.0.1
+    port: "6800"
+    token: ""
+rules:
+    葬送的芙莉莲:
+        option:
+            dir: /downloads/连载/{{rule.name}}
+        accept:
+            - - Frieren
+              - Baha
+              - gj\.y
+            - - Frieren
+              - LoliHouse
+        reject:
+            - - sp|ova|oad|special|特別
+```
+
+# 命令行参数
+
+1. -d / --dir: 指定根目录
+
+```bash
+./pomelo -d . //指定当前目录
+./pomelo //默认指定当前目录
+./pomelo --dir ..    //指定上一级目录
+./pomelo --dir ../    //指定上一级目录
+```
+
+2. -r / --record: 只更新\_\_record.json,不发送下载请求
+
+```bash
+./pomelo -r
+./pomelo --record
 ```
