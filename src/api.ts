@@ -8,21 +8,20 @@ import path from "node:path";
 export async function postDownloadRequest(
     config: Config,
     uri: string,
-    opts: DownloadOption
+    opts: DownloadOption,
+    ruleName: string
 ) {
+    const token = opts.token || config.aria2.token;
+    const dir = opts.dir.replaceAll("{{rule.name}}", ruleName);
     const data = {
         jsonrpc: "2.0",
         method: "aria2.addUri",
         id: "pomelo-aria2-" + Date.now(),
-        params: [
-            `token:${opts.token || config.aria2.token}`,
-            [uri],
-            { dir: opts.dir },
-        ],
+        params: [`token:${token}`, [uri], { dir }],
     };
-    const url = `${opts.host || config.aria2.host}:${
-        opts.port || config.aria2.port
-    }/jsonrpc`;
+    const host = opts.host || config.aria2.host;
+    const port = opts.port || config.aria2.port;
+    const url = `${host}:${port}/jsonrpc`;
 
     return fetch(url, {
         method: "POST",

@@ -1,9 +1,12 @@
 import { SupportRSSUrl, type SupportRSSItem } from "./common-rss";
 import { PomeloRecord } from "./record";
+
+export type PomeloHandler = (content: string) => boolean;
 export interface Rule {
+    name: string;
     option: DownloadOption;
-    accept?: RegExp[] | ((content: string) => boolean);
-    reject?: RegExp[] | ((content: string) => boolean);
+    accept?: PomeloHandler;
+    reject?: PomeloHandler;
     onAccepted?: (item: SupportRSSItem, record?: PomeloRecord) => void;
     onRejected?: (item: SupportRSSItem, record?: PomeloRecord) => void;
 }
@@ -18,9 +21,11 @@ export interface RegExpOption {
 }
 export interface RuleJSON {
     option: DownloadOption;
-    accept: RegExpOption[][] | string[][];
-    reject: RegExpOption[][] | string[][];
+    accept: RuleHandlerOption;
+    reject: RuleHandlerOption;
 }
+
+export type RuleHandlerOption = RegExpOption[][] | string[][] | PomeloHandler;
 
 export interface DownloadOption {
     dir: string;

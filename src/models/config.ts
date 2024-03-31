@@ -2,7 +2,7 @@ import { SupportRSSUrl } from "./common-rss";
 import { RuleMap } from "./rule";
 
 export interface Config {
-    interval: number | string;
+    interval?: number | string;
     record?: {
         expire: number;
     };

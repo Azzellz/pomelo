@@ -8,21 +8,33 @@ import { load as loadYaml } from "js-yaml";
 import minimist from "minimist";
 import { PomeloRecord } from "./models/record";
 import { errorLog, successLog } from "./log";
+import { relative, resolve, join } from "path";
 
+//加载配置文件,支持四种
 async function loadConfig(path: string): Promise<Config> {
-    if (existsSync(`${path}pomelo.config.ts`)) {
+    const tsConfigPath = path + "/pomelo.config.ts";
+    if (existsSync(tsConfigPath)) {
         //这里使用默认导出
-        return (await import(`${path}pomelo.config.ts`)).default;
-    } else if (existsSync(`${path}pomelo.json`)) {
-        return (await import(`${path}pomelo.json`)).default;
-    } else if (existsSync(`${path}pomelo.yaml`)) {
+        return (await import(tsConfigPath)).default;
+    }
+
+    const jsonConfigPath = path + "/pomelo.json";
+    if (existsSync(jsonConfigPath)) {
+        return (await import(jsonConfigPath)).default;
+    }
+
+    const yamlConfigPath = path + "/pomelo.yaml";
+    if (existsSync(yamlConfigPath)) {
         const config = loadYaml(
-            (await readFile(`${path}pomelo.yaml`)).toString()
+            (await readFile(yamlConfigPath)).toString()
         ) as Config;
         return config;
-    } else if (existsSync(`${path}pomelo.yml`)) {
+    }
+
+    const ymlConfigPath = path + "/pomelo.yml";
+    if (existsSync(ymlConfigPath)) {
         const config = loadYaml(
-            (await readFile(`${path}pomelo.yml`)).toString()
+            (await readFile(ymlConfigPath)).toString()
         ) as Config;
         return config;
     } else {
@@ -30,11 +42,16 @@ async function loadConfig(path: string): Promise<Config> {
     }
 }
 
+//加载记录文件
 async function loadRecord(path: string): Promise<PomeloRecord> {
-    if (existsSync(`${path}__record.json`)) {
-        return (await import(`${path}__record.json`)).default;
+    if (existsSync(`${path}/__record.json`)) {
+        const record = (await import(`${path}/__record.json`)).default;
+        return {
+            accepted: {},
+            rejected: {},
+            ...record,
+        };
     } else {
-        //配置了record选项但是路径没有这个文件,那么返回一个空record
         return {
             accepted: {},
             rejected: {},
@@ -53,7 +70,7 @@ async function task(config: Config, record?: PomeloRecord) {
                 (rss = await getRSS({ uri: rule.option.uri }));
         } catch (error) {
             return errorLog(
-                `error in [step1]:getRSS of the [rule]:${ruleName}\nerror:${error}`
+                `error in [step1]: getRSS of the [rule]:${ruleName}\nerror:${error}`
             );
         }
         //2.processing
@@ -61,7 +78,7 @@ async function task(config: Config, record?: PomeloRecord) {
             processRSS(rss, rule, record);
         } catch (error) {
             return errorLog(
-                `error in [step2]:processRSS of the [rule]:${ruleName}\nerror:${error}`
+                `error in [step2]: processRSS of the [rule]:${ruleName}\nerror:${error}`
             );
         }
     });
@@ -70,15 +87,18 @@ async function task(config: Config, record?: PomeloRecord) {
 async function main() {
     //解析命令行参数
     const args = minimist(process.argv.slice(2));
-    const basePath = args.d || args.dir || "./";
-    //加载配置
+    const _path = args.d || args.dir || "./";
+    const relativePath = relative(__dirname, _path);
+    const resolvePath = resolve(__dirname, _path);
+
     try {
-        const config = await loadConfig(basePath);
+        //加载配置
+        const config = await loadConfig(relativePath);
         const record = config.record?.expire
-            ? await loadRecord(basePath)
+            ? await loadRecord(relativePath)
             : undefined;
         //解析定时任务
-        const interval = parseInterval(config.interval);
+        const interval = parseInterval(config.interval || 0);
         if (interval) {
             setInterval(() => {
                 successLog(`start interval task, interval:${config.interval}`);
@@ -92,7 +112,7 @@ async function main() {
             successLog("stop task");
             try {
                 writeFileSync(
-                    basePath + "__record.json",
+                    join(resolvePath + "/__record.json"),
                     JSON.stringify(record)
                 );
             } catch (error) {
