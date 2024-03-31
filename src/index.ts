@@ -7,9 +7,13 @@ import { parseInterval } from "./util";
 import { load as loadYaml } from "js-yaml";
 import minimist from "minimist";
 import { PomeloRecord } from "./models/record";
-import { errorLog, successLog } from "./log";
+import { errorLog, successLog, warnLog } from "./log";
 import { resolve, join, relative } from "path";
 import { platform } from "os";
+import { createHash } from "crypto";
+
+//loader
+//#region
 
 //加载配置文件,支持四种
 async function loadConfig(path: string): Promise<Config> {
@@ -61,40 +65,63 @@ async function loadRecord(path: string): Promise<PomeloRecord> {
     }
 }
 
-async function task(
-    config: Config,
-    record?: PomeloRecord,
-    onlyRecord: boolean = false
-) {
-    let rss = await getRSS(config.rss);
-    Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
-        const rule = createRule(config, ruleName, ruleJSON, onlyRecord);
-        //1.getRSS
-        try {
-            rule.option.uri &&
-                rule.option.uri !== config.rss.uri &&
-                (rss = await getRSS({ uri: rule.option.uri }));
-        } catch (error) {
-            return errorLog(
-                `error in [step1]: getRSS of the [rule]:${ruleName}\nerror:${error}`
-            );
+//#endregion
+
+async function task({
+    config,
+    record,
+    onlyRecord = false,
+    lastMD5,
+}: {
+    config: Config;
+    record?: PomeloRecord;
+    onlyRecord?: boolean;
+    lastMD5: string; //上一份rss的md5
+}): Promise<string> {
+    try {
+        let rss = await getRSS(config.rss);
+        //检查md5,如果两次相同就不更新了
+        const md5 = createHash("md5").update(JSON.stringify(rss)).digest("hex");
+        if (lastMD5 && lastMD5 === md5) {
+            warnLog("rss resource has not been updated, skip this task.");
+            return md5;
         }
-        //2.processing
-        try {
-            processRSS(rss, rule, record);
-        } catch (error) {
-            return errorLog(
-                `error in [step2]: processRSS of the [rule]:${ruleName}\nerror:${error}`
-            );
-        }
-    });
+        //遍历规则集
+        Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
+            const rule = createRule(config, ruleName, ruleJSON, onlyRecord);
+            //1.getRSS
+            try {
+                //针对每个规则的uri
+                if (rule.option.uri && rule.option.uri !== config.rss.uri) {
+                    rss = await getRSS({
+                        uri: rule.option.uri,
+                    });
+                }
+            } catch (error) {
+                errorLog(
+                    `error in [step1]: getRSS of the [rule]:${ruleName}\nerror:${error}`
+                );
+            }
+            //2.processing
+            try {
+                processRSS(rss, rule, record);
+            } catch (error) {
+                errorLog(
+                    `error in [step2]: processRSS of the [rule]:${ruleName}\nerror:${error}`
+                );
+            }
+        });
+        return md5;
+    } catch (error) {
+        return "";
+    }
 }
 
 async function main() {
     //解析命令行参数
     const args = minimist(process.argv.slice(2));
     const dir = args.d === true ? "./" : args.d || "./";
-    const isOnlyRecord = args.r === true || args.record === true;
+    const onlyRecord = args.r === true || args.record === true;
     const isWindows =
         platform().includes("win32") || platform().includes("win64");
 
@@ -105,21 +132,25 @@ async function main() {
         //加载配置
         const config = await loadConfig(path);
         const record =
-            config.record || isOnlyRecord ? await loadRecord(path) : undefined;
+            config.record || onlyRecord ? await loadRecord(path) : undefined;
 
         //解析定时任务
         const interval = parseInterval(config.interval || 0);
+        const lastMD5 = "";
+        //上下文
+        const context = { config, record, onlyRecord, lastMD5 };
+
         if (interval) {
-            successLog(`start interval task, interval:${config.interval}`);
-            task(config, record, isOnlyRecord);
-            setInterval(() => {
-                successLog(`start interval task, interval:${config.interval}`);
-                task(config, record, isOnlyRecord);
+            successLog(`start interval task, interval: ${config.interval}`);
+            context.lastMD5 = await task(context);
+            setInterval(async () => {
+                successLog(`start interval task, interval: ${config.interval}`);
+                context.lastMD5 = await task(context);
             }, interval);
         } else {
             console.time("task");
             successLog("start once task");
-            task(config, record, isOnlyRecord);
+            context.lastMD5 = await task(context);
         }
         process.on("exit", () => {
             successLog("stop task");
