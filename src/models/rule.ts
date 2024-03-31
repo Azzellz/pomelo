@@ -12,20 +12,25 @@ export interface Rule {
 }
 
 export type RuleMap = {
-    [name in string]: RuleJSON;
+    [name in string]: RuleUnit;
 };
 
 export interface RegExpOption {
     expr: string;
     flag: string;
 }
-export interface RuleJSON {
+export interface RuleUnit {
     option: DownloadOption;
     accept: RuleHandlerOption;
     reject: RuleHandlerOption;
 }
 
-export type RuleHandlerOption = RegExpOption[][] | string[][] | PomeloHandler;
+export type RuleHandlerOption =
+    | RegExpOption[][]
+    | string[][]
+    | string
+    | RegExpOption
+    | PomeloHandler;
 
 export interface DownloadOption {
     dir: string;

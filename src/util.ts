@@ -1,6 +1,7 @@
 import { SupportRSSItem, type SupportRSS } from "./models/common-rss";
 import { MikanamiItem, type MikanamiRSS } from "./models/mikanami-rss";
 import { NyaaItem, NyaaRSS } from "./models/nyaa-rss";
+import { RegExpOption, RuleHandlerOption } from "./models/rule";
 import { ShareAcgnxItem, ShareAcgnxRSS } from "./models/shareAcgnx-rss";
 
 export function isMikananiRSS(rss: SupportRSS): rss is MikanamiRSS {
@@ -27,6 +28,12 @@ export function isNyaaRSS(rss: SupportRSS): rss is NyaaRSS {
 
 export function isNyaaRSSItem(item: SupportRSSItem): item is NyaaItem {
     return item.link[0].includes("nyaa");
+}
+
+export function isRegExpOption(opt: RuleHandlerOption): opt is RegExpOption {
+    const _tmp = opt as RegExpOption;
+    if (!_tmp) return false;
+    return !!_tmp.expr && !!_tmp.flag;
 }
 
 export function getUrlFromRSSItem(item: SupportRSSItem): string {

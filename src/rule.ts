@@ -5,14 +5,16 @@ import { Config } from "./models/config";
 import { PomeloRecord } from "./models/record";
 import type {
     Rule,
-    RuleJSON,
+    RuleUnit,
     RuleHandlerOption,
     PomeloHandler,
+    RegExpOption,
 } from "./models/rule";
 import {
     getUrlFromRSSItem,
     isMikananiRSS,
     isNyaaRSS,
+    isRegExpOption,
     isShareAcgnxRSS,
 } from "./util";
 
@@ -64,27 +66,37 @@ export function matchRule(
     return false;
 }
 
-function createHandlerByOptions(optss: RuleHandlerOption): PomeloHandler {
+function createHandlerByOptions(
+    optss: RuleHandlerOption
+): PomeloHandler | undefined {
     if (typeof optss === "function") {
         return (content: string) => optss(content);
+    } else if (typeof optss === "string") {
+        return (content: string) => new RegExp(optss, "i").test(content);
+    } else if (isRegExpOption(optss)) {
+        return (content: string) =>
+            new RegExp(optss.expr, optss.flag).test(content);
     } else {
-        //TODO 这里可以支持更多的模式
-        return (content: string) => {
-            return optss.some((opts) => {
-                return opts.every((opt) =>
-                    typeof opt === "string"
-                        ? new RegExp(opt, "i").test(content)
-                        : new RegExp(opt.expr, opt.flag).test(content)
-                );
-            });
-        };
+        if (!optss) {
+            return void 0;
+        } else {
+            return (content: string) => {
+                return optss.some((opts) => {
+                    return opts.every((opt) =>
+                        typeof opt === "string"
+                            ? new RegExp(opt, "i").test(content)
+                            : new RegExp(opt.expr, opt.flag).test(content)
+                    );
+                });
+            };
+        }
     }
 }
 
 export function createRule(
     config: Config,
     ruleName: string,
-    ruleJSON: RuleJSON,
+    ruleJSON: RuleUnit,
     onlyRecord: boolean = false
 ): Rule {
     return {
@@ -92,21 +104,24 @@ export function createRule(
         option: ruleJSON.option,
         accept: createHandlerByOptions(ruleJSON.accept),
         reject: createHandlerByOptions(ruleJSON.reject),
+        //accept匹配时的回调
         async onAccepted(item, record) {
             //记录
             let recordItem: () => void = () => {};
             const content = item.title[0];
-            if (config.record?.expire && record) {
+            if (config.record && record) {
                 const recordUnit = record.accepted[content];
                 const secondStamp = Math.floor(Date.now() / 1000);
                 //判断是否存在记录
                 if (recordUnit) {
-                    if (recordUnit.expired > secondStamp) {
+                    if (
+                        !recordUnit.expired ||
+                        recordUnit.expired > secondStamp
+                    ) {
                         //说明没过期,直接退出
-                        warnLog(
+                        return warnLog(
                             `checked [record]: ${content} when accepted, download request will be skipped.`
                         );
-                        return;
                     } else {
                         //记录过期,记录新缓存
                         recordItem = () => {
@@ -124,7 +139,9 @@ export function createRule(
                     };
                 }
             }
+            //打印接受日志
             successLog(`accept ${content} by [rule]: ${ruleName}`);
+
             try {
                 //判断是否仅需要记录
                 if (!onlyRecord) {
@@ -142,6 +159,7 @@ export function createRule(
                 );
             }
         },
+        //reject匹配时的回调
         onRejected(item, record) {
             //记录
             let recordItem: () => void = () => {};
@@ -151,12 +169,14 @@ export function createRule(
                 const secondStamp = Math.floor(Date.now() / 1000);
                 //判断是否存在记录
                 if (recordUnit) {
-                    if (recordUnit.expired > secondStamp) {
+                    if (
+                        !recordUnit.expired ||
+                        recordUnit.expired > secondStamp
+                    ) {
                         //说明没过期,直接退出
-                        warnLog(
+                        return warnLog(
                             `checked [record]: ${content} when rejected, download request will be skipped.`
                         );
-                        return;
                     } else {
                         //记录过期,记录新缓存
                         recordItem = () => {

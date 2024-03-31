@@ -4,5 +4,5 @@ export interface PomeloRecord {
 }
 
 interface RecordUnit {
-    expired: number;
+    expired?: number | false;
 }

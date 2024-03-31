@@ -104,9 +104,9 @@ async function main() {
     try {
         //加载配置
         const config = await loadConfig(path);
-        const record = config.record?.expire
-            ? await loadRecord(path)
-            : undefined;
+        const record =
+            config.record || isOnlyRecord ? await loadRecord(path) : undefined;
+
         //解析定时任务
         const interval = parseInterval(config.interval || 0);
         if (interval) {
@@ -122,6 +122,7 @@ async function main() {
         process.on("exit", () => {
             successLog("stop task");
             console.timeEnd("task");
+            if (!record) return;
             try {
                 writeFileSync(
                     join(path + "/__record.json"),
