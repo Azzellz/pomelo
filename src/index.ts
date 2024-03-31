@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "fs/promises";
+import { readFile } from "fs/promises";
 import { existsSync, writeFileSync } from "fs";
 import { createRule, processRSS } from "./rule";
 import { getRSS } from "./api";
@@ -8,7 +8,8 @@ import { load as loadYaml } from "js-yaml";
 import minimist from "minimist";
 import { PomeloRecord } from "./models/record";
 import { errorLog, successLog } from "./log";
-import { resolve, join } from "path";
+import { resolve, join, relative } from "path";
+import { platform } from "os";
 
 //加载配置文件,支持四种
 async function loadConfig(path: string): Promise<Config> {
@@ -89,8 +90,11 @@ async function main() {
     //解析命令行参数
     const args = minimist(process.argv.slice(2));
     const dir = args.d === true ? "./" : args.d || "./";
-    //路径参数
-    const path = resolve(__dirname, dir);
+    const isWindows =
+        platform().includes("win32") || platform().includes("win64");
+
+    //路径:要区分平台
+    const path = isWindows ? relative(__dirname, dir) : resolve(__dirname, dir);
 
     try {
         //加载配置
