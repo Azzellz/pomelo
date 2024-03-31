@@ -126,7 +126,9 @@ export function createRule(
                         //记录过期,记录新缓存
                         recordItem = () => {
                             record.accepted[content] = {
-                                expired: config.record!.expire + secondStamp,
+                                expired: config.record?.expire
+                                    ? config.record.expire + secondStamp
+                                    : false,
                             };
                         };
                     }
@@ -134,7 +136,9 @@ export function createRule(
                     //没有缓存记录,则记录缓存
                     recordItem = () => {
                         record.accepted[content] = {
-                            expired: config.record!.expire + secondStamp,
+                            expired: config.record?.expire
+                                ? config.record.expire + secondStamp
+                                : false,
                         };
                     };
                 }
@@ -181,7 +185,9 @@ export function createRule(
                         //记录过期,记录新缓存
                         recordItem = () => {
                             record.rejected[content] = {
-                                expired: config.record!.expire + secondStamp,
+                                expired: config.record?.expire
+                                    ? config.record.expire + secondStamp
+                                    : false,
                             };
                         };
                     }
@@ -189,7 +195,9 @@ export function createRule(
                     //没有缓存记录,则记录缓存
                     recordItem = () => {
                         record.rejected[content] = {
-                            expired: config.record!.expire + secondStamp,
+                            expired: config.record?.expire
+                                ? config.record.expire + secondStamp
+                                : false,
                         };
                     };
                 }
