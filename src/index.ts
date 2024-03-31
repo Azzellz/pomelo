@@ -8,7 +8,7 @@ import { load as loadYaml } from "js-yaml";
 import minimist from "minimist";
 import { PomeloRecord } from "./models/record";
 import { errorLog, successLog } from "./log";
-import { relative, resolve, join } from "path";
+import { resolve, join } from "path";
 
 //加载配置文件,支持四种
 async function loadConfig(path: string): Promise<Config> {
@@ -38,14 +38,15 @@ async function loadConfig(path: string): Promise<Config> {
         ) as Config;
         return config;
     } else {
-        throw "failed to find pomelo.config.ts/pomelo.json/pomelo.yaml/pomelo.yml, please use -d to specify the path of the dir to the configuration file.";
+        throw `failed to find pomelo.config.ts/pomelo.json/pomelo.yaml/pomelo.yml from ${path}, please use -d to specify the path of the dir to the configuration file.`;
     }
 }
 
 //加载记录文件
 async function loadRecord(path: string): Promise<PomeloRecord> {
-    if (existsSync(`${path}/__record.json`)) {
-        const record = (await import(`${path}/__record.json`)).default;
+    const recordPath = path + "/__record.json";
+    if (existsSync(recordPath)) {
+        const record = (await import(recordPath)).default;
         return {
             accepted: {},
             rejected: {},
@@ -87,17 +88,15 @@ async function task(config: Config, record?: PomeloRecord) {
 async function main() {
     //解析命令行参数
     const args = minimist(process.argv.slice(2));
-    const _path = args.d || args.dir || "./";
-    const relativePath = relative(__dirname, _path);
-    const resolvePath = resolve(__dirname, _path);
-
-    //任务计时
+    const dir = args.d === true ? "./" : args.d || "./";
+    //路径参数
+    const path = resolve(__dirname, dir);
 
     try {
         //加载配置
-        const config = await loadConfig(relativePath);
+        const config = await loadConfig(path);
         const record = config.record?.expire
-            ? await loadRecord(relativePath)
+            ? await loadRecord(path)
             : undefined;
         //解析定时任务
         const interval = parseInterval(config.interval || 0);
@@ -113,10 +112,10 @@ async function main() {
         }
         process.on("exit", () => {
             successLog("stop task");
-            console.timeEnd("task")
+            console.timeEnd("task");
             try {
                 writeFileSync(
-                    join(resolvePath + "/__record.json"),
+                    join(path + "/__record.json"),
                     JSON.stringify(record)
                 );
             } catch (error) {
