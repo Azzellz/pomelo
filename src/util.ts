@@ -50,14 +50,14 @@ export function getUrlFromRSSItem(item: SupportRSSItem): string {
 
 export function parseInterval(format: string | number): number {
     if (typeof format === "number") {
-        return format;
+        return format * 1000;
     }
 
-    const second = 60;
+    const second = 1000;
     const minute = second * 60;
     const hour = minute * 60;
     const day = hour * 24;
-    const value = parseInt(format.slice(format.length - 1));
+    const value = parseInt(format.slice(0, format.length - 1));
     const unit = format[format.length - 1] as "s" | "m" | "h" | "d";
     switch (unit) {
         case "s":

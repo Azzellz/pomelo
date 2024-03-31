@@ -110,6 +110,8 @@ async function main() {
         //解析定时任务
         const interval = parseInterval(config.interval || 0);
         if (interval) {
+            successLog(`start interval task, interval:${config.interval}`);
+            task(config, record, isOnlyRecord);
             setInterval(() => {
                 successLog(`start interval task, interval:${config.interval}`);
                 task(config, record, isOnlyRecord);

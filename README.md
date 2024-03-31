@@ -9,6 +9,10 @@
 2. [share.acgnx](https://share.acgnx.se/)
 3. [nyaa](https://nyaa.si/)
 
+# 快速开始
+
+1. 直接使用 release 的二进制文件
+
 # 配置文件
 
 pomelo 支持 4 种配置文件:
@@ -28,7 +32,7 @@ pomelo 支持 4 种配置文件:
 
 ```typescript
 export default {
-    interval: 0, //定时任务间隔,为0或者不写则以一次性任务进行
+    interval: 0, //定时任务间隔,为0或者不写则以一次性任务进行,单位为秒
     rss: {
         //rss配置
         uri: "https://mikanani.me/RSS/Classic", //默认rss源,当rule没有指定源时使用该源
@@ -89,6 +93,8 @@ export default {
 
 ```yaml
 interval: 0
+record:
+    expire: 3600
 rss:
     uri: https://mikanani.me/RSS/Classic
 aria2:
