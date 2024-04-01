@@ -81,7 +81,7 @@ async function task({
         let rss = await getRSS(config.rss);
         //检查md5,如果两次相同就不更新了
         const md5 = createHash("md5").update(JSON.stringify(rss)).digest("hex");
-        if (lastMD5 === md5) {
+        if (lastMD5 && lastMD5 === md5) {
             warnLog("rss resource has not been updated, skip this task.");
             return md5;
         }
