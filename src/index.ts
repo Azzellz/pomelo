@@ -89,7 +89,15 @@ async function task({
         //遍历规则集
         //#region
         Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
-            const rule = createRule(config, ruleName, ruleJSON, onlyRecord);
+            const context = {
+                config,
+                ruleUnit: {
+                    ...ruleJSON,
+                    name: ruleName,
+                },
+                onlyRecord,
+            };
+            const rule = createRule(context);
             //1.getRSS
             try {
                 //针对每个规则的uri

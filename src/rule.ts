@@ -93,17 +93,22 @@ function createHandlerByOptions(
     }
 }
 
-export function createRule(
-    config: Config,
-    ruleName: string,
-    ruleJSON: RuleUnit,
-    onlyRecord: boolean = false
-): Rule {
+export function createRule({
+    config,
+    ruleUnit,
+    onlyRecord = false,
+}: {
+    config: Config;
+    ruleUnit: {
+        name: string;
+    } & RuleUnit;
+    onlyRecord: boolean;
+}): Rule {
     return {
-        name: ruleName,
-        option: ruleJSON.option,
-        accept: createHandlerByOptions(ruleJSON.accept),
-        reject: createHandlerByOptions(ruleJSON.reject),
+        name: ruleUnit.name,
+        option: ruleUnit.option,
+        accept: createHandlerByOptions(ruleUnit.accept),
+        reject: createHandlerByOptions(ruleUnit.reject),
         //accept匹配时的回调
         async onAccepted(item, record) {
             //记录
@@ -145,7 +150,7 @@ export function createRule(
                 }
             }
             //打印接受日志
-            successLog(`accept ${content} by [rule]: ${ruleName}`);
+            successLog(`accept ${content} by [rule]: ${ruleUnit.name}`);
 
             try {
                 //判断是否仅需要记录
@@ -203,7 +208,7 @@ export function createRule(
                     };
                 }
             }
-            successLog(`reject ${content} by [rule]: ${ruleName}`);
+            successLog(`reject ${content} by [rule]: ${ruleUnit.name}`);
             recordItem();
         },
     };
