@@ -8,46 +8,58 @@ import { PomeloRecord } from "./models/record";
 import { errorLog, successLog, warnLog } from "./log";
 import { resolve, join } from "node:path";
 import { createHash } from "node:crypto";
+import { RuleContext, TaskContext } from "./models/context";
 
 async function task({
     config,
     record,
     onlyRecord = false,
     lastMD5,
-}: {
-    config: Config;
-    record?: PomeloRecord;
-    onlyRecord?: boolean;
-    lastMD5: string; //上一份rss的md5
-}): Promise<string> {
+    intervalTimeCount,
+}: TaskContext): Promise<string> {
     try {
+        //获取RSS并且记录耗时
+        successLog("getting rss resources from " + config.rss.uri);
+        console.time("1.get rss");
         let rss = await getRSS(config.rss);
+        console.timeEnd("1.get rss");
+
         //检查md5,如果两次相同就不更新了
         const md5 = createHash("md5").update(JSON.stringify(rss)).digest("hex");
         if (lastMD5 && lastMD5 === md5) {
             warnLog("rss resource has not been updated, skip this task.");
+            intervalTimeCount && intervalTimeCount();
             return md5;
         }
 
         //遍历规则集
         //#region
         Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
-            const context = {
+            const context: RuleContext = {
                 config,
                 ruleUnit: {
                     ...ruleJSON,
                     name: ruleName,
                 },
                 onlyRecord,
+                intervalTimeCount,
             };
             const rule = createRule(context);
             //1.getRSS
             try {
                 //针对每个规则的uri
                 if (rule.option.uri && rule.option.uri !== config.rss.uri) {
+                    successLog(
+                        "getting rss resources from " +
+                            config.rss.uri +
+                            " by rule--" +
+                            rule.name
+                    );
+                    console.time("1.get rss by rule--" + rule.name);
                     rss = await getRSS({
                         uri: rule.option.uri,
                     });
+                    console.timeEnd("1.get rss by rule--" + rule.name);
                 }
             } catch (error) {
                 errorLog(
@@ -93,7 +105,7 @@ async function main() {
         });
         process.on("exit", () => {
             successLog("stop task");
-            console.timeEnd("task");
+            console.timeEnd("all tasks");
             if (!record) return;
             try {
                 writeFileSync(
@@ -139,19 +151,40 @@ async function main() {
         //#endregion
 
         //解析定时任务
+        //#region
         const interval = parseInterval(config.interval || 0);
+        const intervalTimeCount = (id: number) => {
+            console.time("interval task--" + id);
+            return () => console.timeEnd("interval task--" + id);
+        };
+        //#endregion
+
         //上下文
-        const context = { config, record, onlyRecord, lastMD5: "" };
+        const context: TaskContext = {
+            config,
+            record,
+            onlyRecord,
+            lastMD5: "",
+            intervalTimeCount: void 0,
+        };
 
         if (interval) {
-            successLog(`start interval task, interval: ${config.interval}`);
+            let id = 0;
+            successLog(
+                `start interval task, interval: ${config.interval}, current: ${id}`
+            );
+            context.intervalTimeCount = intervalTimeCount(id++);
             context.lastMD5 = await task(context);
+
             setInterval(async () => {
-                successLog(`start interval task, interval: ${config.interval}`);
+                successLog(
+                    `start interval task, interval: ${config.interval}, current: ${id}`
+                );
+                context.intervalTimeCount = intervalTimeCount(id++);
                 context.lastMD5 = await task(context);
             }, interval);
         } else {
-            console.time("task");
+            console.time("all tasks");
             successLog("start once task");
             context.lastMD5 = await task(context);
         }

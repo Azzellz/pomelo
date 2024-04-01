@@ -2,6 +2,7 @@ import { postDownloadRequest } from "./api";
 import { errorLog, successLog, warnLog } from "./log";
 import { SupportRSS, SupportRSSItem } from "./models/common-rss";
 import { Config } from "./models/config";
+import { RuleContext } from "./models/context";
 import { PomeloRecord } from "./models/record";
 import type {
     Rule,
@@ -40,6 +41,7 @@ export function processRSS(rss: SupportRSS, rule: Rule, record?: PomeloRecord) {
     } else {
         throw "unsupported RSS feeds, please replace them with supported RSS feeds.";
     }
+    rule.onMatchEnd && rule.onMatchEnd();
 }
 
 export function matchRule(
@@ -96,13 +98,9 @@ export function createRule({
     config,
     ruleUnit,
     onlyRecord = false,
-}: {
-    config: Config;
-    ruleUnit: {
-        name: string;
-    } & RuleUnit;
-    onlyRecord: boolean;
-}): Rule {
+    intervalTimeCount,
+}: RuleContext): Rule {
+    console.time("2.match rule--" + ruleUnit.name);
     return {
         name: ruleUnit.name,
         option: ruleUnit.option,
@@ -150,16 +148,18 @@ export function createRule({
             }
             //打印接受日志
             successLog(`accept ${content} by [rule]: ${ruleUnit.name}`);
-
+            console.timeEnd("2.match rule--" + ruleUnit.name);
             try {
                 //判断是否仅需要记录
                 if (!onlyRecord) {
+                    console.time("3.postDownload");
                     await postDownloadRequest(
                         config,
                         getUrlFromRSSItem(item),
                         this.option,
                         this.name
                     );
+                    console.timeEnd("3.postDownload");
                 }
                 recordItem();
             } catch (error) {
@@ -209,6 +209,11 @@ export function createRule({
             }
             successLog(`reject ${content} by [rule]: ${ruleUnit.name}`);
             recordItem();
+        },
+        //结束匹配时调用
+        onMatchEnd() {
+            console.timeEnd("2.match rule--" + ruleUnit.name);
+            intervalTimeCount && intervalTimeCount();
         },
     };
 }

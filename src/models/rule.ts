@@ -9,6 +9,7 @@ export interface Rule {
     reject?: PomeloHandler;
     onAccepted?: (item: SupportRSSItem, record?: PomeloRecord) => void;
     onRejected?: (item: SupportRSSItem, record?: PomeloRecord) => void;
+    onMatchEnd?: () => void;
 }
 
 export type RuleMap = {
