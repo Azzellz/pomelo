@@ -122,12 +122,8 @@ async function main() {
     const args = minimist(process.argv.slice(2));
     const dir = args.d === true ? "./" : args.d || "./";
     const onlyRecord = args.r === true || args.record === true;
-    const isWindows =
-        platform().includes("win32") || platform().includes("win64");
-
     //路径:要区分平台
-    const path = isWindows ? relative(__dirname, dir) : resolve(__dirname, dir);
-
+    const path = resolve(dir);
     try {
         //加载配置
         const config = await loadConfig(path);
