@@ -114,6 +114,7 @@ export function createRule(
                 const secondStamp = Math.floor(Date.now() / 1000);
                 //判断是否存在记录
                 if (recordUnit) {
+                    //判断过期
                     if (
                         !recordUnit.expired ||
                         recordUnit.expired > secondStamp

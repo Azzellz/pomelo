@@ -3,6 +3,6 @@ export interface PomeloRecord {
     rejected: Record<string, RecordUnit | undefined>;
 }
 
-interface RecordUnit {
+export interface RecordUnit {
     expired?: number | false;
 }

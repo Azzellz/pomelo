@@ -6,11 +6,10 @@ import { Config } from "./models/config";
 import { parseInterval } from "./util";
 import { load as loadYaml } from "js-yaml";
 import minimist from "minimist";
-import { PomeloRecord } from "./models/record";
+import { PomeloRecord, RecordUnit } from "./models/record";
 import { errorLog, successLog, warnLog } from "./log";
-import { resolve, join, relative } from "path";
-import { platform } from "os";
-import { createHash } from "crypto";
+import { resolve, join } from "node:path";
+import { createHash } from "node:crypto";
 
 //loader
 //#region
@@ -82,11 +81,13 @@ async function task({
         let rss = await getRSS(config.rss);
         //检查md5,如果两次相同就不更新了
         const md5 = createHash("md5").update(JSON.stringify(rss)).digest("hex");
-        if (lastMD5 && lastMD5 === md5) {
+        if (lastMD5 === md5) {
             warnLog("rss resource has not been updated, skip this task.");
             return md5;
         }
+
         //遍历规则集
+        //#region
         Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
             const rule = createRule(config, ruleName, ruleJSON, onlyRecord);
             //1.getRSS
@@ -115,6 +116,8 @@ async function task({
     } catch (error) {
         return "";
     }
+
+    //#endregion
 }
 
 async function main() {
@@ -127,14 +130,45 @@ async function main() {
     try {
         //加载配置
         const config = await loadConfig(path);
-        const record =
+        let record =
             config.record || onlyRecord ? await loadRecord(path) : undefined;
+
+        //第一次执行时更新一次__record,删除过期的记录
+        //#region
+        if (record) {
+            const newAccepted: PomeloRecord["accepted"] = {};
+            const _accepted = Object.entries(record.accepted);
+            _accepted.forEach(([key, val]) => {
+                const secondStamp = Math.floor(Date.now() / 1000);
+                //保留没过期的RecordUnit
+                if (val?.expired && val?.expired > secondStamp) {
+                    newAccepted[key] = val;
+                }
+            });
+            const newRejected: PomeloRecord["rejected"] = {};
+            const _rejected = Object.entries(record.rejected);
+            _rejected.forEach(([key, val]) => {
+                const secondStamp = Math.floor(Date.now() / 1000);
+                //保留没过期的RecordUnit
+                if (val?.expired && val?.expired > secondStamp) {
+                    newRejected[key] = val;
+                }
+            });
+            successLog(
+                `the record was updated successfully! acceptd: ${
+                    _accepted.length
+                }--->${Object.entries(newAccepted).length} rejected: ${
+                    Object.entries(newRejected).length
+                }--->${_rejected.length}`
+            );
+            record = { accepted: newAccepted, rejected: newRejected };
+        }
+        //#endregion
 
         //解析定时任务
         const interval = parseInterval(config.interval || 0);
-        const lastMD5 = "";
         //上下文
-        const context = { config, record, onlyRecord, lastMD5 };
+        const context = { config, record, onlyRecord, lastMD5: "" };
 
         if (interval) {
             successLog(`start interval task, interval: ${config.interval}`);
