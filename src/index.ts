@@ -1,70 +1,13 @@
-import { readFile } from "fs/promises";
-import { existsSync, writeFileSync } from "fs";
+import { writeFileSync } from "fs";
 import { createRule, processRSS } from "./rule";
 import { getRSS } from "./api";
 import { Config } from "./models/config";
-import { parseInterval } from "./util";
-import { load as loadYaml } from "js-yaml";
+import { loadConfig, loadRecord, parseInterval } from "./util";
 import minimist from "minimist";
-import { PomeloRecord, RecordUnit } from "./models/record";
+import { PomeloRecord } from "./models/record";
 import { errorLog, successLog, warnLog } from "./log";
 import { resolve, join } from "node:path";
 import { createHash } from "node:crypto";
-
-//loader
-//#region
-
-//加载配置文件,支持四种
-async function loadConfig(path: string): Promise<Config> {
-    const tsConfigPath = path + "/pomelo.config.ts";
-    if (existsSync(tsConfigPath)) {
-        //这里使用默认导出
-        return (await import(tsConfigPath)).default;
-    }
-
-    const jsonConfigPath = path + "/pomelo.json";
-    if (existsSync(jsonConfigPath)) {
-        return (await import(jsonConfigPath)).default;
-    }
-
-    const yamlConfigPath = path + "/pomelo.yaml";
-    if (existsSync(yamlConfigPath)) {
-        const config = loadYaml(
-            (await readFile(yamlConfigPath)).toString()
-        ) as Config;
-        return config;
-    }
-
-    const ymlConfigPath = path + "/pomelo.yml";
-    if (existsSync(ymlConfigPath)) {
-        const config = loadYaml(
-            (await readFile(ymlConfigPath)).toString()
-        ) as Config;
-        return config;
-    } else {
-        throw `failed to find pomelo.config.ts/pomelo.json/pomelo.yaml/pomelo.yml from ${path}, please use -d to specify the path of the dir to the configuration file.`;
-    }
-}
-
-//加载记录文件
-async function loadRecord(path: string): Promise<PomeloRecord> {
-    const recordPath = path + "/__record.json";
-    if (existsSync(recordPath)) {
-        const record = (await import(recordPath)).default;
-        return {
-            accepted: {},
-            rejected: {},
-            ...record,
-        };
-    } else {
-        return {
-            accepted: {},
-            rejected: {},
-        };
-    }
-}
-
-//#endregion
 
 async function task({
     config,
@@ -124,8 +67,6 @@ async function task({
     } catch (error) {
         return "";
     }
-
-    //#endregion
 }
 
 async function main() {
@@ -140,6 +81,30 @@ async function main() {
         const config = await loadConfig(path);
         let record =
             config.record || onlyRecord ? await loadRecord(path) : undefined;
+
+        //绑定process回调
+        //#region
+        process.on("SIGINT", () => {
+            warnLog(
+                "SIGINT event is triggered, the exit event callback will be executed soon."
+            );
+            // 在这里执行清理工作
+            process.exit(); // 这会触发 exit 事件
+        });
+        process.on("exit", () => {
+            successLog("stop task");
+            console.timeEnd("task");
+            if (!record) return;
+            try {
+                writeFileSync(
+                    join(path + "/__record.json"),
+                    JSON.stringify(record)
+                );
+            } catch (error) {
+                errorLog(`error in saved record!\nerror:${error}`);
+            }
+        });
+        //#endregion
 
         //第一次执行时更新一次__record,删除过期的记录
         //#region
@@ -190,19 +155,6 @@ async function main() {
             successLog("start once task");
             context.lastMD5 = await task(context);
         }
-        process.on("exit", () => {
-            successLog("stop task");
-            console.timeEnd("task");
-            if (!record) return;
-            try {
-                writeFileSync(
-                    join(path + "/__record.json"),
-                    JSON.stringify(record)
-                );
-            } catch (error) {
-                errorLog(`error in saved record!\nerror:${error}`);
-            }
-        });
     } catch (error) {
         errorLog(error + "");
     }

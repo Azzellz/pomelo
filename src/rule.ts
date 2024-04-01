@@ -8,7 +8,6 @@ import type {
     RuleUnit,
     RuleHandlerOption,
     PomeloHandler,
-    RegExpOption,
 } from "./models/rule";
 import {
     getUrlFromRSSItem,
