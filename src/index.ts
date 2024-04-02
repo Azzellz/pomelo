@@ -8,14 +8,8 @@ import { errorLog, successLog, warnLog } from "./log";
 import { resolve, join } from "node:path";
 import { RuleContext, TaskContext } from "./models/context";
 
-async function task({
-    config,
-    record,
-    onlyRecord = false,
-    intervalTimeCount,
-    saveRecord,
-    recordItem,
-}: TaskContext) {
+async function task(context: TaskContext) {
+    const { config, record } = context;
     //获取RSS并且记录耗时
     successLog("getting rss resources from " + config.rss.uri);
     console.time("1.get rss");
@@ -25,18 +19,14 @@ async function task({
     //遍历规则集
     //#region
     Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
-        const context: RuleContext = {
-            config,
+        const _context: RuleContext = {
             ruleUnit: {
                 ...ruleJSON,
                 name: ruleName,
             },
-            onlyRecord,
-            intervalTimeCount,
-            saveRecord,
-            recordItem,
+            ...context,
         };
-        const rule = createRule(context);
+        const rule = createRule(_context);
         //1.getRSS
         try {
             //针对每个规则的uri
@@ -60,7 +50,7 @@ async function task({
         }
         //2.processing
         try {
-            processRSS(rss, rule, record);
+            await processRSS(rss, rule, record);
         } catch (error) {
             errorLog(
                 `error in [step2]: processRSS of the [rule]:${ruleName}\nerror:${error}`
@@ -196,7 +186,7 @@ async function main() {
                 );
                 context.intervalTimeCount = intervalTimeCount(id++);
                 await task(context);
-                
+                context.saveRecord(); //每次定时任务结束后都要保存一次
             }, interval);
         } else {
             console.time("all tasks");

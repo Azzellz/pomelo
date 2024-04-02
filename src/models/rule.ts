@@ -7,8 +7,8 @@ export interface Rule {
     option: DownloadOption;
     accept?: PomeloHandler;
     reject?: PomeloHandler;
-    onAccepted?: (item: SupportRSSItem, record?: PomeloRecord) => void;
-    onRejected?: (item: SupportRSSItem, record?: PomeloRecord) => void;
+    onAccepted?: (content: string, link: string, record?: PomeloRecord) => void;
+    onRejected?: (content: string, link: string, record?: PomeloRecord) => void;
     onMatchEnd?: () => void;
 }
 

@@ -1,17 +1,11 @@
 import { postDownloadRequest } from "./api";
 import { errorLog, successLog, warnLog } from "./log";
-import { SupportRSS, SupportRSSItem } from "./models/common-rss";
-import { Config } from "./models/config";
+import { SupportRSS } from "./models/common-rss";
 import { RuleContext } from "./models/context";
 import { PomeloRecord } from "./models/record";
-import type {
-    Rule,
-    RuleUnit,
-    RuleHandlerOption,
-    PomeloHandler,
-} from "./models/rule";
+import type { Rule, RuleHandlerOption, PomeloHandler } from "./models/rule";
+import { parseRSS } from "./parser";
 import {
-    getUrlFromRSSItem,
     isMikananiRSS,
     isNyaaRSS,
     isRegExpOption,
@@ -19,24 +13,14 @@ import {
 } from "./util";
 
 //根据不同的rss类型进行不同的处理
-export function processRSS(rss: SupportRSS, rule: Rule, record?: PomeloRecord) {
-    if (isMikananiRSS(rss)) {
-        rss.rss.channel.forEach((ch) => {
-            ch.item.forEach((item) => {
-                matchRule(item, rule, record);
-            });
-        });
-    } else if (isNyaaRSS(rss)) {
-        rss.rss.channel.forEach((ch) => {
-            ch.item.forEach((item) => {
-                matchRule(item, rule, record);
-            });
-        });
-    } else if (isShareAcgnxRSS(rss)) {
-        rss.rss.channel.forEach((ch) => {
-            ch.item.forEach((item) => {
-                matchRule(item, rule, record);
-            });
+export async function processRSS(
+    rss: SupportRSS,
+    rule: Rule,
+    record?: PomeloRecord
+) {
+    if (isMikananiRSS(rss) || isNyaaRSS(rss) || isShareAcgnxRSS(rss)) {
+        await parseRSS(rss, async (content, link) => {
+            await matchRule(content, link, rule, record);
         });
     } else {
         throw "unsupported RSS feeds, please replace them with supported RSS feeds.";
@@ -44,22 +28,21 @@ export function processRSS(rss: SupportRSS, rule: Rule, record?: PomeloRecord) {
     rule.onMatchEnd && rule.onMatchEnd();
 }
 
-export function matchRule(
-    item: SupportRSSItem,
+export async function matchRule(
+    content: string,
+    link: string,
     rule: Rule,
     record?: PomeloRecord
-): boolean {
-    const content = item.title[0];
-
+) {
     //先匹配拒绝条件
     if (rule.reject && rule.reject(content)) {
-        rule.onRejected && rule.onRejected(item, record);
+        rule.onRejected && (await rule.onRejected(content, link, record));
         return false;
     }
 
     //再匹配接受条件
     if (rule.accept && rule.accept(content)) {
-        rule.onAccepted && rule.onAccepted(item, record);
+        rule.onAccepted && (await rule.onAccepted(content, link, record));
         return true;
     }
 
@@ -100,6 +83,7 @@ export function createRule({
     onlyRecord = false,
     intervalTimeCount,
     recordItem,
+    record,
 }: RuleContext): Rule {
     console.time("2.match rule--" + ruleUnit.name);
     return {
@@ -108,8 +92,7 @@ export function createRule({
         accept: createHandlerByOptions(ruleUnit.accept),
         reject: createHandlerByOptions(ruleUnit.reject),
         //accept匹配时的回调
-        async onAccepted(item, record) {
-            const content = item.title[0];
+        async onAccepted(content, link) {
             if (config.record && record) {
                 const recordUnit = record.accepted[content];
                 const secondStamp = Math.floor(Date.now() / 1000);
@@ -136,7 +119,7 @@ export function createRule({
                     console.time("3.postDownload");
                     await postDownloadRequest(
                         config,
-                        getUrlFromRSSItem(item),
+                        link,
                         this.option,
                         this.name
                     );
@@ -150,8 +133,7 @@ export function createRule({
             }
         },
         //reject匹配时的回调
-        onRejected(item, record) {
-            const content = item.title[0];
+        onRejected(content) {
             if (config.record?.expire && record) {
                 const recordUnit = record.rejected[content];
                 const secondStamp = Math.floor(Date.now() / 1000);

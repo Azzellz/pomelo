@@ -57,6 +57,18 @@ export function getUrlFromRSSItem(item: SupportRSSItem): string {
     }
 }
 
+export function getTitleFromRSSItem(item: SupportRSSItem): string {
+    if (isMikananiRSSItem(item)) {
+        return item.title[0];
+    } else if (isShareAcgnxRSSItem(item)) {
+        return item.title[0];
+    } else if (isNyaaRSSItem(item)) {
+        return item.title[0];
+    } else {
+        throw "Wrong RSSItem";
+    }
+}
+
 export function parseInterval(format: string | number): number {
     if (typeof format === "number") {
         return format * 1000;
