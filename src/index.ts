@@ -1,6 +1,6 @@
 import { writeFileSync } from "fs";
-import { createRule, processRSS } from "./rule";
-import { getRSS } from "./api";
+import { createRule, processResource } from "./rule";
+import { getResource } from "./api";
 import { loadConfig, loadRecord, parseInterval } from "./util";
 import minimist from "minimist";
 import { PomeloRecord } from "./models/record";
@@ -10,10 +10,11 @@ import { RuleContext, TaskContext } from "./models/context";
 
 async function task(context: TaskContext) {
     const { config, record } = context;
+
     //获取RSS并且记录耗时
-    successLog("getting rss resources from " + config.rss.uri);
+    successLog("getting rss resources from " + config.resource.url);
     console.time("1.get rss");
-    let rss = await getRSS(config.rss);
+    let resource = await getResource(config.resource);
     console.timeEnd("1.get rss");
 
     //遍历规则集
@@ -27,20 +28,22 @@ async function task(context: TaskContext) {
             ...context,
         };
         const rule = createRule(_context);
-        //1.getRSS
+        //1.getResource
         try {
-            //针对每个规则的uri
-            if (rule.option.uri && rule.option.uri !== config.rss.uri) {
+            //针对每个规则
+            if (
+                rule.resource &&
+                rule.resource.url &&
+                rule.resource.url !== config.resource.url
+            ) {
                 successLog(
                     "getting rss resources from " +
-                        config.rss.uri +
+                        config.resource.url +
                         " by rule--" +
                         rule.name
                 );
                 console.time("1.get rss by rule--" + rule.name);
-                rss = await getRSS({
-                    uri: rule.option.uri,
-                });
+                resource = await getResource(rule.resource);
                 console.timeEnd("1.get rss by rule--" + rule.name);
             }
         } catch (error) {
@@ -50,7 +53,7 @@ async function task(context: TaskContext) {
         }
         //2.processing
         try {
-            await processRSS(rss, rule, record);
+            await processResource(config, resource, rule, record);
         } catch (error) {
             errorLog(
                 `error in [step2]: processRSS of the [rule]:${ruleName}\nerror:${error}`
@@ -60,17 +63,21 @@ async function task(context: TaskContext) {
 }
 
 async function main() {
-    //解析命令行参数
-    const args = minimist(process.argv.slice(2));
-    const dir = args.d === true ? "./" : args.d || "./";
-    const onlyRecord = args.r === true || args.record === true;
-    //路径:要区分平台
-    const path = resolve(dir);
     try {
-        //加载配置
+        //解析命令行参数
+        //#region
+        const args = minimist(process.argv.slice(2));
+        const dir = args.d === true ? "./" : args.d || "./";
+        const onlyRecord = args.r === true || args.record === true;
+        const path = resolve(dir);
+        //#endregion
+
+        //加载配置和记录
+        //#region
         const config = await loadConfig(path);
         let record =
             config.record || onlyRecord ? await loadRecord(path) : undefined;
+        //#endregion
 
         //第一次执行时更新一次__record,删除过期的记录
         //#region
@@ -138,7 +145,8 @@ async function main() {
         };
         //#endregion
 
-        //上下文
+        //封装对象上下文
+        //#region
         const context: TaskContext = {
             config,
             record,
@@ -147,6 +155,7 @@ async function main() {
             saveRecord,
             recordItem,
         };
+        //#endregion
 
         //绑定process回调
         //#region

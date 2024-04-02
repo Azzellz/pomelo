@@ -11,16 +11,24 @@ import { load as loadYaml } from "js-yaml";
 
 //类型守卫
 //#region
-export function isMikananiRSS(rss: SupportRSS): rss is MikanamiRSS {
-    return rss.rss.channel[0].link[0].includes("mikanani");
+export function isMikananiRSS(target: any): target is MikanamiRSS {
+    try {
+        return target.rss.channel[0].link[0].includes("mikanani");
+    } catch (error) {
+        return false;
+    }
 }
 
 export function isMikananiRSSItem(item: SupportRSSItem): item is MikanamiItem {
     return item.link[0].includes("mikanani");
 }
 
-export function isShareAcgnxRSS(rss: SupportRSS): rss is ShareAcgnxRSS {
-    return rss.rss.channel[0].link[0].includes("share.acgnx");
+export function isShareAcgnxRSS(target: any): target is ShareAcgnxRSS {
+    try {
+        return target.rss.channel[0].link[0].includes("share.acgnx");
+    } catch (error) {
+        return false;
+    }
 }
 
 export function isShareAcgnxRSSItem(
@@ -29,8 +37,12 @@ export function isShareAcgnxRSSItem(
     return item.link[0].includes("share.acgnx");
 }
 
-export function isNyaaRSS(rss: SupportRSS): rss is NyaaRSS {
-    return rss.rss.channel[0].link[0].includes("nyaa");
+export function isNyaaRSS(target: any): target is NyaaRSS {
+    try {
+        return target.rss.channel[0].link[0].includes("nyaa");
+    } catch (error) {
+        return false;
+    }
 }
 
 export function isNyaaRSSItem(item: SupportRSSItem): item is NyaaItem {

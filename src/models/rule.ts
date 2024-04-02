@@ -1,9 +1,10 @@
-import { SupportRSSUrl, type SupportRSSItem } from "./common-rss";
+import { Config } from "./config";
 import { PomeloRecord } from "./record";
 
 export type PomeloHandler = (content: string) => boolean;
 export interface Rule {
     name: string;
+    resource?: Config["resource"];
     option: DownloadOption;
     accept?: PomeloHandler;
     reject?: PomeloHandler;
@@ -22,6 +23,7 @@ export interface RegExpOption {
 }
 export interface RuleUnit {
     option: DownloadOption;
+    resource: Config["resource"];
     accept: RuleHandlerOption;
     reject: RuleHandlerOption;
 }
@@ -33,10 +35,9 @@ export type RuleHandlerOption =
     | RegExpOption
     | PomeloHandler;
 
-export interface DownloadOption {
+export type DownloadOption = {
     dir: string;
-    uri?: SupportRSSUrl;
     host?: string;
     port?: string;
     token?: string;
-}
+};

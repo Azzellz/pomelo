@@ -1,6 +1,6 @@
 import { postDownloadRequest } from "./api";
 import { errorLog, successLog, warnLog } from "./log";
-import { SupportRSS } from "./models/common-rss";
+import { Config } from "./models/config";
 import { RuleContext } from "./models/context";
 import { PomeloRecord } from "./models/record";
 import type { Rule, RuleHandlerOption, PomeloHandler } from "./models/rule";
@@ -13,17 +13,47 @@ import {
 } from "./util";
 
 //根据不同的rss类型进行不同的处理
-export async function processRSS(
-    rss: SupportRSS,
+export async function processResource(
+    config: Config,
+    resource: any,
     rule: Rule,
     record?: PomeloRecord
 ) {
-    if (isMikananiRSS(rss) || isNyaaRSS(rss) || isShareAcgnxRSS(rss)) {
-        await parseRSS(rss, async (content, link) => {
+    //优先使用rule的resource选项
+    const _resource = rule.resource ? rule.resource : config.resource;
+    //处理RSS
+    if (
+        _resource.type === "rss-mikanani" ||
+        _resource.type === "rss-nyaa" ||
+        _resource.type === "rss-share-acgnx"
+    ) {
+        if (
+            isMikananiRSS(resource) ||
+            isNyaaRSS(resource) ||
+            isShareAcgnxRSS(resource)
+        ) {
+            if (_resource.parser) {
+                await _resource.parser(resource, async (content, link) => {
+                    await matchRule(content, link, rule, record);
+                });
+            } else {
+                await parseRSS(resource, async (content, link) => {
+                    await matchRule(content, link, rule, record);
+                });
+            }
+        } else {
+            throw "unsupported RSS feeds, please replace them with supported RSS feeds.";
+        }
+    } else if (
+        _resource.type === "other" &&
+        typeof _resource.parser === "function"
+    ) {
+        //自定义解析
+        await _resource.parser(resource, async (content, link) => {
             await matchRule(content, link, rule, record);
         });
     } else {
-        throw "unsupported RSS feeds, please replace them with supported RSS feeds.";
+        throw "please input right resource type! support type: rss-mikanani/rss-nyaa/rss-share-acgnx/other(need parser)";
     }
     rule.onMatchEnd && rule.onMatchEnd();
 }
@@ -89,6 +119,7 @@ export function createRule({
     return {
         name: ruleUnit.name,
         option: ruleUnit.option,
+        resource: ruleUnit.resource,
         accept: createHandlerByOptions(ruleUnit.accept),
         reject: createHandlerByOptions(ruleUnit.reject),
         //accept匹配时的回调

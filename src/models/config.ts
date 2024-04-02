@@ -1,4 +1,3 @@
-import { SupportRSSUrl } from "./common-rss";
 import { RuleMap } from "./rule";
 
 export interface Config {
@@ -6,8 +5,13 @@ export interface Config {
     record?: {
         expire: number;
     };
-    rss: {
-        uri: SupportRSSUrl;
+    resource: {
+        type: "rss-mikanani" | "rss-nyaa" | "rss-share-acgnx" | "other";
+        url: string;
+        parser?: (
+            target: object,
+            handler: (content: string, link: string) => void
+        ) => void;
     };
     aria2: {
         host: string;
