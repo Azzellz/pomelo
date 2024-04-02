@@ -94,15 +94,22 @@ async function main() {
         let record =
             config.record || onlyRecord ? await loadRecord(path) : undefined;
 
+        
         //绑定process回调
         //#region
-        process.on("SIGINT", () => {
+        //中断信号处理
+        const interuptHandler = () => {
             warnLog(
                 "SIGINT event is triggered, the exit event callback will be executed soon."
             );
             // 在这里执行清理工作
             process.exit(); // 这会触发 exit 事件
-        });
+        };
+        process.on("SIGTERM", interuptHandler);
+        process.on("SIGINT", interuptHandler);
+        process.on("SIGABRT", interuptHandler);
+        process.on("SIGQUIT", interuptHandler);
+        process.on("SIGKILL", interuptHandler);
         process.on("exit", () => {
             successLog("stop task");
             console.timeEnd("all tasks");
