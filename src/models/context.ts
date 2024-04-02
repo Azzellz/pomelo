@@ -3,17 +3,19 @@ import { PomeloRecord } from "./record";
 import { RuleUnit } from "./rule";
 
 export type TaskContext = {
-    config: Config;
     record?: PomeloRecord;
-    onlyRecord?: boolean;
-    intervalTimeCount?: () => void;
-};
+} & CommonContext;
 
 export type RuleContext = {
-    config: Config;
     ruleUnit: {
         name: string;
     } & RuleUnit;
+} & CommonContext;
+
+type CommonContext = {
+    config: Config;
     onlyRecord: boolean;
     intervalTimeCount?: () => void;
+    saveRecord: () => void;
+    recordItem: (key: keyof PomeloRecord, content: string) => void;
 };

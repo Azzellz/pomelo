@@ -13,6 +13,8 @@ async function task({
     record,
     onlyRecord = false,
     intervalTimeCount,
+    saveRecord,
+    recordItem,
 }: TaskContext) {
     //获取RSS并且记录耗时
     successLog("getting rss resources from " + config.rss.uri);
@@ -31,6 +33,8 @@ async function task({
             },
             onlyRecord,
             intervalTimeCount,
+            saveRecord,
+            recordItem,
         };
         const rule = createRule(context);
         //1.getRSS
@@ -78,36 +82,6 @@ async function main() {
         let record =
             config.record || onlyRecord ? await loadRecord(path) : undefined;
 
-        //绑定process回调
-        //#region
-        //中断信号处理
-        const interuptHandler = () => {
-            warnLog(
-                "SIGINT event is triggered, the exit event callback will be executed soon."
-            );
-            // 在这里执行清理工作
-            process.exit(); // 这会触发 exit 事件
-        };
-        process.on("SIGTERM", interuptHandler);
-        process.on("SIGINT", interuptHandler);
-        process.on("SIGABRT", interuptHandler);
-        process.on("SIGQUIT", interuptHandler);
-        process.on("SIGKILL", interuptHandler);
-        process.on("exit", () => {
-            successLog("stop task");
-            console.timeEnd("all tasks");
-            if (!record) return;
-            try {
-                writeFileSync(
-                    join(path + "/__record.json"),
-                    JSON.stringify(record)
-                );
-            } catch (error) {
-                errorLog(`error in saved record!\nerror:${error}`);
-            }
-        });
-        //#endregion
-
         //第一次执行时更新一次__record,删除过期的记录
         //#region
         if (record) {
@@ -149,14 +123,65 @@ async function main() {
         };
         //#endregion
 
+        //记录操作
+        //#region
+        const saveRecord = () => {
+            if (!record) return;
+            try {
+                writeFileSync(
+                    join(path + "/__record.json"),
+                    JSON.stringify(record)
+                );
+            } catch (error) {
+                errorLog(`error in saved record!\nerror:${error}`);
+            }
+        };
+        const recordItem: RuleContext["recordItem"] = (key, content) => {
+            if (!record) return;
+            const secondStamp = Math.floor(Date.now() / 1000);
+            //没有缓存记录,则记录缓存
+            record[key][content] = {
+                expired: config.record?.expire
+                    ? config.record.expire + secondStamp
+                    : false,
+            };
+        };
+        //#endregion
+
         //上下文
         const context: TaskContext = {
             config,
             record,
             onlyRecord,
             intervalTimeCount: void 0,
+            saveRecord,
+            recordItem,
         };
 
+        //绑定process回调
+        //#region
+        //中断信号处理
+        const interuptHandler = () => {
+            warnLog(
+                "SIGINT event is triggered, the exit event callback will be executed soon."
+            );
+            // 在这里执行清理工作
+            process.exit(); // 这会触发 exit 事件
+        };
+        process.on("SIGTERM", interuptHandler);
+        process.on("SIGINT", interuptHandler);
+        process.on("SIGABRT", interuptHandler);
+        process.on("SIGQUIT", interuptHandler);
+        process.on("SIGKILL", interuptHandler);
+        process.on("exit", () => {
+            successLog("stop task");
+            console.timeEnd("all tasks");
+            context.saveRecord();
+        });
+        //#endregion
+
+        //任务调度
+        //#region
         if (interval) {
             let id = 0;
             successLog(
@@ -171,12 +196,14 @@ async function main() {
                 );
                 context.intervalTimeCount = intervalTimeCount(id++);
                 await task(context);
+                
             }, interval);
         } else {
             console.time("all tasks");
             successLog("start once task");
             await task(context);
         }
+        //#endregion
     } catch (error) {
         errorLog(error + "");
     }

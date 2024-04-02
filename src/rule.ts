@@ -99,6 +99,7 @@ export function createRule({
     ruleUnit,
     onlyRecord = false,
     intervalTimeCount,
+    recordItem,
 }: RuleContext): Rule {
     console.time("2.match rule--" + ruleUnit.name);
     return {
@@ -108,8 +109,6 @@ export function createRule({
         reject: createHandlerByOptions(ruleUnit.reject),
         //accept匹配时的回调
         async onAccepted(item, record) {
-            //记录
-            let recordItem: () => void = () => {};
             const content = item.title[0];
             if (config.record && record) {
                 const recordUnit = record.accepted[content];
@@ -125,25 +124,7 @@ export function createRule({
                         return warnLog(
                             `checked [record]: ${content} when accepted, download request will be skipped.`
                         );
-                    } else {
-                        //记录过期,记录新缓存
-                        recordItem = () => {
-                            record.accepted[content] = {
-                                expired: config.record?.expire
-                                    ? config.record.expire + secondStamp
-                                    : false,
-                            };
-                        };
                     }
-                } else {
-                    //没有缓存记录,则记录缓存
-                    recordItem = () => {
-                        record.accepted[content] = {
-                            expired: config.record?.expire
-                                ? config.record.expire + secondStamp
-                                : false,
-                        };
-                    };
                 }
             }
             //打印接受日志
@@ -161,7 +142,7 @@ export function createRule({
                     );
                     console.timeEnd("3.postDownload");
                 }
-                recordItem();
+                recordItem("accepted", content);
             } catch (error) {
                 errorLog(
                     `post download request failed!\nitem: ${content}\nerror: ${error}`
@@ -170,8 +151,6 @@ export function createRule({
         },
         //reject匹配时的回调
         onRejected(item, record) {
-            //记录
-            let recordItem: () => void = () => {};
             const content = item.title[0];
             if (config.record?.expire && record) {
                 const recordUnit = record.rejected[content];
@@ -186,29 +165,11 @@ export function createRule({
                         return warnLog(
                             `checked [record]: ${content} when rejected, download request will be skipped.`
                         );
-                    } else {
-                        //记录过期,记录新缓存
-                        recordItem = () => {
-                            record.rejected[content] = {
-                                expired: config.record?.expire
-                                    ? config.record.expire + secondStamp
-                                    : false,
-                            };
-                        };
                     }
-                } else {
-                    //没有缓存记录,则记录缓存
-                    recordItem = () => {
-                        record.rejected[content] = {
-                            expired: config.record?.expire
-                                ? config.record.expire + secondStamp
-                                : false,
-                        };
-                    };
                 }
             }
             successLog(`reject ${content} by [rule]: ${ruleUnit.name}`);
-            recordItem();
+            recordItem("rejected", content);
         },
         //结束匹配时调用
         onMatchEnd() {
