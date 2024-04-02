@@ -1,84 +1,68 @@
 import { writeFileSync } from "fs";
 import { createRule, processRSS } from "./rule";
 import { getRSS } from "./api";
-import { Config } from "./models/config";
 import { loadConfig, loadRecord, parseInterval } from "./util";
 import minimist from "minimist";
 import { PomeloRecord } from "./models/record";
 import { errorLog, successLog, warnLog } from "./log";
 import { resolve, join } from "node:path";
-import { createHash } from "node:crypto";
 import { RuleContext, TaskContext } from "./models/context";
 
 async function task({
     config,
     record,
     onlyRecord = false,
-    lastMD5,
     intervalTimeCount,
-}: TaskContext): Promise<string> {
-    try {
-        //获取RSS并且记录耗时
-        successLog("getting rss resources from " + config.rss.uri);
-        console.time("1.get rss");
-        let rss = await getRSS(config.rss);
-        console.timeEnd("1.get rss");
+}: TaskContext) {
+    //获取RSS并且记录耗时
+    successLog("getting rss resources from " + config.rss.uri);
+    console.time("1.get rss");
+    let rss = await getRSS(config.rss);
+    console.timeEnd("1.get rss");
 
-        //检查md5,如果两次相同就不更新了
-        const md5 = createHash("md5").update(JSON.stringify(rss)).digest("hex");
-        if (lastMD5 && lastMD5 === md5) {
-            warnLog("rss resource has not been updated, skip this task.");
-            intervalTimeCount && intervalTimeCount();
-            return md5;
+    //遍历规则集
+    //#region
+    Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
+        const context: RuleContext = {
+            config,
+            ruleUnit: {
+                ...ruleJSON,
+                name: ruleName,
+            },
+            onlyRecord,
+            intervalTimeCount,
+        };
+        const rule = createRule(context);
+        //1.getRSS
+        try {
+            //针对每个规则的uri
+            if (rule.option.uri && rule.option.uri !== config.rss.uri) {
+                successLog(
+                    "getting rss resources from " +
+                        config.rss.uri +
+                        " by rule--" +
+                        rule.name
+                );
+                console.time("1.get rss by rule--" + rule.name);
+                rss = await getRSS({
+                    uri: rule.option.uri,
+                });
+                console.timeEnd("1.get rss by rule--" + rule.name);
+            }
+        } catch (error) {
+            errorLog(
+                `error in [step1]: getRSS of the [rule]:${ruleName}\nerror:${error}`
+            );
         }
-
-        //遍历规则集
-        //#region
-        Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
-            const context: RuleContext = {
-                config,
-                ruleUnit: {
-                    ...ruleJSON,
-                    name: ruleName,
-                },
-                onlyRecord,
-                intervalTimeCount,
-            };
-            const rule = createRule(context);
-            //1.getRSS
-            try {
-                //针对每个规则的uri
-                if (rule.option.uri && rule.option.uri !== config.rss.uri) {
-                    successLog(
-                        "getting rss resources from " +
-                            config.rss.uri +
-                            " by rule--" +
-                            rule.name
-                    );
-                    console.time("1.get rss by rule--" + rule.name);
-                    rss = await getRSS({
-                        uri: rule.option.uri,
-                    });
-                    console.timeEnd("1.get rss by rule--" + rule.name);
-                }
-            } catch (error) {
-                errorLog(
-                    `error in [step1]: getRSS of the [rule]:${ruleName}\nerror:${error}`
-                );
-            }
-            //2.processing
-            try {
-                processRSS(rss, rule, record);
-            } catch (error) {
-                errorLog(
-                    `error in [step2]: processRSS of the [rule]:${ruleName}\nerror:${error}`
-                );
-            }
-        });
-        return md5;
-    } catch (error) {
-        return "";
-    }
+        //2.processing
+        try {
+            processRSS(rss, rule, record);
+        } catch (error) {
+            errorLog(
+                `error in [step2]: processRSS of the [rule]:${ruleName}\nerror:${error}`
+            );
+        }
+    });
 }
 
 async function main() {
@@ -94,7 +78,6 @@ async function main() {
         let record =
             config.record || onlyRecord ? await loadRecord(path) : undefined;
 
-        
         //绑定process回调
         //#region
         //中断信号处理
@@ -171,7 +154,6 @@ async function main() {
             config,
             record,
             onlyRecord,
-            lastMD5: "",
             intervalTimeCount: void 0,
         };
 
@@ -181,19 +163,19 @@ async function main() {
                 `start interval task, interval: ${config.interval}, current: ${id}`
             );
             context.intervalTimeCount = intervalTimeCount(id++);
-            context.lastMD5 = await task(context);
+            await task(context);
 
             setInterval(async () => {
                 successLog(
                     `start interval task, interval: ${config.interval}, current: ${id}`
                 );
                 context.intervalTimeCount = intervalTimeCount(id++);
-                context.lastMD5 = await task(context);
+                await task(context);
             }, interval);
         } else {
             console.time("all tasks");
             successLog("start once task");
-            context.lastMD5 = await task(context);
+            await task(context);
         }
     } catch (error) {
         errorLog(error + "");

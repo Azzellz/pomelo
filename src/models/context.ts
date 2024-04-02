@@ -6,7 +6,6 @@ export type TaskContext = {
     config: Config;
     record?: PomeloRecord;
     onlyRecord?: boolean;
-    lastMD5: string; //上一份rss的md5
     intervalTimeCount?: () => void;
 };
 
