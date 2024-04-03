@@ -1,6 +1,6 @@
 import { MikanamiItem, MikanamiRSS } from "./mikanami-rss";
 import { NyaaItem, NyaaRSS } from "./nyaa-rss";
-import { ShareAcgnxItem, ShareAcgnxRSS } from "./shareAcgnx-rss";
+import { ShareAcgnxItem, ShareAcgnxRSS } from "./share-acgnx-rss";
 
 export type SupportRSSUrl =
     | "https://mikanani.me/RSS/Classic"

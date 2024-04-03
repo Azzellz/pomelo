@@ -1,12 +1,18 @@
 import { readFile } from "fs/promises";
 import { existsSync } from "fs";
-import { SupportRSSItem, type SupportRSS } from "./models/common-rss";
+import { SupportRSSItem } from "./models/resource/rss/common-rss";
 import { Config } from "./models/config";
-import { MikanamiItem, type MikanamiRSS } from "./models/mikanami-rss";
-import { NyaaItem, NyaaRSS } from "./models/nyaa-rss";
+import {
+    MikanamiItem,
+    type MikanamiRSS,
+} from "./models/resource/rss/mikanami-rss";
+import { NyaaItem, NyaaRSS } from "./models/resource/rss/nyaa-rss";
 import { PomeloRecord } from "./models/record";
 import { RegExpOption, RuleHandlerOption } from "./models/rule";
-import { ShareAcgnxItem, ShareAcgnxRSS } from "./models/shareAcgnx-rss";
+import {
+    ShareAcgnxItem,
+    ShareAcgnxRSS,
+} from "./models/resource/rss/share-acgnx-rss";
 import { load as loadYaml } from "js-yaml";
 import { $ } from "bun";
 
