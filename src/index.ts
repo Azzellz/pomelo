@@ -188,13 +188,4 @@ async function main() {
     }
 }
 
-// main();
-let token: string = "";
-let host: string = "";
-let port: string = "";
-// if (config.aria2.env) {
-    token = await loadEnv("POMELO_ARIA2_TOKEN");
-    host = await loadEnv("POMELO_ARIA2_HOST");
-    port = await loadEnv("POMELO_ARIA2_PORT");
-// }
-console.log(token,host,port)
+main();
