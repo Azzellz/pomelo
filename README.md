@@ -1,13 +1,18 @@
 # pomelo(柚子)
 
-一个基于 nodejs 和 aria2 的自动化 rss 资源下载工具
-支持多种的 RSS 源, 配置灵活
+基于Bunjs和Aria2的资源下载工具,配置灵活,支持多种资源。
 
-# 目前支持的 RSS 源
+# 目前支持的资源
 
+pomelo内置了一些常用的资源解析,也支持自定义资源解析
+
+## RSS
 1. [mikanami](https://mikanani.me/)
 2. [share.acgnx](https://share.acgnx.se/)
 3. [nyaa](https://nyaa.si/)
+
+## 自定义资源
+需要使用pomelo.config.ts自行实现parser
 
 # 快速开始
 
