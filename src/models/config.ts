@@ -14,6 +14,7 @@ export interface Config {
         ) => void;
     };
     aria2: {
+        env: boolean;
         host: string;
         port: string;
         token: string;
