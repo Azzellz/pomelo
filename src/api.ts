@@ -12,16 +12,16 @@ export async function postDownloadRequest(
     ruleName: string
 ) {
     const token = (opts.token || config.aria2.token).replaceAll(
-        "$ARIA2_TOKEN",
-        await loadEnv("ARIA2_TOKEN")
+        "$POMELO_ARIA2_TOKEN",
+        await loadEnv("POMELO_ARIA2_TOKEN")
     );
     const host = (opts.host || config.aria2.host).replaceAll(
-        "$ARIA2_HOST",
-        await loadEnv("ARIA2_HOST")
+        "$POMELO_ARIA2_HOST",
+        await loadEnv("POMELO_ARIA2_HOST")
     );
     const port = (opts.port || config.aria2.port).replaceAll(
-        "$ARIA2_PORT",
-        await loadEnv("ARIA2_PORT")
+        "$POMELO_ARIA2_PORT",
+        await loadEnv("POMELO_ARIA2_PORT")
     );
     const url = `${host}:${port}/jsonrpc`;
 
