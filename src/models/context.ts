@@ -1,6 +1,6 @@
 import { Config } from "./config";
 import { PomeloRecord } from "./record";
-import { RuleUnit } from "./rule";
+import { Rule, RuleUnit } from "./rule";
 
 export type TaskContext = {} & CommonContext;
 
@@ -8,6 +8,11 @@ export type RuleContext = {
     ruleUnit: {
         name: string;
     } & RuleUnit;
+} & CommonContext;
+
+export type ProcessContext = {
+    mainResource: Promise<any>;
+    rule: Rule;
 } & CommonContext;
 
 export type CommonContext = {

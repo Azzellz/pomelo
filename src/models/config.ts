@@ -9,7 +9,7 @@ export interface Config {
         type: "rss-mikanani" | "rss-nyaa" | "rss-share-acgnx" | "other";
         url: string;
         parser?: (
-            target: object,
+            json: object,
             handler: (content: string, link: string) => void
         ) => void;
     };

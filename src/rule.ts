@@ -1,62 +1,10 @@
 import { postDownloadRequest } from "./api";
 import { errorLog, successLog, warnLog } from "./log";
-import { Config } from "./models/config";
 import { RuleContext } from "./models/context";
 import { PomeloRecord } from "./models/record";
 import type { Rule, RuleHandlerOption, PomeloHandler } from "./models/rule";
-import { parseRSS } from "./parser";
-import {
-    isMikananiRSS,
-    isNyaaRSS,
-    isRegExpOption,
-    isShareAcgnxRSS,
-} from "./util";
-
-//根据不同的rss类型进行不同的处理
-export async function processResource(
-    config: Config,
-    resource: any,
-    rule: Rule,
-    record?: PomeloRecord
-) {
-    //优先使用rule的resource选项
-    const _resource = rule.resource ? rule.resource : config.resource;
-    //处理RSS
-    if (
-        _resource.type === "rss-mikanani" ||
-        _resource.type === "rss-nyaa" ||
-        _resource.type === "rss-share-acgnx"
-    ) {
-        if (
-            isMikananiRSS(resource) ||
-            isNyaaRSS(resource) ||
-            isShareAcgnxRSS(resource)
-        ) {
-            if (_resource.parser) {
-                await _resource.parser(resource, async (content, link) => {
-                    await matchRule(content, link, rule, record);
-                });
-            } else {
-                await parseRSS(resource, async (content, link) => {
-                    await matchRule(content, link, rule, record);
-                });
-            }
-        } else {
-            throw "unsupported RSS feeds, please replace them with supported RSS feeds.";
-        }
-    } else if (
-        _resource.type === "other" &&
-        typeof _resource.parser === "function"
-    ) {
-        //自定义解析
-        await _resource.parser(resource, async (content, link) => {
-            await matchRule(content, link, rule, record);
-        });
-    } else {
-        throw "please input right resource type! support type: rss-mikanani/rss-nyaa/rss-share-acgnx/other(need parser)";
-    }
-    rule.onMatchEnd && rule.onMatchEnd();
-}
+import { getResource as _getResource } from "./api";
+import { isRegExpOption } from "./util";
 
 export async function matchRule(
     content: string,
@@ -115,14 +63,12 @@ export function createRule({
     recordItem,
     record,
 }: RuleContext): Rule {
-    console.time("2.match rule--" + ruleUnit.name);
     return {
         name: ruleUnit.name,
         option: ruleUnit.option,
         resource: ruleUnit.resource,
         accept: createHandlerByOptions(ruleUnit.accept),
         reject: createHandlerByOptions(ruleUnit.reject),
-        //accept匹配时的回调
         async onAccepted(content, link) {
             if (config.record && record) {
                 const recordUnit = record.accepted[content];
@@ -143,7 +89,6 @@ export function createRule({
             }
             //打印接受日志
             successLog(`accept ${content} by [rule]: ${ruleUnit.name}`);
-            console.timeEnd("2.match rule--" + ruleUnit.name);
             try {
                 //判断是否仅需要记录
                 if (!onlyRecord) {
@@ -163,7 +108,6 @@ export function createRule({
                 );
             }
         },
-        //reject匹配时的回调
         onRejected(content) {
             if (config.record?.expire && record) {
                 const recordUnit = record.rejected[content];
@@ -184,12 +128,12 @@ export function createRule({
             successLog(`reject ${content} by [rule]: ${ruleUnit.name}`);
             recordItem("rejected", content);
         },
-        //结束匹配时调用
-        onMatchEnd() {
+        onBeginMatch() {
+            console.time("2.match rule--" + ruleUnit.name);
+        },
+        onEndMatch() {
             console.timeEnd("2.match rule--" + ruleUnit.name);
             intervalTimeCount && intervalTimeCount();
         },
     };
 }
-
-//#endregion

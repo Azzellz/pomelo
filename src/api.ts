@@ -2,8 +2,8 @@ import { parseStringPromise } from "xml2js";
 import { readFile } from "fs/promises";
 import { DownloadOption } from "./models/rule";
 import { Config } from "./models/config";
-import { SupportRSS } from "./models/common-rss";
-import path from "node:path";
+import { resolve } from "path";
+import { loadEnv } from "./util";
 
 export async function postDownloadRequest(
     config: Config,
@@ -11,7 +11,20 @@ export async function postDownloadRequest(
     opts: DownloadOption,
     ruleName: string
 ) {
-    const token = opts.token || config.aria2.token;
+    const token = (opts.token || config.aria2.token).replaceAll(
+        "$ARIA2_TOKEN",
+        await loadEnv("ARIA2_TOKEN")
+    );
+    const host = (opts.host || config.aria2.host).replaceAll(
+        "$ARIA2_HOST",
+        await loadEnv("ARIA2_HOST")
+    );
+    const port = (opts.port || config.aria2.port).replaceAll(
+        "$ARIA2_PORT",
+        await loadEnv("ARIA2_PORT")
+    );
+    const url = `${host}:${port}/jsonrpc`;
+
     const dir = opts.dir.replaceAll("{{rule.name}}", ruleName);
     const data = {
         jsonrpc: "2.0",
@@ -19,9 +32,6 @@ export async function postDownloadRequest(
         id: "pomelo-aria2-" + Date.now(),
         params: [`token:${token}`, [link], { dir }],
     };
-    const host = opts.host || config.aria2.host;
-    const port = opts.port || config.aria2.port;
-    const url = `${host}:${port}/jsonrpc`;
 
     return fetch(url, {
         method: "POST",
@@ -29,16 +39,21 @@ export async function postDownloadRequest(
     });
 }
 
-export async function getResource(option: Config["resource"]): Promise<any> {
+export async function getResource(
+    resourceOpt: Config["resource"]
+): Promise<any> {
     try {
-        if (option.url.includes("http") || option.url.includes("https")) {
-            //远程下载rss
-            const res = await fetch(option.url);
+        if (
+            resourceOpt.url.includes("http") ||
+            resourceOpt.url.includes("https")
+        ) {
+            //远程下载
+            const res = await fetch(resourceOpt.url);
             return await parseStringPromise(await res.text());
         } else {
-            //本地加载rss
-            const buf = await readFile(path.join(__dirname, option.url));
-            const _tmp = option.url.split(".");
+            //本地加载
+            const buf = await readFile(resolve(resourceOpt.url));
+            const _tmp = resourceOpt.url.split(".");
             const suffix = _tmp[_tmp.length - 1];
             if (suffix === "xml") {
                 return await parseStringPromise(buf.toString());

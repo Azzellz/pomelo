@@ -8,9 +8,10 @@ export interface Rule {
     option: DownloadOption;
     accept?: PomeloHandler;
     reject?: PomeloHandler;
+    onBeginMatch?: () => void;
     onAccepted?: (content: string, link: string, record?: PomeloRecord) => void;
     onRejected?: (content: string, link: string, record?: PomeloRecord) => void;
-    onMatchEnd?: () => void;
+    onEndMatch?: () => void;
 }
 
 export type RuleMap = {

@@ -8,6 +8,7 @@ import { PomeloRecord } from "./models/record";
 import { RegExpOption, RuleHandlerOption } from "./models/rule";
 import { ShareAcgnxItem, ShareAcgnxRSS } from "./models/shareAcgnx-rss";
 import { load as loadYaml } from "js-yaml";
+import { $ } from "bun";
 
 //类型守卫
 //#region
@@ -157,6 +158,11 @@ export async function loadRecord(path: string): Promise<PomeloRecord> {
             rejected: {},
         };
     }
+}
+
+//加载环境变量
+export async function loadEnv(name: string): Promise<string> {
+    return (await $`echo $${name}`.text()).trim();
 }
 
 //#endregion

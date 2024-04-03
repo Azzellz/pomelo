@@ -16,6 +16,7 @@
         "typescript": "^5.3.3"
     },
     "dependencies": {
+        "@types/bun": "^1.0.12",
         "js-yaml": "^4.1.0",
         "minimist": "^1.2.8",
         "xml2js": "^0.6.2"

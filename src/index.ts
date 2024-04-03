@@ -1,64 +1,44 @@
 import { writeFileSync } from "fs";
-import { createRule, processResource } from "./rule";
+import { createRule } from "./rule";
+import { processResource } from "./resource";
 import { getResource } from "./api";
 import { loadConfig, loadRecord, parseInterval } from "./util";
 import minimist from "minimist";
 import { PomeloRecord } from "./models/record";
 import { errorLog, successLog, warnLog } from "./log";
-import { resolve, join } from "node:path";
-import { RuleContext, TaskContext } from "./models/context";
+import { resolve, join } from "path";
+import { ProcessContext, RuleContext, TaskContext } from "./models/context";
 
 async function task(context: TaskContext) {
-    const { config, record } = context;
+    const { config } = context;
 
     //获取RSS并且记录耗时
     successLog("getting rss resources from " + config.resource.url);
     console.time("1.get rss");
-    let resource = await getResource(config.resource);
-    console.timeEnd("1.get rss");
+    const mainResource = getResource(config.resource).then((res) => {
+        console.timeEnd("1.get rss");
+        return res;
+    });
 
     //遍历规则集
     //#region
     Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
-        const _context: RuleContext = {
+        //rule
+        const ruleContext: RuleContext = {
             ruleUnit: {
                 ...ruleJSON,
                 name: ruleName,
             },
             ...context,
         };
-        const rule = createRule(_context);
-        //1.getResource
-        try {
-            //针对每个规则
-            if (
-                rule.resource &&
-                rule.resource.url &&
-                rule.resource.url !== config.resource.url
-            ) {
-                successLog(
-                    "getting rss resources from " +
-                        config.resource.url +
-                        " by rule--" +
-                        rule.name
-                );
-                console.time("1.get rss by rule--" + rule.name);
-                resource = await getResource(rule.resource);
-                console.timeEnd("1.get rss by rule--" + rule.name);
-            }
-        } catch (error) {
-            errorLog(
-                `error in [step1]: getRSS of the [rule]:${ruleName}\nerror:${error}`
-            );
-        }
-        //2.processing
-        try {
-            await processResource(config, resource, rule, record);
-        } catch (error) {
-            errorLog(
-                `error in [step2]: processRSS of the [rule]:${ruleName}\nerror:${error}`
-            );
-        }
+        const rule = createRule(ruleContext);
+        //process
+        const processContext: ProcessContext = {
+            mainResource,
+            rule,
+            ...context,
+        };
+        await processResource(processContext);
     });
 }
 
