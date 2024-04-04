@@ -2,7 +2,7 @@ import { writeFileSync } from "fs";
 import { createRule } from "./rule";
 import { processResource } from "./resource";
 import { getResource } from "./api";
-import { loadConfig, loadEnv, loadRecord, parseInterval } from "./util";
+import { loadConfig, loadRecord, parseInterval } from "./util";
 import minimist from "minimist";
 import { PomeloRecord } from "./models/record";
 import { errorLog, successLog, warnLog } from "./log";

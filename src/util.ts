@@ -124,6 +124,12 @@ export async function loadConfig(path: string): Promise<Config> {
         return (await import(tsConfigPath)).default;
     }
 
+    const jsConfigPath = path + "/pomelo.config.js";
+    if (existsSync(jsConfigPath)) {
+        //这里使用默认导出
+        return (await import(jsConfigPath)).default;
+    }
+
     const jsonConfigPath = path + "/pomelo.json";
     if (existsSync(jsonConfigPath)) {
         return (await import(jsonConfigPath)).default;
