@@ -2,7 +2,7 @@ import { writeFileSync } from "fs";
 import { createRule } from "./rule";
 import { processResource } from "./resource";
 import { getResource } from "./api";
-import { loadConfig, loadRecord, parseInterval } from "./util";
+import { checkConfig, loadConfig, loadRecord, parseInterval } from "./util";
 import minimist from "minimist";
 import { PomeloRecord } from "./models/record";
 import { errorLog, successLog, warnLog } from "./log";
@@ -54,7 +54,7 @@ async function main() {
 
         //加载配置和记录
         //#region
-        const config = await loadConfig(path);
+        const config = checkConfig(await loadConfig(path));
         let record =
             config.record || onlyRecord ? await loadRecord(path) : undefined;
         //#endregion
