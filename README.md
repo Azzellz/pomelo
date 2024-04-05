@@ -1,66 +1,95 @@
-# pomelo(柚子)
+# Pomelo (Yuzu)
 
-基于Bunjs和Aria2的资源下载工具,配置灵活,支持多种资源。
+[中文文档](./README.zh.md)
 
-# 目前支持的资源
+Pomelo is a resource download tool, based on Bunjs and Aria2. It is designed with a highly flexible configuration system and supports a variety of resource types.
 
-pomelo内置了一些常用的资源解析,也支持自定义资源解析
+# Supported Resources
+
+Pomelo comes with built-in parsers for several commonly used resources, and also supports custom resource parsers.
 
 ## RSS
+
 1. [mikanami](https://mikanani.me/)
 2. [share.acgnx](https://share.acgnx.se/)
 3. [nyaa](https://nyaa.si/)
 
-## 自定义资源
-需要使用pomelo.config.ts自行实现parser
+## Custom Resources
 
-# 快速开始
+To use custom resources, you'll need to implement your own parser using pomelo.config.ts/js.
 
-1. 直接使用 release 的二进制文件
+Here's an example:
 
-# 配置文件
+```ts
+...
+resource: {
+    url: "https://mikanani.me/RSS/Classic",
+    type: "rss-mikanani",
+    async parser(
+        target: any,
+        handler: (content: string, link: string) => void
+    ) {
+        for (const ch of any.rss.channel) {
+            for (const item of ch.item) {
+                await handler(item.title[0], item.enclosure[0].$.url);
+            }
+        }
+    },
+}
+...
+```
 
-pomelo 支持 4 种配置文件:
+Please note that when a built-in type and a parser both exist, Pomelo will prioritize using the parser for parsing.
 
-优先级自上而下递减
+# Quick Start
+
+1. Use the binary files provided directly in the release.
+2. Use the API provided by Pomelo.
+
+# Configuration File
+
+Pomelo supports five configuration file formats:
+
+The loading priority decreases from top to bottom.
 
 1. pomelo.config.ts
-2. pomelo.json
-3. pomelo.yaml
-4. pomelo.yml
+2. pomelo.config.js
+3. pomelo.json
+4. pomelo.yaml
+5. pomelo.yml
 
-## pomelo.config.ts(推荐)
+## pomelo.config.ts/js (Recommended)
 
-最推荐的配置文件,灵活,适合有 ts 经验的使用者。
+This is the recommended configuration file format. It is very flexible as you can implement your own parser. It is especially suitable for users with experience in TypeScript or JavaScript.
 
-样例:
+Here's an example:
 
 ```typescript
 export default {
-    interval: 0, //定时任务间隔,为0或者不写则以一次性任务进行,单位为秒
+    interval: 0, // Interval for timed tasks. If set to 0 or left blank, it will be treated as a one-time task. The unit is seconds.
     rss: {
-        //rss配置
-        uri: "https://mikanani.me/RSS/Classic", //默认rss源,当rule没有指定源时使用该源
-        save: "", //每次下载的xml的保存路径,置空或不写该字段则不保存
+        // RSS configuration
+        uri: "https://mikanani.me/RSS/Classic", // Default RSS source. This source is used when the rule does not specify a source.
+        save: "", // Save path for the XML downloaded each time. If this field is left blank or unwritten, it will not be saved.
     },
     aria2: {
-        //aria2配置
+        // Aria2 configuration
         host: "http://127.0.0.1",
         port: "6800",
         token: "",
     },
     rules: {
-        //规则集
-        葬送的芙莉莲: {
+        // Rule sets
+        "Farewell to Frieren": {
             option: {
-                dir: "/downloads/连载/{{rule.name}}", //下载路径,可以使用{{rule.name}}作为规则名占位符
+                dir: "/downloads/Serials/{{rule.name}}", // Download path. You can use {{rule.name}} as a rule name placeholder.
             },
             accept: [
-                //接受匹配的条件: 二维数组中的每个数组之间以或模式进行运算,每个数组内的每个关键词以与模式进行运算
+                // Accept matching conditions: Each array in the 2D array operates in an OR pattern, and each keyword within each array operates in an AND pattern.
                 ["Frieren", "Baha", "gj\\.y"],
                 ["Frieren", "LoliHouse"],
             ],
-            reject: [["sp|ova|oad|special|特別"]], //拒绝匹配的条件
+            reject: [["sp|ova|oad|special|特别"]], // Reject matching conditions.
         },
     },
 };
@@ -80,15 +109,15 @@ export default {
         "token": ""
     },
     "rules": {
-        "葬送的芙莉莲": {
+        "Farewell to Frieren": {
             "option": {
-                "dir": "/downloads/连载/{{rule.name}}"
+                "dir": "/downloads/Serials/{{rule.name}}"
             },
             "accept": [
                 ["Frieren", "Baha", "gj\\.y"],
                 ["Frieren", "LoliHouse"]
             ],
-            "reject": [["sp|ova|oad|special|特別"]]
+            "reject": [["sp|ova|oad|special"]]
         }
     }
 }
@@ -107,9 +136,9 @@ aria2:
     port: "6800"
     token: ""
 rules:
-    葬送的芙莉莲:
+    Farewell to Frieren:
         option:
-            dir: /downloads/连载/{{rule.name}}
+            dir: /downloads/Serials/{{rule.name}}
         accept:
             - - Frieren
               - Baha
@@ -117,21 +146,23 @@ rules:
             - - Frieren
               - LoliHouse
         reject:
-            - - sp|ova|oad|special|特別
+            - - sp|ova|oad|special
 ```
 
-# 命令行参数
+# Command Line Parameters
 
-1. -d / --dir: 指定根目录
+Pomelo also supports command line parameters when using binary files.
+
+1. -d / --dir: Specify the root directory.
 
 ```bash
-./pomelo -d . //指定当前目录
-./pomelo //默认指定当前目录
-./pomelo --dir ..    //指定上一级目录
-./pomelo --dir ../    //指定上一级目录
+./pomelo -d . //Specify the current directory.
+./pomelo //Default to the current directory.
+./pomelo --dir ..    //Specify the parent directory.
+./pomelo --dir ../    //Specify the parent directory.
 ```
 
-2. -r / --record: 只更新\_\_record.json,不发送下载请求
+2. -r / --record: Only update the \_\_record.json file, do not send download requests.
 
 ```bash
 ./pomelo -r
