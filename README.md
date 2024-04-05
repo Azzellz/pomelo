@@ -1,6 +1,7 @@
 # Pomelo (Yuzu)
 
 [中文文档](./README.zh.md)
+![pomelo](./pomelo.png)
 
 Pomelo is a resource download tool, based on Bunjs and Aria2. It is designed with a highly flexible configuration system and supports a variety of resource types.
 
