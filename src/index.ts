@@ -2,7 +2,7 @@ import { writeFileSync } from "fs";
 import { createRule } from "./rule";
 import { processResource } from "./resource";
 import { getResource } from "./api";
-import { checkConfig, loadConfig, loadRecord, parseInterval } from "./util";
+import { checkConfig, loadConfig, loadRecord, parseStrToMillion } from "./utils";
 import minimist from "minimist";
 import { PomeloRecord } from "./models/record";
 import { errorLog, successLog, warnLog } from "./log";
@@ -93,7 +93,7 @@ async function main() {
 
         //解析定时任务
         //#region
-        const interval = parseInterval(config.interval || 0);
+        const interval = parseStrToMillion(config.interval || 0);
         const intervalTimeCount = (id: number) => {
             console.time("interval task--" + id);
             return () => console.timeEnd("interval task--" + id);
@@ -102,6 +102,7 @@ async function main() {
 
         //记录操作
         //#region
+        //保存记录
         const saveRecord = () => {
             if (!record) return;
             try {
@@ -113,13 +114,14 @@ async function main() {
                 errorLog(`error in saved record!\nerror:${error}`);
             }
         };
+        //记录item
         const recordItem: RuleContext["recordItem"] = (key, content) => {
             if (!record) return;
             const secondStamp = Math.floor(Date.now() / 1000);
             //没有缓存记录,则记录缓存
             record[key][content] = {
                 expired: config.record?.expire
-                    ? config.record.expire + secondStamp
+                    ? parseStrToMillion(config.record.expire) + secondStamp
                     : false,
             };
         };

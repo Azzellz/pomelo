@@ -5,7 +5,7 @@ import { Rule } from "./models/rule";
 import { parseRSS } from "./parser";
 import { matchRule } from "./rule";
 import { getResource as _getResource } from "./api";
-import { isMikananiRSS, isNyaaRSS, isShareAcgnxRSS } from "./util";
+import { isMikananiRSS, isNyaaRSS, isShareAcgnxRSS } from "./utils";
 import { ProcessContext } from "./models/context";
 
 //根据不同的rss类型进行不同的处理

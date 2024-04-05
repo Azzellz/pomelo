@@ -3,7 +3,7 @@ import { readFile } from "fs/promises";
 import { DownloadOption } from "./models/rule";
 import { Config } from "./models/config";
 import { resolve } from "path";
-import { loadEnv } from "./util";
+import { loadEnv } from "./utils";
 
 export async function postDownloadRequest(
     config: Config,

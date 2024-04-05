@@ -1,16 +1,10 @@
 {
     "extends": "@tsconfig/node18/tsconfig.json",
     "include": [
-        "src/models/*.ts",
-        "*.ts",
         "src/*.ts",
         "src/__tests__/test.ts",
         "dist/pomelo.config.ts",
-        "src/test.ts",
-        "src/models/resource/rss/common-rss.ts",
-        "src/models/resource/rss/mikanami-rss.ts",
-        "src/models/resource/rss/nyaa-rss.ts",
-        "src/models/resource/rss/share-acgnx-rss.ts"
+        "src/**/*.ts",
     ],
     "compilerOptions": {
         "composite": true,

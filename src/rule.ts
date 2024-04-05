@@ -4,7 +4,7 @@ import { RuleContext } from "./models/context";
 import { PomeloRecord } from "./models/record";
 import type { Rule, RuleHandlerOption, PomeloHandler } from "./models/rule";
 import { getResource as _getResource } from "./api";
-import { isRegExpOption } from "./util";
+import { isRegExpOption } from "./utils";
 
 export async function matchRule(
     content: string,

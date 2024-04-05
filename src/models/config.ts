@@ -3,7 +3,7 @@ import { RuleMap } from "./rule";
 export interface Config {
     interval?: number | string;
     record?: {
-        expire: number;
+        expire: number | string;
     };
     resource: {
         type: "rss-mikanani" | "rss-nyaa" | "rss-share-acgnx" | "other";
