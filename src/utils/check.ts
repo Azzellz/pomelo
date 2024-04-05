@@ -2,7 +2,7 @@ import { Config } from "../models/config";
 //checker
 export function checkConfig(config: Config) {
     try {
-        const { interval, resource } = config;
+        const { interval, resource, record, aria2 } = config;
         //检查interval
         if (interval && typeof interval === "string") {
             switch (interval[interval.length - 1]) {
@@ -35,6 +35,28 @@ export function checkConfig(config: Config) {
             }
         } else {
             throw "resource is a required configuration item";
+        }
+        //检查record
+        if (record) {
+        }
+        //检查aria2
+        if (aria2) {
+            if (typeof aria2.env !== "boolean") {
+                throw "aria2.env must be boolean";
+            }
+            if (aria2.host && !/https?:\\/.test(aria2.host)) {
+                throw "aria2.host must be https or http protocols";
+            }
+            if (
+                (aria2.port &&
+                    !parseInt(aria2.port) &&
+                    parseInt(aria2.port) < 0) ||
+                parseInt(aria2.port) > 65535
+            ) {
+                throw "invalid aria2.port";
+            }
+            if (aria2.token) {
+            }
         }
         return config;
     } catch (error) {

@@ -2,7 +2,7 @@ import { SupportRSSItem } from "../models/resource/rss";
 import { isMikananiRSSItem, isShareAcgnxRSSItem, isNyaaRSSItem } from "./guard";
 
 //解析字符串/数字至秒,字符串支持后缀s,m,h,d
-export function parseStrToMillion(format: string | number): number {
+export function parseToMillisecond(format: string | number): number {
     if (typeof format === "number") {
         return format * 1000;
     }

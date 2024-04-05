@@ -1,69 +1,65 @@
+import { resolve } from "path";
 import { writeFileSync } from "fs";
-import { createRule } from "./rule";
-import { processResource } from "./resource";
+import { join } from "path";
 import { getResource } from "./api";
-import { checkConfig, loadConfig, loadRecord, parseStrToMillion } from "./utils";
-import minimist from "minimist";
-import { PomeloRecord } from "./models/record";
 import { errorLog, successLog, warnLog } from "./log";
-import { resolve, join } from "path";
-import { ProcessContext, RuleContext, TaskContext } from "./models/context";
+import type {
+    TaskContext,
+    Config,
+    ProcessContext,
+    RuleContext,
+    PomeloRecord,
+} from "./models";
+import { processResource } from "./resource";
+import { createRule } from "./rule";
+import {
+    checkConfig,
+    loadConfig,
+    loadRecord,
+    parseToMillisecond,
+} from "./utils";
 
-async function task(context: TaskContext) {
-    const { config } = context;
-
-    //获取RSS并且记录耗时
-    successLog("getting rss resources from " + config.resource.url);
-    console.time("1.get rss");
-    const mainResource = getResource(config.resource).then((res) => {
-        console.timeEnd("1.get rss");
-        return res;
-    });
-
-    //遍历规则集
-    //#region
-    Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
-        //rule
-        const ruleContext: RuleContext = {
-            ruleUnit: {
-                ...ruleJSON,
-                name: ruleName,
-            },
-            ...context,
-        };
-        const rule = createRule(ruleContext);
-        //process
-        const processContext: ProcessContext = {
-            mainResource,
-            rule,
-            ...context,
-        };
-        await processResource(processContext);
-    });
-}
-
-async function main() {
+async function _init({
+    config,
+    record,
+    onlyRecord,
+}: {
+    config: Config | string;
+    record?: PomeloRecord | string;
+    onlyRecord: boolean;
+}) {
     try {
-        //解析命令行参数
+        //解析路径
         //#region
-        const args = minimist(process.argv.slice(2));
-        const dir = args.d === true ? "./" : args.d || "./";
-        const onlyRecord = args.r === true || args.record === true;
-        const path = resolve(dir);
+        const configPath =
+            typeof config === "string" ? resolve(config) : resolve(".");
+
+        const recordPath =
+            typeof record === "string" ? resolve(record) : configPath;
         //#endregion
 
         //加载配置和记录
         //#region
-        const config = checkConfig(await loadConfig(path));
-        let record =
-            config.record || onlyRecord ? await loadRecord(path) : undefined;
+        const _config =
+            typeof config === "string"
+                ? checkConfig(await loadConfig(configPath))
+                : checkConfig(config);
+
+        let _record: PomeloRecord | undefined = void 0;
+        if (_config.record) {
+            _record =
+                typeof record === "string"
+                    ? await loadRecord(recordPath)
+                    : record;
+        }
+
         //#endregion
 
         //第一次执行时更新一次__record,删除过期的记录
         //#region
-        if (record) {
+        if (_record) {
             const newAccepted: PomeloRecord["accepted"] = {};
-            const _accepted = Object.entries(record.accepted);
+            const _accepted = Object.entries(_record.accepted);
             _accepted.forEach(([key, val]) => {
                 const secondStamp = Math.floor(Date.now() / 1000);
                 //保留没过期的RecordUnit
@@ -72,7 +68,7 @@ async function main() {
                 }
             });
             const newRejected: PomeloRecord["rejected"] = {};
-            const _rejected = Object.entries(record.rejected);
+            const _rejected = Object.entries(_record.rejected);
             _rejected.forEach(([key, val]) => {
                 const secondStamp = Math.floor(Date.now() / 1000);
                 //保留没过期的RecordUnit
@@ -87,13 +83,13 @@ async function main() {
                     Object.entries(newRejected).length
                 }--->${_rejected.length}`
             );
-            record = { accepted: newAccepted, rejected: newRejected };
+            _record = { accepted: newAccepted, rejected: newRejected };
         }
         //#endregion
 
         //解析定时任务
         //#region
-        const interval = parseStrToMillion(config.interval || 0);
+        const interval = parseToMillisecond(_config.interval || 0);
         const intervalTimeCount = (id: number) => {
             console.time("interval task--" + id);
             return () => console.timeEnd("interval task--" + id);
@@ -104,11 +100,11 @@ async function main() {
         //#region
         //保存记录
         const saveRecord = () => {
-            if (!record) return;
+            if (!_record) return;
             try {
                 writeFileSync(
-                    join(path + "/__record.json"),
-                    JSON.stringify(record)
+                    join(configPath + "/__record.json"),
+                    JSON.stringify(_record)
                 );
             } catch (error) {
                 errorLog(`error in saved record!\nerror:${error}`);
@@ -116,12 +112,12 @@ async function main() {
         };
         //记录item
         const recordItem: RuleContext["recordItem"] = (key, content) => {
-            if (!record) return;
+            if (!_record) return;
             const secondStamp = Math.floor(Date.now() / 1000);
             //没有缓存记录,则记录缓存
-            record[key][content] = {
-                expired: config.record?.expire
-                    ? parseStrToMillion(config.record.expire) + secondStamp
+            _record[key][content] = {
+                expired: _config.record?.expire
+                    ? parseToMillisecond(_config.record.expire) + secondStamp
                     : false,
             };
         };
@@ -130,8 +126,8 @@ async function main() {
         //封装对象上下文
         //#region
         const context: TaskContext = {
-            config,
-            record,
+            config: _config,
+            record: _record,
             onlyRecord,
             intervalTimeCount: void 0,
             saveRecord,
@@ -164,30 +160,88 @@ async function main() {
         //任务调度
         //#region
         if (interval) {
-            let id = 0;
-            successLog(
-                `start interval task, interval: ${config.interval}, current: ${id}`
-            );
-            context.intervalTimeCount = intervalTimeCount(id++);
-            await task(context);
-
-            setInterval(async () => {
+            return async () => {
+                let id = 0;
                 successLog(
-                    `start interval task, interval: ${config.interval}, current: ${id}`
+                    `start interval task, interval: ${_config.interval}, current: ${id}`
                 );
                 context.intervalTimeCount = intervalTimeCount(id++);
-                await task(context);
-                context.saveRecord(); //每次定时任务结束后都要保存一次
-            }, interval);
+                await _task(context);
+
+                setInterval(async () => {
+                    successLog(
+                        `start interval task, interval: ${_config.interval}, current: ${id}`
+                    );
+                    context.intervalTimeCount = intervalTimeCount(id++);
+                    await _task(context);
+                    context.saveRecord(); //每次定时任务结束后都要保存一次
+                }, interval);
+            };
         } else {
-            console.time("all tasks");
-            successLog("start once task");
-            await task(context);
+            return async () => {
+                console.time("all tasks");
+                successLog("start once task");
+                await _task(context);
+            };
         }
         //#endregion
     } catch (error) {
         errorLog(error + "");
+        return void 0;
     }
 }
 
-main();
+async function _task(ctx: TaskContext) {
+    const { config } = ctx;
+
+    //获取RSS并且记录耗时
+    successLog("getting rss resources from " + config.resource.url);
+    console.time("1.get rss");
+    const mainResource = getResource(config.resource).then((res) => {
+        console.timeEnd("1.get rss");
+        return res;
+    });
+
+    //遍历规则集
+    //#region
+    Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
+        //rule
+        const ruleContext: RuleContext = {
+            ruleUnit: {
+                ...ruleJSON,
+                name: ruleName,
+            },
+            ...ctx,
+        };
+        const rule = createRule(ruleContext);
+        //process
+        const processContext: ProcessContext = {
+            mainResource,
+            rule,
+            ...ctx,
+        };
+        await processResource(processContext);
+    });
+}
+
+export async function createPomelo({
+    config,
+    record,
+    onlyRecord = false,
+}: {
+    config: Config | string;
+    record?: PomeloRecord | string;
+    onlyRecord?: boolean;
+}) {
+    try {
+        const task = await _init({ config, record, onlyRecord });
+        if (!task) throw "error in createPomelo:";
+        return {
+            task,
+        };
+    } catch (error) {
+        throw "error in createPomelo! " + error;
+    }
+}
+
+export default createPomelo;
