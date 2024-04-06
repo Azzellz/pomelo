@@ -136,3 +136,5 @@ rules.yaml
 pomelo
 pomelo.yml
 pomelo.yaml
+docs/.vitepress/dist
+docs/.vitepress/cache
