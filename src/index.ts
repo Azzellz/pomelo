@@ -29,7 +29,7 @@ async function _init({
     onlyRecord: boolean;
 }) {
     try {
-        //解析路径
+        //解析路径,record路径默认与config路径一致
         //#region
         const configPath =
             typeof config === "string" ? resolve(config) : resolve(".");
@@ -47,10 +47,11 @@ async function _init({
 
         let _record: PomeloRecord | undefined = void 0;
         if (_config.record) {
-            _record =
-                typeof record === "string"
-                    ? await loadRecord(recordPath)
-                    : record;
+            if (typeof record === "string" || !record) {
+                _record = await loadRecord(recordPath);
+            } else {
+                _record = record;
+            }
         }
 
         //#endregion
