@@ -2,7 +2,7 @@
 
 [中文文档](./README.zh.md)
 
-Pomelo is a resource download tool, based on Bunjs and Aria2. It is designed with a highly flexible configuration system and supports a variety of resource types.
+Pomelo is a resource parse tool, based on Bunjs and Aria2. It is designed with a highly flexible configuration system and supports a variety of resource types.
 
 # Supported Resources
 
