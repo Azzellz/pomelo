@@ -14,13 +14,16 @@
     "@types/ws": "^8.5.10",
     "@types/xml2js": "^0.4.14",
     "typescript": "^5.3.3",
-    "vitepress": "^1.0.2"
+    "vitepress": "^1.0.2",
+    "@types/bun": "^1.0.12"
   },
   "dependencies": {
-    "@types/bun": "^1.0.12",
     "js-yaml": "^4.1.0",
     "minimist": "^1.2.8",
     "xml2js": "^0.6.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
