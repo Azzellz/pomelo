@@ -67,7 +67,7 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
         recordItem,
         record,
         deleteItem,
-        downloadStatus,
+        downloadMap,
     } = context;
     return {
         name: ruleUnit.name,
@@ -76,11 +76,16 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
         accept: createHandler(ruleUnit.accept),
         reject: createHandler(ruleUnit.reject),
         async onAccepted(content: string, link: string) {
+            if (downloadMap[link]) {
+                warnLog(content + " has been download but accepted");
+                return;
+            }
+
             if (config.record && record) {
                 const recordUnit = record.accepted[content];
                 const secondStamp = Math.floor(Date.now() / 1000);
                 //判断是否存在记录并且发送下载请求成功
-                if (recordUnit && downloadStatus[content]) {
+                if (recordUnit) {
                     //判断过期
                     if (
                         !recordUnit.expired ||
@@ -99,19 +104,19 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
                 recordItem("accepted", content);
                 //判断是否仅需要记录
                 if (!onlyRecord) {
-                    console.time("3.postDownload");
+                    console.time("3.postDownload--" + content);
+                    downloadMap[link] = true;
                     await postDownloadRequest(
                         config,
                         link,
                         this.option,
                         this.name
                     );
-                    console.timeEnd("3.postDownload");
-                    downloadStatus[content] = true;
+                    console.timeEnd("3.postDownload--" + content);
                 }
             } catch (error) {
                 deleteItem("accepted", content);
-                downloadStatus[content] = false;
+                downloadMap[link] = false;
                 errorLog(
                     `post download request failed!\nitem: ${content}\nerror: ${error}`
                 );
