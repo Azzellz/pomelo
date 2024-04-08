@@ -12,7 +12,9 @@ pomelo 支持 5 种配置文件格式:
 
 ## yaml(推荐)
 最推荐的配置文件,简单易用
+
 样例:
+
 ```yaml
 interval: 0
 resource:
