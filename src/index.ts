@@ -103,6 +103,21 @@ async function _init({
         //保存记录
         const saveRecord: PomeloRuleContext["saveRecord"] = () => {
             if (!_record) return;
+            //先清洗一遍record
+            let validRecord: PomeloRecord = {
+                accepted: {},
+                rejected: {},
+            };
+            Object.entries(_record.accepted).forEach(([k, v]) => {
+                if (v) {
+                    validRecord.accepted[k] = v;
+                }
+            });
+            Object.entries(_record.rejected).forEach(([k, v]) => {
+                if (v) {
+                    validRecord.rejected[k] = v;
+                }
+            });
             try {
                 writeFileSync(
                     join(configPath + "/__record.json"),
@@ -111,6 +126,11 @@ async function _init({
             } catch (error) {
                 errorLog(`error in saved record!\nerror:${error}`);
             }
+        };
+        //删除记录item
+        const deleteItem: PomeloRuleContext["deleteItem"] = (key, content) => {
+            if (!_record) return;
+            _record[key][content] = void 0;
         };
         //记录item
         const recordItem: PomeloRuleContext["recordItem"] = (key, content) => {
@@ -132,9 +152,11 @@ async function _init({
             record: _record,
             plugins: [],
             intervalTimeCount: void 0,
+            downloadStatus: {},
             onlyRecord,
             saveRecord,
             recordItem,
+            deleteItem,
         };
         //#endregion
 

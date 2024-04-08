@@ -66,6 +66,8 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
         intervalTimeCount,
         recordItem,
         record,
+        deleteItem,
+        downloadStatus,
     } = context;
     return {
         name: ruleUnit.name,
@@ -77,8 +79,8 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
             if (config.record && record) {
                 const recordUnit = record.accepted[content];
                 const secondStamp = Math.floor(Date.now() / 1000);
-                //判断是否存在记录
-                if (recordUnit) {
+                //判断是否存在记录并且发送下载请求成功
+                if (recordUnit && downloadStatus[content]) {
                     //判断过期
                     if (
                         !recordUnit.expired ||
@@ -91,9 +93,10 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
                     }
                 }
             }
-            //打印接受日志
-            successLog(`accept ${content} by [rule]: ${ruleUnit.name}`);
             try {
+                //打印接受日志
+                successLog(`accept ${content} by [rule]: ${ruleUnit.name}`);
+                recordItem("accepted", content);
                 //判断是否仅需要记录
                 if (!onlyRecord) {
                     console.time("3.postDownload");
@@ -104,9 +107,11 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
                         this.name
                     );
                     console.timeEnd("3.postDownload");
+                    downloadStatus[content] = true;
                 }
-                recordItem("accepted", content);
             } catch (error) {
+                deleteItem("accepted", content);
+                downloadStatus[content] = false;
                 errorLog(
                     `post download request failed!\nitem: ${content}\nerror: ${error}`
                 );

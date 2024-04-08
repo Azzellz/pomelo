@@ -23,5 +23,7 @@ export type PomeloCommonContext = {
     intervalTimeCount?: () => void;
     saveRecord: () => void;
     recordItem: (key: keyof PomeloRecord, content: string) => void;
+    deleteItem: (key: keyof PomeloRecord, content: string) => void;
+    downloadStatus: Record<string, boolean>;//映射下载情况
     plugins: PomeloPlugin[];
 };
