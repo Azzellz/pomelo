@@ -1,5 +1,7 @@
 # pomelo(柚子)
 
+[文档](https://pomelo.pages.dev/)
+
 基于 Bunjs 和 Aria2 的资源下载工具,配置灵活,支持多种资源。
 
 # 支持的资源
@@ -65,16 +67,27 @@ pomelo 支持 5 种配置文件格式:
 ```typescript
 export default {
     interval: 0, //定时任务间隔,为0或者不写则以一次性任务进行,单位为秒
-    rss: {
-        //rss配置
-        uri: "https://mikanani.me/RSS/Classic", //默认rss源,当rule没有指定源时使用该源
-        save: "", //每次下载的xml的保存路径,置空或不写该字段则不保存
+    //资源配置项
+    resource: {
+        url: "https://mikanani.me/RSS/Classic",
+        type: "rss-mikanani",
+        async parser(
+            target: obejct,
+            handler: (content: string, link: string) => void
+        ) {
+            for (const ch of target.rss.channel) {
+                for (const item of ch.item) {
+                    await handler(item.title[0], item.enclosure[0].$.url);
+                }
+            }
+        },
     },
     aria2: {
-        //aria2配置
-        host: "http://127.0.0.1",
-        port: "6800",
-        token: "",
+        //aria2配置,支持环境变量
+        env: true,
+        // host: "$POMELO_ARIA2_HOST",
+        // port: "$POMELO_ARIA2_PORT",
+        // token: "$POMELO_ARIA2_TOKEN",
     },
     rules: {
         //规则集
@@ -91,60 +104,6 @@ export default {
         },
     },
 };
-```
-
-## pomelo.json
-
-```JSON
-{
-    "interval": 0,
-    "rss": {
-        "uri": "https://mikanani.me/RSS/Classic"
-    },
-    "aria2": {
-        "host": "http://127.0.0.1",
-        "port": "6800",
-        "token": ""
-    },
-    "rules": {
-        "葬送的芙莉莲": {
-            "option": {
-                "dir": "/downloads/连载/{{rule.name}}"
-            },
-            "accept": [
-                ["Frieren", "Baha", "gj\\.y"],
-                ["Frieren", "LoliHouse"]
-            ],
-            "reject": [["sp|ova|oad|special|特別"]]
-        }
-    }
-}
-```
-
-## pomelo.yaml / pomelo.yml
-
-```yaml
-interval: 0
-record:
-    expire: 3600
-rss:
-    uri: https://mikanani.me/RSS/Classic
-aria2:
-    host: http://127.0.0.1
-    port: "6800"
-    token: ""
-rules:
-    葬送的芙莉莲:
-        option:
-            dir: /downloads/连载/{{rule.name}}
-        accept:
-            - - Frieren
-              - Baha
-              - gj\.y
-            - - Frieren
-              - LoliHouse
-        reject:
-            - - sp|ova|oad|special|特別
 ```
 
 # 命令行参数
