@@ -7,24 +7,21 @@ export default defineConfig({
         // https://vitepress.dev/reference/default-theme-config
         siteTitle: "Pomelo",
         nav: [
-            { text: "指南", link: "/guide" },
-            { text: "API", link: "/API" },
+            { text: "指南", link: "/introduction" },
+            // { text: "API", link: "/API" },
         ], search: {
             provider: 'local'
         },
         sidebar: [{
-            text: 'Pomelo 简介', link: '/guide'
+            text: 'Pomelo 简介', link: '/introduction'
             
         },
         {
-            text: '快速上手', link: '/guide'
+            text: '快速上手', link: '/startup'
             
         }, {
-            text: '配置文件',
-            collapsed: false,
-            items: [
-                { text: 'Task', link: '/guide' },
-            ]
+            text: '配置文件',link: '/config'
+            
         }
         ],
 
