@@ -3,13 +3,29 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
     title: "Pomelo",
-    description: "基于 Bunjs 和 Aria2 的资源下载工具,配置灵活,支持多种资源。",
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         siteTitle: "Pomelo",
         nav: [
-            { text: "指南", link: "/guide.md" },
-            { text: "API", link: "/API.md" },
+            { text: "指南", link: "/guide" },
+            { text: "API", link: "/API" },
+        ], search: {
+            provider: 'local'
+        },
+        sidebar: [{
+            text: 'Pomelo 简介', link: '/guide'
+            
+        },
+        {
+            text: '快速上手', link: '/guide'
+            
+        }, {
+            text: '配置文件',
+            collapsed: false,
+            items: [
+                { text: 'Task', link: '/guide' },
+            ]
+        }
         ],
 
         // sidebar: [
