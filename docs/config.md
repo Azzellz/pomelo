@@ -10,9 +10,50 @@ pomelo 支持 5 种配置文件格式:
 4. pomelo.yaml
 5. pomelo.yml
 
-## pomelo.config.ts/js(推荐)
+## yaml(推荐)
+最推荐的配置文件,简单易用
+样例:
+```yaml
+interval: 0
+resource:
+  url: https://share.acgnx.se/rss.xml
+  type: "rss-share-acgnx"
+record:
+  expire: 604800
+aria2:
+  env: true  #代表读取环境变量的Aria2配置
 
-最推荐的配置文件,非常灵活,可以自行实现 parser,适合有 ts/js 经验的使用者。
+rules:
+  葬送的芙莉莲:
+    option:
+      dir: /downloads/连载/{{rule.name}}
+    accept:
+      - - Sousou no Frieren
+        - baha
+        - up to 21
+      - - Sousou no Frieren
+        - LoliHouse
+    reject:
+      - - sp|ova|oad|special|特別
+  Final:
+    option:
+      dir: "/downloads/新番 全搬运 未分类"
+    accept:
+      - - up to 21
+        - baha
+      - - ani
+        - bilibili
+      - - LoliHouse
+    reject:
+      - - bdrip
+        - 合集
+```
+
+
+
+## pomelo.config.ts/js
+
+非常灵活,可以自行实现 parser,适合有 ts/js 经验的使用者。
 
 样例:
 
