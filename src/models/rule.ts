@@ -2,41 +2,41 @@ import { Config } from "./config";
 import { PomeloRecord } from "./record";
 
 export type PomeloHandler = (content: string) => boolean;
-export interface Rule {
+export interface PomeloRule {
     name: string;
     resource?: Config["resource"];
-    option: DownloadOption;
+    option: PomeloDownloadOption;
     accept?: PomeloHandler;
     reject?: PomeloHandler;
-    onBeginMatch?: () => void;
-    onAccepted?: (content: string, link: string, record?: PomeloRecord) => void;
+    onMatchBegin?: () => void;
+    onMatchEnd?: () => void;
+    onAccepted?: (content: string, link: string, record?: PomeloRecord) => Promise<void>;
     onRejected?: (content: string, link: string, record?: PomeloRecord) => void;
-    onEndMatch?: () => void;
 }
 
-export type RuleMap = {
-    [name in string]: RuleUnit;
+export type PomeloRuleMap = {
+    [name in string]: PomeloRuleUnit;
 };
 
-export interface RegExpOption {
+export interface PomeloRegExp {
     expr: string;
     flag: string;
 }
-export interface RuleUnit {
-    option: DownloadOption;
+export interface PomeloRuleUnit {
+    option: PomeloDownloadOption;
     resource: Config["resource"];
     accept: RuleHandlerOption;
     reject: RuleHandlerOption;
 }
 
 export type RuleHandlerOption =
-    | RegExpOption[][]
+    | PomeloRegExp[][]
     | string[][]
     | string
-    | RegExpOption
+    | PomeloRegExp
     | PomeloHandler;
 
-export type DownloadOption = {
+export type PomeloDownloadOption = {
     dir: string;
     host?: string;
     port?: string;

@@ -1,4 +1,4 @@
-import { SupportRSS } from "./models/resource/rss/common-rss";
+import type { SupportRSS } from "./models";
 import { getTitleFromRSSItem, getUrlFromRSSItem } from "./utils";
 
 export async function parseRSS(

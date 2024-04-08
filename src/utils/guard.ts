@@ -1,4 +1,4 @@
-import { RegExpOption, RuleHandlerOption } from "../models/rule";
+import { PomeloRegExp, RuleHandlerOption } from "../models/rule";
 import type {
     ShareAcgnxItem,
     ShareAcgnxRSS,
@@ -49,8 +49,8 @@ export function isNyaaRSSItem(item: SupportRSSItem): item is NyaaItem {
     return item.link[0].includes("nyaa");
 }
 
-export function isRegExpOption(opt: RuleHandlerOption): opt is RegExpOption {
-    const _tmp = opt as RegExpOption;
+export function isRegExpOption(opt: RuleHandlerOption): opt is PomeloRegExp {
+    const _tmp = opt as PomeloRegExp;
     if (!_tmp) return false;
     return !!_tmp.expr && !!_tmp.flag;
 }

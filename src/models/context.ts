@@ -1,25 +1,27 @@
 import { Config } from "./config";
+import { PomeloPlugin } from "./plugin";
 import { PomeloRecord } from "./record";
-import { Rule, RuleUnit } from "./rule";
+import { PomeloRule, PomeloRuleUnit } from "./rule";
 
-export type TaskContext = {} & CommonContext;
+export type PomeloTaskContext = {} & PomeloCommonContext;
 
-export type RuleContext = {
+export type PomeloRuleContext = {
     ruleUnit: {
         name: string;
-    } & RuleUnit;
-} & CommonContext;
+    } & PomeloRuleUnit;
+} & PomeloCommonContext;
 
-export type ProcessContext = {
-    mainResource: Promise<any>;
-    rule: Rule;
-} & CommonContext;
+export type PomeloProcessContext = {
+    mainResource: Promise<object>;
+    rule: PomeloRule;
+} & PomeloCommonContext;
 
-export type CommonContext = {
+export type PomeloCommonContext = {
     config: Config;
     record?: PomeloRecord;
     onlyRecord: boolean;
     intervalTimeCount?: () => void;
     saveRecord: () => void;
     recordItem: (key: keyof PomeloRecord, content: string) => void;
+    plugins: PomeloPlugin[];
 };

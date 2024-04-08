@@ -4,11 +4,12 @@ import { join } from "path";
 import { getResource } from "./api";
 import { errorLog, successLog, warnLog } from "./log";
 import type {
-    TaskContext,
+    PomeloTaskContext,
     Config,
-    ProcessContext,
-    RuleContext,
+    PomeloProcessContext,
+    PomeloRuleContext,
     PomeloRecord,
+    PomeloPlugin,
 } from "./models";
 import { processResource } from "./resource";
 import { createRule } from "./rule";
@@ -100,7 +101,7 @@ async function _init({
         //记录操作
         //#region
         //保存记录
-        const saveRecord = () => {
+        const saveRecord: PomeloRuleContext["saveRecord"] = () => {
             if (!_record) return;
             try {
                 writeFileSync(
@@ -112,7 +113,7 @@ async function _init({
             }
         };
         //记录item
-        const recordItem: RuleContext["recordItem"] = (key, content) => {
+        const recordItem: PomeloRuleContext["recordItem"] = (key, content) => {
             if (!_record) return;
             const secondStamp = Math.floor(Date.now() / 1000);
             //没有缓存记录,则记录缓存
@@ -126,11 +127,12 @@ async function _init({
 
         //封装对象上下文
         //#region
-        const context: TaskContext = {
+        const context: PomeloTaskContext = {
             config: _config,
             record: _record,
-            onlyRecord,
+            plugins: [],
             intervalTimeCount: void 0,
+            onlyRecord,
             saveRecord,
             recordItem,
         };
@@ -161,28 +163,34 @@ async function _init({
         //任务调度
         //#region
         if (interval) {
-            return async () => {
-                let id = 0;
-                successLog(
-                    `start interval task, interval: ${_config.interval}, current: ${id}`
-                );
-                context.intervalTimeCount = intervalTimeCount(id++);
-                await _task(context);
-
-                setInterval(async () => {
+            return {
+                task: async () => {
+                    let id = 0;
                     successLog(
                         `start interval task, interval: ${_config.interval}, current: ${id}`
                     );
                     context.intervalTimeCount = intervalTimeCount(id++);
                     await _task(context);
-                    context.saveRecord(); //每次定时任务结束后都要保存一次
-                }, interval);
+
+                    setInterval(async () => {
+                        successLog(
+                            `start interval task, interval: ${_config.interval}, current: ${id}`
+                        );
+                        context.intervalTimeCount = intervalTimeCount(id++);
+                        await _task(context);
+                        context.saveRecord(); //每次定时任务结束后都要保存一次
+                    }, interval);
+                },
+                context,
             };
         } else {
-            return async () => {
-                console.time("all tasks");
-                successLog("start once task");
-                await _task(context);
+            return {
+                task: async () => {
+                    console.time("all tasks");
+                    successLog("start once task");
+                    await _task(context);
+                },
+                context,
             };
         }
         //#endregion
@@ -192,8 +200,8 @@ async function _init({
     }
 }
 
-async function _task(ctx: TaskContext) {
-    const { config } = ctx;
+async function _task(context: PomeloTaskContext) {
+    const { config } = context;
 
     //获取RSS并且记录耗时
     successLog("getting rss resources from " + config.resource.url);
@@ -207,19 +215,19 @@ async function _task(ctx: TaskContext) {
     //#region
     Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
         //rule
-        const ruleContext: RuleContext = {
+        const ruleContext: PomeloRuleContext = {
             ruleUnit: {
                 ...ruleJSON,
                 name: ruleName,
             },
-            ...ctx,
+            ...context,
         };
         const rule = createRule(ruleContext);
         //process
-        const processContext: ProcessContext = {
+        const processContext: PomeloProcessContext = {
             mainResource,
             rule,
-            ...ctx,
+            ...context,
         };
         await processResource(processContext);
     });
@@ -235,10 +243,13 @@ export async function createPomelo({
     onlyRecord?: boolean;
 }) {
     try {
-        const task = await _init({ config, record, onlyRecord });
-        if (!task) throw "error in createPomelo:";
+        const result = await _init({ config, record, onlyRecord });
+        if (!result) throw "error in createPomelo:";
         return {
-            task,
+            task: result.task,
+            use(plugin: PomeloPlugin) {
+                result.context.plugins.push(plugin);
+            },
         };
     } catch (error) {
         throw "error in createPomelo! " + error;

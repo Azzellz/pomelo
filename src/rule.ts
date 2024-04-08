@@ -1,26 +1,31 @@
 import { postDownloadRequest } from "./api";
 import { errorLog, successLog, warnLog } from "./log";
-import { RuleContext } from "./models/context";
-import { PomeloRecord } from "./models/record";
-import type { Rule, RuleHandlerOption, PomeloHandler } from "./models/rule";
+import type {
+    PomeloProcessContext,
+    PomeloRuleContext,
+    PomeloRule,
+    RuleHandlerOption,
+    PomeloHandler,
+} from "./models";
 import { getResource as _getResource } from "./api";
 import { isRegExpOption } from "./utils";
 
-export async function matchRule(
-    content: string,
-    link: string,
-    rule: Rule,
-    record?: PomeloRecord
+export async function matchRule<T extends { content: string; link: string }>(
+    context: PomeloProcessContext & T
 ) {
+    const { content, link, record, rule, plugins } = context;
+
     //先匹配拒绝条件
     if (rule.reject && rule.reject(content)) {
-        rule.onRejected && (await rule.onRejected(content, link, record));
+        plugins.forEach((p) => p.onRejected?.(content, link));
+        rule.onRejected?.(content, link, record);
         return false;
     }
 
     //再匹配接受条件
     if (rule.accept && rule.accept(content)) {
-        rule.onAccepted && (await rule.onAccepted(content, link, record));
+        plugins.forEach((p) => p.onAccepted?.(content, link));
+        await rule.onAccepted?.(content, link, record);
         return true;
     }
 
@@ -28,9 +33,7 @@ export async function matchRule(
     return false;
 }
 
-function createHandlerByOptions(
-    optss: RuleHandlerOption
-): PomeloHandler | undefined {
+function createHandler(optss: RuleHandlerOption): PomeloHandler | undefined {
     if (typeof optss === "function") {
         return (content: string) => optss(content);
     } else if (typeof optss === "string") {
@@ -55,21 +58,22 @@ function createHandlerByOptions(
     }
 }
 
-export function createRule({
-    config,
-    ruleUnit,
-    onlyRecord = false,
-    intervalTimeCount,
-    recordItem,
-    record,
-}: RuleContext): Rule {
+export function createRule(context: PomeloRuleContext): PomeloRule {
+    const {
+        config,
+        ruleUnit,
+        onlyRecord = false,
+        intervalTimeCount,
+        recordItem,
+        record,
+    } = context;
     return {
         name: ruleUnit.name,
         option: ruleUnit.option,
         resource: ruleUnit.resource,
-        accept: createHandlerByOptions(ruleUnit.accept),
-        reject: createHandlerByOptions(ruleUnit.reject),
-        async onAccepted(content, link) {
+        accept: createHandler(ruleUnit.accept),
+        reject: createHandler(ruleUnit.reject),
+        async onAccepted(content: string, link: string) {
             if (config.record && record) {
                 const recordUnit = record.accepted[content];
                 const secondStamp = Math.floor(Date.now() / 1000);
@@ -108,7 +112,7 @@ export function createRule({
                 );
             }
         },
-        onRejected(content) {
+        onRejected(content: string) {
             if (config.record?.expire && record) {
                 const recordUnit = record.rejected[content];
                 const secondStamp = Math.floor(Date.now() / 1000);
@@ -128,10 +132,10 @@ export function createRule({
             successLog(`reject ${content} by [rule]: ${ruleUnit.name}`);
             recordItem("rejected", content);
         },
-        onBeginMatch() {
+        onMatchBegin() {
             console.time("2.match rule--" + ruleUnit.name);
         },
-        onEndMatch() {
+        onMatchEnd() {
             console.timeEnd("2.match rule--" + ruleUnit.name);
             intervalTimeCount && intervalTimeCount();
         },

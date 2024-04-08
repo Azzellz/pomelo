@@ -1,6 +1,6 @@
 import { parseStringPromise } from "xml2js";
 import { readFile } from "fs/promises";
-import { DownloadOption } from "./models/rule";
+import { PomeloDownloadOption } from "./models/rule";
 import { Config } from "./models/config";
 import { resolve } from "path";
 import { loadEnv } from "./utils";
@@ -8,7 +8,7 @@ import { loadEnv } from "./utils";
 export async function postDownloadRequest(
     config: Config,
     link: string,
-    opts: DownloadOption,
+    opts: PomeloDownloadOption,
     ruleName: string
 ) {
     let token: string = "";
@@ -38,21 +38,19 @@ export async function postDownloadRequest(
     });
 }
 
+//获取并且解析资源,返回一个合法的js对象
 export async function getResource(
-    resourceOpt: Config["resource"]
-): Promise<any> {
+    options: Config["resource"]
+): Promise<object> {
     try {
-        if (
-            resourceOpt.url.includes("http") ||
-            resourceOpt.url.includes("https")
-        ) {
+        if (options.url.includes("http") || options.url.includes("https")) {
             //远程下载
-            const res = await fetch(resourceOpt.url);
+            const res = await fetch(options.url);
             return await parseStringPromise(await res.text());
         } else {
             //本地加载
-            const buf = await readFile(resolve(resourceOpt.url));
-            const _tmp = resourceOpt.url.split(".");
+            const buf = await readFile(resolve(options.url));
+            const _tmp = options.url.split(".");
             const suffix = _tmp[_tmp.length - 1];
             if (suffix === "xml") {
                 return await parseStringPromise(buf.toString());

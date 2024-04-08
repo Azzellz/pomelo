@@ -1,27 +1,20 @@
 import { successLog, errorLog } from "./log";
-import { Config } from "./models/config";
-import { PomeloRecord } from "./models/record";
-import { Rule } from "./models/rule";
 import { parseRSS } from "./parser";
 import { matchRule } from "./rule";
 import { getResource as _getResource } from "./api";
 import { isMikananiRSS, isNyaaRSS, isShareAcgnxRSS } from "./utils";
-import { ProcessContext } from "./models/context";
+import type { PomeloProcessContext } from "./models/context";
 
 //根据不同的rss类型进行不同的处理
-export async function processResource(context: ProcessContext) {
-    const { mainResource, config, rule, record } = context;
-    const res = await getResource(mainResource, config, rule);
-    await parseResource(config, res, rule, record);
-    rule.onEndMatch && rule.onEndMatch();
+export async function processResource(context: PomeloProcessContext) {
+    const { rule } = context;
+    const resource = await getResource(context);
+    await parseResource({ target: resource, ...context });
 }
 
 //获取资源
-async function getResource(
-    mainResource: Promise<any>,
-    config: Config,
-    rule: Rule
-) {
+async function getResource(context: PomeloProcessContext) {
+    const { mainResource, rule, config } = context;
     let resource = await mainResource;
     try {
         //针对每个规则
@@ -50,14 +43,14 @@ async function getResource(
 }
 
 //解析资源并且进行matchRule
-async function parseResource(
-    config: Config,
-    json: any,
-    rule: Rule,
-    record?: PomeloRecord
+async function parseResource<T extends { target: object }>(
+    context: PomeloProcessContext & T
 ) {
+    const { rule, config, target, plugins } = context;
     try {
-        rule.onBeginMatch && rule.onBeginMatch();
+        plugins.forEach((p) => p.onMatchBegin?.());
+        rule.onMatchBegin?.();
+
         //优先使用rule的resource选项
         const resource = rule.resource ? rule.resource : config.resource;
         //处理RSS
@@ -67,17 +60,17 @@ async function parseResource(
             resource.type === "rss-share-acgnx"
         ) {
             if (
-                isMikananiRSS(json) ||
-                isNyaaRSS(json) ||
-                isShareAcgnxRSS(json)
+                isMikananiRSS(target) ||
+                isNyaaRSS(target) ||
+                isShareAcgnxRSS(target)
             ) {
                 if (resource.parser) {
-                    await resource.parser(json, async (content, link) => {
-                        await matchRule(content, link, rule, record);
+                    await resource.parser(target, async (content, link) => {
+                        await matchRule({ content, link, ...context });
                     });
                 } else {
-                    await parseRSS(json, async (content, link) => {
-                        await matchRule(content, link, rule, record);
+                    await parseRSS(target, async (content, link) => {
+                        await matchRule({ content, link, ...context });
                     });
                 }
             } else {
@@ -88,12 +81,15 @@ async function parseResource(
             typeof resource.parser === "function"
         ) {
             //自定义解析
-            await resource.parser(json, async (content, link) => {
-                await matchRule(content, link, rule, record);
+            await resource.parser(target, async (content, link) => {
+                await matchRule({ content, link, ...context });
             });
         } else {
             throw "please input right resource type! support type: rss-mikanani/rss-nyaa/rss-share-acgnx/other(need parser)";
         }
+
+        plugins.forEach((p) => p.onMatchEnd?.());
+        rule.onMatchEnd?.();
     } catch (error) {
         errorLog(
             `error in [step2]: processRSS of the [rule]:${rule.name}\nerror:${error}`

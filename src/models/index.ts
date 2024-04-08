@@ -1,5 +1,6 @@
-export * from "./resource/rss";
-export * from "./config";
-export * from "./context";
-export * from "./record";
-export * from "./rule";
+export type * from "./resource/rss";
+export type * from "./config";
+export type * from "./context";
+export type * from "./record";
+export type * from "./rule";
+export type * from "./plugin";
