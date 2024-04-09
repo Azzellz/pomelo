@@ -23,7 +23,10 @@ resource:
 record:
   expire: 604800
 aria2:
-  env: true  #代表读取环境变量的Aria2配置
+  env: true  #代表启用读取环境变量的Aria2配置功能，可以不用编写下面的host,port,token，使用环境变量 POMELO_ARIA2_HOST POMELO_ARIA2_PORT POMELO_ARIA2_TOKEN 代替
+  # host: http://127.0.0.1
+  # port: 6800
+  # token: example_token
 
 rules:
   葬送的芙莉莲:
