@@ -139,3 +139,4 @@ pomelo.yaml
 docs/.vitepress/dist
 docs/.vitepress/cache
 docs-build-cmd.txt
+.pnpm-store
