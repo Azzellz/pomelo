@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import { writeFileSync } from "fs";
 import { join } from "path";
-import { getResource, postDownloadRequest } from "./api";
+import { getResource } from "./api";
 import { errorLog, successLog, warnLog } from "./log";
 import type {
     PomeloTaskContext,
@@ -10,7 +10,6 @@ import type {
     PomeloRuleContext,
     PomeloRecord,
     PomeloPlugin,
-    PomeloDownloadOption,
 } from "./models";
 import { processResource } from "./resource";
 import { createRule } from "./rule";

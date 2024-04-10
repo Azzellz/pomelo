@@ -3,7 +3,6 @@ import { readFile } from "fs/promises";
 import { PomeloDownloadOption } from "./models/rule";
 import { Config } from "./models/config";
 import { resolve } from "path";
-import { loadEnv } from "./utils";
 
 export async function postDownloadRequest(
     config: Config,
@@ -11,14 +10,9 @@ export async function postDownloadRequest(
     opts: PomeloDownloadOption,
     ruleName: string
 ) {
-    let token: string = "";
-    let host: string = "";
-    let port: string = "";
-    if (config.aria2.env) {
-        token = await loadEnv("POMELO_ARIA2_TOKEN");
-        host = await loadEnv("POMELO_ARIA2_HOST");
-        port = await loadEnv("POMELO_ARIA2_PORT");
-    }
+    let token = process.env["POMELO_ARIA2_TOKEN"];
+    let host = process.env["POMELO_ARIA2_HOST"];
+    let port = process.env["POMELO_ARIA2_PORT"];
     token = opts.token || config.aria2.token || token;
     host = opts.host || config.aria2.host || host;
     port = opts.port || config.aria2.port || port;

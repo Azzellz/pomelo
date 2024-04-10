@@ -1,7 +1,6 @@
 import { readFile } from "fs/promises";
 import { existsSync } from "fs";
 import { load as loadYaml } from "js-yaml";
-import { $ } from "bun";
 import { Config } from "../models/config";
 import { PomeloRecord } from "../models/record";
 
@@ -59,9 +58,4 @@ export async function loadRecord(path: string): Promise<PomeloRecord> {
             rejected: {},
         };
     }
-}
-
-//加载环境变量
-export async function loadEnv(name: string): Promise<string> {
-    return (await $`echo $${name}`.text()).trim();
 }
