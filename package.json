@@ -1,7 +1,7 @@
 {
   "name": "pomelo",
   "version": "1.2.0",
-  "description": "基于Bunjs和aria2的自动化rss资源下载工具",
+  "description": "基于Bun/Nodejs和aria2的自动化rss资源下载工具",
   "main": "src/index.ts",
   "keywords": ["Bun", "Aria2", "RSS", "Download", "js", "ts"],
   "author": "Azzellz",

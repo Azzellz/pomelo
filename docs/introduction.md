@@ -2,7 +2,7 @@
 
 [文档](https://pomelo.pages.dev/)
 
-基于 Bunjs 和 Aria2 的资源解析工具,配置灵活,支持多种资源。
+基于 Bun/Nodejs 和 Aria2 的资源解析工具,配置灵活,支持多种资源。
 
 # 支持的资源
 

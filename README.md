@@ -1,7 +1,7 @@
 # Pomelo (Yuzu)
 [中文文档](https://github.com/Azzellz/pomelo/blob/main/README.zh.md)
 
-Based on Bunjs, Pomelo is a resource parsing tool with flexible configurations. It supports various types of resources. Most of the functionality is inspired by [Flexget](https://github.com/Flexget/Flexget).
+Based on Bun/Nodejs, Pomelo is a resource parsing tool with flexible configurations. It supports various types of resources. Most of the functionality is inspired by [Flexget](https://github.com/Flexget/Flexget).
 
 A typical use case is parsing RSS resources and sending them to aria2 for download.
 
