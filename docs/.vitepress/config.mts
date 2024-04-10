@@ -2,10 +2,10 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-    title: "Pomelo",
+    title: "pomelo",
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
-        siteTitle: "Pomelo",
+        siteTitle: "pomelo",
         nav: [
             { text: "指南", link: "/introduction" },
             // { text: "API", link: "/API" },
@@ -13,7 +13,7 @@ export default defineConfig({
             provider: 'local'
         },
         sidebar: [{
-            text: 'Pomelo 简介', link: '/introduction'
+            text: 'pomelo 简介', link: '/introduction'
             
         },
         {

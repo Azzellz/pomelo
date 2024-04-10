@@ -1,4 +1,4 @@
-# Pomelo(柚子)
+# pomelo(柚子)
 
 [文档](https://pomelo.pages.dev/)
 

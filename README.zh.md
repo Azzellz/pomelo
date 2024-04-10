@@ -1,4 +1,4 @@
-# Pomelo(柚子)
+# pomelo(柚子)
 
 基于 Bun/Nodejs 的资源解析工具,配置灵活,支持多种资源，绝大部分功能灵感来自 [Flexget](https://github.com/Flexget/Flexget) 。
 
