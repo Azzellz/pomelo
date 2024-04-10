@@ -3,7 +3,7 @@ layout: home
 
 hero:
   name: pomelo
-  text: 基于 Bun/Nodejs 和 Aria2 的资源解析工具,配置灵活,支持多种资源。
+  text: 基于 Bun/Nodejs 和 aria2 的资源解析工具,配置灵活,支持多种资源。
   tagline: 100% Typescript含量
   image:
     src: /logo.png
