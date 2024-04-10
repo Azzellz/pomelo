@@ -140,3 +140,4 @@ docs/.vitepress/dist
 docs/.vitepress/cache
 docs-build-cmd.txt
 .pnpm-store
+bun.lockb
