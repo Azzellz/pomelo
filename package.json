@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "keywords": [
     "Bun",
-    "Aria2",
+    "aria2",
     "RSS",
     "Download",
     "js",
