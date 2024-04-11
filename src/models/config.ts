@@ -1,17 +1,17 @@
 import { PomeloRuleMap } from "./rule";
 
-export interface Config {
+export interface PomeloConfig {
     interval?: number | string;
     record?: {
         expire: number | string;
     };
     resource: {
-        type: "rss-mikanani" | "rss-nyaa" | "rss-share-acgnx" | "other";
         url: string;
-        parser?: (
-            json: object,
-            handler: (content: string, link: string) => void
-        ) => void;
+        parser?: (str: string) => object | Promise<object> | undefined | null; //将字符串解析成合法js对象
+        worker?: (
+            resource: object,
+            handler: (content: string, link: string) => void | Promise<void>
+        ) => void | Promise<void>; //处理解析后的对象
     };
     aria2: {
         env: boolean;

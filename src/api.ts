@@ -1,12 +1,11 @@
-import { parseStringPromise } from "xml2js";
 import { readFile } from "fs/promises";
 import { PomeloDownloadOption } from "./models/rule";
-import { Config } from "./models/config";
+import { PomeloConfig } from "./models/config";
 import { resolve } from "path";
 import { get } from "node:http";
 
 export async function postDownloadRequest(
-    config: Config,
+    config: PomeloConfig,
     link: string,
     opts: PomeloDownloadOption,
     ruleName: string
@@ -34,9 +33,9 @@ export async function postDownloadRequest(
 }
 
 //获取并且解析资源,返回一个合法的js对象
-export async function getResource(
-    options: Config["resource"]
-): Promise<object> {
+export async function getResourceString(
+    options: PomeloConfig["resource"]
+): Promise<string> {
     try {
         if (options.url.includes("http") || options.url.includes("https")) {
             const [host, port] = (
@@ -57,31 +56,20 @@ export async function getResource(
                             res.on("data", (chunk) => {
                                 chunks.push(chunk);
                             });
-                            res.on("end", async () => {
-                                const obj = await parseStringPromise(
-                                    Buffer.concat(chunks).toString()
-                                );
-                                resolve(obj);
+                            res.on("end", () => {
+                                resolve(Buffer.concat(chunks).toString());
                             });
                         }
                     );
                 });
             } else {
                 const res = await fetch(options.url);
-                return await parseStringPromise(await res.text());
+                return await res.text();
             }
         } else {
             //本地加载
             const buf = await readFile(resolve(options.url));
-            const _tmp = options.url.split(".");
-            const suffix = _tmp[_tmp.length - 1];
-            if (suffix === "xml") {
-                return await parseStringPromise(buf.toString());
-            } else if (suffix === "json") {
-                return JSON.parse(buf.toString());
-            } else {
-                throw "Wrong local file extension";
-            }
+            return buf.toString();
         }
     } catch (error) {
         throw "Failed to get RSS feed, please check uri!";

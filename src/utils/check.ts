@@ -1,6 +1,6 @@
-import { Config } from "../models/config";
+import { PomeloConfig } from "../models/config";
 //checker
-export function checkConfig(config: Config) {
+export function checkConfig(config: PomeloConfig) {
     try {
         const { interval, resource, record, aria2 } = config;
         //检查interval
@@ -30,7 +30,7 @@ export function checkConfig(config: Config) {
             ) {
                 throw "resource.type must be rss-mikanani | rss-nyaa | rss-share-acgnx | other";
             }
-            if (resource.parser && typeof resource.parser !== "function") {
+            if (resource.worker && typeof resource.worker !== "function") {
                 throw "resource.parser must be a canonically signed function";
             }
         } else {

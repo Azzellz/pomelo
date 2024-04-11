@@ -1,4 +1,4 @@
-import { createPomelo } from "./src";
+import { createPomelo, RSS } from "./src";
 import { resolve } from "path";
 import minimist from "minimist";
 
@@ -9,4 +9,7 @@ const onlyRecord = args.r === true || args.record === true;
 const config = resolve(args.d === true ? "./" : args.d || "./");
 //#endregion
 
-createPomelo({ config, onlyRecord }).then((p) => p.task());
+createPomelo({ config, onlyRecord }).then((p) => {
+    p.use(RSS());
+    p.task();
+});
