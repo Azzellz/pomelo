@@ -9,5 +9,4 @@ const onlyRecord = args.r === true || args.record === true;
 const config = resolve(args.d === true ? "./" : args.d || "./");
 //#endregion
 
-const pomelo = await createPomelo({ config, onlyRecord });
-pomelo.task();
+createPomelo({ config, onlyRecord }).then((p) => p.task());
