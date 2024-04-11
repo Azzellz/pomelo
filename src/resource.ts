@@ -61,48 +61,12 @@ async function parseResource<T extends { target: string }>(
         if (parser && worker) {
             const parsed = await parser(target);
             if (!parsed) throw "the parser dont return valid analytic product";
-            worker(parsed, async (content, link) => {
+            await worker(parsed, async (content, link) => {
                 await matchRule({ content, link, ...context });
             });
         } else {
             throw "please support right parser and worker!";
         }
-
-        // //TODO 这里做成插件比较好,处理RSS
-        // if (
-        //     options.type === "rss-mikanani" ||
-        //     options.type === "rss-nyaa" ||
-        //     options.type === "rss-share-acgnx"
-        // ) {
-        //     const obj = await parseXml(target);
-        //     if (isMikananiRSS(obj) || isNyaaRSS(obj) || isShareAcgnxRSS(obj)) {
-        //         if (typeof options.worker === "function") {
-        //             await options.worker(obj, async (content, link) => {
-        //                 await matchRule({ content, link, ...context });
-        //             });
-        //         } else {
-        //             await handleRSS(obj, async (content, link) => {
-        //                 await matchRule({ content, link, ...context });
-        //             });
-        //         }
-        //     } else {
-        //         throw "unsupported RSS feeds, please replace them with supported RSS feeds.";
-        //     }
-        // } else if (
-        //     options.type === "other" &&
-        //     typeof options.worker === "function" &&
-        //     typeof options.parser === "function"
-        // ) {
-        //     //自定义解析
-        //     const parsed = options.parser(target);
-        //     if (!parsed) throw "invalid parser!";
-
-        //     await options.worker(parsed, async (content, link) => {
-        //         await matchRule({ content, link, ...context });
-        //     });
-        // } else {
-        //     throw "please give right resource type and parser! support type: rss-mikanani/rss-nyaa/rss-share-acgnx/other(need parser)";
-        // }
 
         plugins.forEach((p) => p.onParsed?.());
         rule.onParsed?.();
