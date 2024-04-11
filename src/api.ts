@@ -3,6 +3,7 @@ import { readFile } from "fs/promises";
 import { PomeloDownloadOption } from "./models/rule";
 import { Config } from "./models/config";
 import { resolve } from "path";
+import { get } from "node:http";
 
 export async function postDownloadRequest(
     config: Config,
@@ -38,9 +39,37 @@ export async function getResource(
 ): Promise<object> {
     try {
         if (options.url.includes("http") || options.url.includes("https")) {
-            //远程下载
-            const res = await fetch(options.url);
-            return await parseStringPromise(await res.text());
+            const [host, port] = (
+                process.env["HTTP_PROXY"] ||
+                process.env["HTTPS_PROXY"] ||
+                ":"
+            )?.split(":");
+            if (host && port) {
+                return new Promise((resolve) => {
+                    get(
+                        {
+                            path: options.url,
+                            host,
+                            port,
+                        },
+                        (res) => {
+                            const chunks: Buffer[] = [];
+                            res.on("data", (chunk) => {
+                                chunks.push(chunk);
+                            });
+                            res.on("end", async () => {
+                                const obj = await parseStringPromise(
+                                    Buffer.concat(chunks).toString()
+                                );
+                                resolve(obj);
+                            });
+                        }
+                    );
+                });
+            } else {
+                const res = await fetch(options.url);
+                return await parseStringPromise(await res.text());
+            }
         } else {
             //本地加载
             const buf = await readFile(resolve(options.url));
