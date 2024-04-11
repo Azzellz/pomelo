@@ -2,7 +2,7 @@ import { resolve } from "path";
 import { writeFileSync } from "fs";
 import { join } from "path";
 import { getResourceString } from "./api";
-import { errorLog, successLog, warnLog } from "./log";
+import { errorLog, successLog, warnLog } from "./utils/log";
 import type {
     PomeloTaskContext,
     PomeloConfig,

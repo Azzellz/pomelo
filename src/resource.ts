@@ -1,4 +1,4 @@
-import { successLog, errorLog } from "./log";
+import { successLog, errorLog } from "./utils/log";
 import { matchRule } from "./rule";
 import { getResourceString } from "./api";
 import type { PomeloProcessContext } from "./models/context";

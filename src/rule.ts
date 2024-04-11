@@ -1,5 +1,5 @@
 import { postDownloadRequest } from "./api";
-import { errorLog, successLog, warnLog } from "./log";
+import { errorLog, successLog, warnLog } from "./utils/log";
 import type {
     PomeloProcessContext,
     PomeloRuleContext,

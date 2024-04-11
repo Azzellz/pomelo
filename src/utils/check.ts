@@ -19,20 +19,6 @@ export function checkConfig(config: PomeloConfig) {
         if (resource) {
             if (!resource.url)
                 throw "resource.url is a required configuration item";
-            if (!resource.type) {
-                throw "resource.type is a required configuration item, you can use rss-mikanani | rss-nyaa | rss-share-acgnx | other";
-            }
-            if (
-                resource.type !== "rss-mikanani" &&
-                resource.type !== "rss-nyaa" &&
-                resource.type !== "rss-share-acgnx" &&
-                resource.type !== "other"
-            ) {
-                throw "resource.type must be rss-mikanani | rss-nyaa | rss-share-acgnx | other";
-            }
-            if (resource.worker && typeof resource.worker !== "function") {
-                throw "resource.parser must be a canonically signed function";
-            }
         } else {
             throw "resource is a required configuration item";
         }
