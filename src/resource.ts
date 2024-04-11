@@ -1,19 +1,9 @@
-import { errorLog } from "./utils/log";
 import { matchRule } from "./rule";
 import type { PomeloProcessContext } from "./models/context";
 import { PomeloPlugin } from "./models";
 
 //根据不同的rss类型进行不同的处理
 export async function processResource(context: PomeloProcessContext) {
-    try {
-        await parseResource(context);
-    } catch (error) {
-        errorLog(error + "");
-    }
-}
-
-//解析资源并且进行matchRule
-async function parseResource(context: PomeloProcessContext) {
     const { rule, config, resource, plugins } = context;
     try {
         plugins.forEach((p) => p.onBeforeParse?.());

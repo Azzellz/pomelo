@@ -76,7 +76,7 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
         reject: createMatcher(ruleUnit.reject),
         async onAccepted(content: string, link: string) {
             if (downloadMap[link]) {
-                warnLog(content + " has been download but accepted");
+                warnLog(content + " has been downloaded but accepted");
                 return;
             }
 
@@ -92,7 +92,7 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
                     ) {
                         //说明没过期,直接退出
                         return warnLog(
-                            `checked [record]: ${content} when accepted, download request will be skipped.`
+                            `checked [record]: ${content} when accepted, post download request will be skipped.`
                         );
                     }
                 }
@@ -103,7 +103,7 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
                 recordItem("accepted", content);
                 //判断是否仅需要记录
                 if (!onlyRecord) {
-                    console.time("3.postDownload--" + content);
+                    console.time("3.post download request to aria2 --" + link);
                     downloadMap[link] = true;
                     await postDownloadRequest(
                         config,
@@ -111,7 +111,9 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
                         this.option,
                         this.name
                     );
-                    console.timeEnd("3.postDownload--" + content);
+                    console.timeEnd(
+                        "3.post download request to aria2 --" + link
+                    );
                 }
             } catch (error) {
                 deleteItem("accepted", content);
