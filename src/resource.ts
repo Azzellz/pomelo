@@ -59,7 +59,7 @@ async function parseResource<T extends { target: string }>(
             worker = p.worker;
         });
         if (parser && worker) {
-            const parsed = parser(target);
+            const parsed = await parser(target);
             if (!parsed) throw "the parser dont return valid analytic product";
             worker(parsed, async (content, link) => {
                 await matchRule({ content, link, ...context });
