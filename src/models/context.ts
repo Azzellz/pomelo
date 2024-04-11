@@ -1,4 +1,4 @@
-import { Config } from "./config";
+import { PomeloConfig } from "./config";
 import { PomeloPlugin } from "./plugin";
 import { PomeloRecord } from "./record";
 import { PomeloRule, PomeloRuleUnit } from "./rule";
@@ -12,12 +12,12 @@ export type PomeloRuleContext = {
 } & PomeloCommonContext;
 
 export type PomeloProcessContext = {
-    mainResource: Promise<object>;
+    mainResource: Promise<string>;
     rule: PomeloRule;
 } & PomeloCommonContext;
 
 export type PomeloCommonContext = {
-    config: Config;
+    config: PomeloConfig;
     record?: PomeloRecord;
     onlyRecord: boolean;
     intervalTimeCount?: () => void;

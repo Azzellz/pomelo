@@ -1,16 +1,20 @@
-import { Config } from "./config";
+import { PomeloConfig } from "./config";
 import { PomeloRecord } from "./record";
 
 export type PomeloHandler = (content: string) => boolean;
 export interface PomeloRule {
     name: string;
-    resource?: Config["resource"];
+    resource?: PomeloConfig["resource"];
     option: PomeloDownloadOption;
     accept?: PomeloHandler;
     reject?: PomeloHandler;
-    onMatchBegin?: () => void;
-    onMatchEnd?: () => void;
-    onAccepted?: (content: string, link: string, record?: PomeloRecord) => Promise<void>;
+    onBeforeParse?: () => void;
+    onParsed?: () => void;
+    onAccepted?: (
+        content: string,
+        link: string,
+        record?: PomeloRecord
+    ) => Promise<void>;
     onRejected?: (content: string, link: string, record?: PomeloRecord) => void;
 }
 
@@ -24,7 +28,7 @@ export interface PomeloRegExp {
 }
 export interface PomeloRuleUnit {
     option: PomeloDownloadOption;
-    resource: Config["resource"];
+    resource: PomeloConfig["resource"];
     accept: RuleHandlerOption;
     reject: RuleHandlerOption;
 }

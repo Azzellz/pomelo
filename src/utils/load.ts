@@ -1,11 +1,11 @@
 import { readFile } from "fs/promises";
 import { existsSync } from "fs";
 import { load as loadYaml } from "js-yaml";
-import { Config } from "../models/config";
+import { PomeloConfig } from "../models/config";
 import { PomeloRecord } from "../models/record";
 
 //加载配置文件,支持四种
-export async function loadConfig(path: string): Promise<Config> {
+export async function loadConfig(path: string): Promise<PomeloConfig> {
     const tsConfigPath = path + "/pomelo.config.ts";
     if (existsSync(tsConfigPath)) {
         //这里使用默认导出
@@ -27,7 +27,7 @@ export async function loadConfig(path: string): Promise<Config> {
     if (existsSync(yamlConfigPath)) {
         const config = loadYaml(
             (await readFile(yamlConfigPath)).toString()
-        ) as Config;
+        ) as PomeloConfig;
         return config;
     }
 
@@ -35,7 +35,7 @@ export async function loadConfig(path: string): Promise<Config> {
     if (existsSync(ymlConfigPath)) {
         const config = loadYaml(
             (await readFile(ymlConfigPath)).toString()
-        ) as Config;
+        ) as PomeloConfig;
         return config;
     } else {
         throw `failed to find pomelo.config.ts/pomelo.json/pomelo.yaml/pomelo.yml from ${path}, please use -d to specify the path of the dir to the configuration file.`;

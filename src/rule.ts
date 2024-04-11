@@ -7,7 +7,7 @@ import type {
     RuleHandlerOption,
     PomeloHandler,
 } from "./models";
-import { getResource as _getResource } from "./api";
+import { getResourceString as _getResource } from "./api";
 import { isRegExpOption } from "./utils";
 
 export async function matchRule<T extends { content: string; link: string }>(
@@ -142,10 +142,10 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
             successLog(`reject ${content} by [rule]: ${ruleUnit.name}`);
             recordItem("rejected", content);
         },
-        onMatchBegin() {
+        onBeforeParse() {
             console.time("2.match rule--" + ruleUnit.name);
         },
-        onMatchEnd() {
+        onParsed() {
             console.timeEnd("2.match rule--" + ruleUnit.name);
             intervalTimeCount && intervalTimeCount();
         },
