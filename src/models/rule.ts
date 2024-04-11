@@ -28,7 +28,6 @@ export interface PomeloRegExp {
 }
 export interface PomeloRuleUnit {
     option: PomeloDownloadOption;
-    resource: PomeloConfig["resource"];
     accept: RuleHandlerOption;
     reject: RuleHandlerOption;
 }

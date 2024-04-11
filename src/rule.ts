@@ -33,7 +33,7 @@ export async function matchRule<T extends { content: string; link: string }>(
     return false;
 }
 
-function createHandler(optss: RuleHandlerOption): PomeloHandler | undefined {
+function createMatcher(optss: RuleHandlerOption): PomeloHandler | undefined {
     if (typeof optss === "function") {
         return (content: string) => optss(content);
     } else if (typeof optss === "string") {
@@ -72,9 +72,8 @@ export function createRule(context: PomeloRuleContext): PomeloRule {
     return {
         name: ruleUnit.name,
         option: ruleUnit.option,
-        resource: ruleUnit.resource,
-        accept: createHandler(ruleUnit.accept),
-        reject: createHandler(ruleUnit.reject),
+        accept: createMatcher(ruleUnit.accept),
+        reject: createMatcher(ruleUnit.reject),
         async onAccepted(content: string, link: string) {
             if (downloadMap[link]) {
                 warnLog(content + " has been download but accepted");

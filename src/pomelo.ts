@@ -218,7 +218,7 @@ async function _init({
         //#endregion
     } catch (error) {
         errorLog(error + "");
-        return void 0;
+        return null;
     }
 }
 
@@ -226,17 +226,13 @@ async function _task(context: PomeloTaskContext) {
     const { config } = context;
 
     //获取RSS并且记录耗时
-    successLog("getting rss resources from " + config.resource.url);
-    console.time("1.get rss");
-    const mainResource = getResourceString(config.resource).then((res) => {
-        console.timeEnd("1.get rss");
-        return res;
-    });
+    successLog("get resource from " + config.resource.url);
+    console.time("1.get resource");
+    const resource = await getResourceString(config.resource);
+    console.timeEnd("1.get resource");
 
     //遍历规则集
-    //#region
     Object.entries(config.rules).forEach(async ([ruleName, ruleJSON]) => {
-        //rule
         const ruleContext: PomeloRuleContext = {
             ruleUnit: {
                 ...ruleJSON,
@@ -245,9 +241,9 @@ async function _task(context: PomeloTaskContext) {
             ...context,
         };
         const rule = createRule(ruleContext);
-        //process
+
         const processContext: PomeloProcessContext = {
-            mainResource,
+            resource,
             rule,
             ...context,
         };
@@ -266,7 +262,7 @@ export async function createPomelo({
 }) {
     try {
         const result = await _init({ config, record, onlyRecord });
-        if (!result) throw "error in createPomelo:";
+        if (!result) throw "init error!";
         return {
             task: result.task,
             use(plugin: PomeloPlugin) {
@@ -274,7 +270,7 @@ export async function createPomelo({
             },
         };
     } catch (error) {
-        throw "error in createPomelo! " + error;
+        throw "error in createPomelo: " + error;
     }
 }
 

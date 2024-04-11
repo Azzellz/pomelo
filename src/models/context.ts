@@ -12,7 +12,7 @@ export type PomeloRuleContext = {
 } & PomeloCommonContext;
 
 export type PomeloProcessContext = {
-    mainResource: Promise<string>;
+    resource: string;
     rule: PomeloRule;
 } & PomeloCommonContext;
 
